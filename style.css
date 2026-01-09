@@ -16,6 +16,11 @@ body {
   color: var(--ink);
   line-height: 1.5;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 a {
   color: inherit;
 }
@@ -370,6 +375,12 @@ h1 span {
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   font: inherit;
+}
+
+.cta-hint {
+  margin: 6px 0 10px;
+  font-weight: 700;
+  opacity: 0.85;
 }
 
 /* FOOTER */
