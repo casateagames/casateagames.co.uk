@@ -214,12 +214,18 @@
             </p>
           </div>
 
-         <form class="cta-form" name="playtest" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="playtestForm">
+         <form class="cta-form" 
+              name="playtest" 
+              method="POST" 
+              data-netlify="true" 
+              data-netlify-honeypot="bot-field" 
+              id="playtestForm">
+
             <input type="hidden" name="form-name" value="playtest" />
+            
             <p class="sr-only">
             <label>
-              Don’t fill this out if you're human:
-              <input name="bot-field" />
+              Don’t fill this out if you're human: <input name="bot-field" />
             </label>
           </p>
             <label class="sr-only" for="email">Email address</label>
@@ -228,14 +234,18 @@
             <button class="btn btn-primary" type="submit">Join</button>
           </form>
 
-          <!-- Popup -->
-          <div class="popup" id="popup" hidden>
-            <div class="popup-box" role="alertdialog" aria-labelledby="popupTitle" aria-modal="true">
-              <h3 id="popupTitle">You’re on the list 🎉</h3>
+          <!-- SUCCESS POPUP (hidden by default) -->
+          <div class="modal" id="successModal" hidden>
+            <div class="modal__backdrop" data-close></div>
+
+            <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+              <h3 id="modalTitle">You’re on the list 🎉</h3>
               <p>We’ll email you when playtests and updates drop.</p>
-              <button class="btn btn-primary" id="popupClose" type="button">Nice!</button>
+
+              <button class="btn btn-primary" type="button" data-close>Nice!</button>
             </div>
           </div>
+
 
       </section>
     </main>
@@ -252,51 +262,50 @@
       </div>
     </footer>
 
-        <script>
+  <script>
               document.getElementById("year").textContent = new Date().getFullYear();
               
-          const form = document.getElementById("playtestForm");
-          const popup = document.getElementById("popup");
-          const closeBtn = document.getElementById("popupClose");
+                    const form = document.querySelector(".cta-form");
+            const modal = document.getElementById("successModal");
 
-          function openPopup(){
-            popup.hidden = false;
-            closeBtn.focus();
-          }
-          function closePopup(){
-            popup.hidden = true;
-          }
-
-          closeBtn.addEventListener("click", closePopup);
-          popup.addEventListener("click", (e) => {
-            if (e.target === popup) closePopup(); // click outside closes
-          });
-
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-
-            try {
-              
-              const body = new URLSearchParams(formData).toString();
-
-              const res = await fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body
-              });
-
-              if (res.ok) {
-                form.reset();
-                openPopup();
-              } else {
-                alert("Oops — something went wrong. Please try again.");
-              }
-            } catch (err) {
-              alert("Network error — please try again.");
+            function openModal() {
+              modal.hidden = false;
             }
-          });
+
+            function closeModal() {
+              modal.hidden = true;
+            }
+
+            // Close handlers (button + backdrop)
+            modal.addEventListener("click", (e) => {
+              if (e.target.matches("[data-close]")) closeModal();
+            });
+
+            // Close on ESC
+            document.addEventListener("keydown", (e) => {
+              if (!modal.hidden && e.key === "Escape") closeModal();
+            });
+
+         
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+
+              const formData = new FormData(form);
+
+              try {
+                await fetch("/", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                  body: new URLSearchParams(formData).toString(),
+                });
+
+                form.reset();
+                openModal();
+              } catch (err) {
+                alert("Oops — something went wrong. Please try again.");
+                console.error(err);
+              }
+            });
 
 
             </script>
