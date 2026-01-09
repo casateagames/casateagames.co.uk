@@ -421,11 +421,13 @@ h1 span {
   justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
+  align-items:center;
 }
 
 .footer-links {
   display: flex;
   gap: 14px;
+  align-items:center;
 }
 
 .footer a {
@@ -439,6 +441,10 @@ h1 span {
   opacity: 1;
   color: var(--teal);
   transform: translateX(3px);
+}
+
+.footer p{
+  margin: 0;
 }
 
 /* Tap / active state */
