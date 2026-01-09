@@ -17,26 +17,31 @@
 
   <body>
     <!-- NAV -->
-    <header class="topbar">
-      <div class="container nav">
-        <a class="brand" href="index.html#top">
-          <img
-            class="brand-icon"
-            src="assets/logo.png"
-            alt=""
-            aria-hidden="true"
-          />
-          Casa Tea Games
-        </a>
+      <header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#top">
+      <img
+        class="brand-icon"
+        src="assets/logo.png"
+        alt=""
+        aria-hidden="true"
+      />
+      Casa Tea Games
+    </a>
 
-        <nav class="nav-links" aria-label="Primary">
-          <a href="index.html#games">Games</a>
-          <a href="about.html">About</a>
-          <a class="nav-cta" href="contact.html">Contact Us</a>
-        </div>
-        </nav>
-      </div>
-    </header>
+    <!-- NEW: mobile toggle -->
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">
+      ☰
+    </button>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#games">Games</a>
+      <a href="about.html">About</a>
+      <a href="index.html#playtest">Playtest</a>
+      <a class="nav-cta" href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
 
     <main id="top">
       <!-- CONTACT -->
@@ -111,6 +116,17 @@
     <script>
       document.getElementById("year").textContent =
         new Date().getFullYear();
+
+            const toggle = document.querySelector(".nav-toggle");
+                const navLinks = document.querySelector(".nav-links");
+
+                if (toggle && navLinks) {
+                  toggle.addEventListener("click", () => {
+                    const open = navLinks.classList.toggle("open");
+                    toggle.setAttribute("aria-expanded", open);
+                  });
+                }
+
     </script>
   </body>
 </html>
