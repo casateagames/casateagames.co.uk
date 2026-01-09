@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact • Casa Tea Games</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="index.html#top">
+          <img
+            class="brand-icon"
+            src="assets/logo.png"
+            alt=""
+            aria-hidden="true"
+          />
+          Casa Tea Games
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="index.html#games">Games</a>
+          <a href="about.html">About</a>
+          <a class="nav-cta" href="contact.html">Contact Us</a>
+        </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- CONTACT -->
+      <section class="about-section">
+        <div class="container">
+          <p class="eyebrow">Contact</p>
+          <h1>Say hello 👋</h1>
+
+          <p class="lead">
+            Got a question, idea, or want to collaborate?
+            Drop us a message and we’ll get back to you.
+          </p>
+
+          <form
+  class="contact-form"
+  name="contact"
+  method="POST"
+  action="thanks.html"
+  data-netlify="true"
+  data-netlify-honeypot="bot-field"
+>
+  <input type="hidden" name="form-name" value="contact" />
+
+  <!-- honeypot -->
+  <p class="sr-only">
+    <label>
+      Don’t fill this out if you're human:
+      <input name="bot-field" />
+    </label>
+  </p>
+
+  <label class="sr-only" for="name">Name</label>
+  <input id="name" name="name" type="text" placeholder="your name" required />
+
+  <label class="sr-only" for="email">Email</label>
+  <input id="email" name="email" type="email" placeholder="your email" required />
+
+  <label class="sr-only" for="subject">Subject</label>
+  <select id="subject" name="subject" required>
+    <option value="" disabled selected>choose a subject…</option>
+    <option>General question</option>
+    <option>Press / media</option>
+    <option>Collaboration</option>
+    <option>Playtesting</option>
+    <option>Retail / stockists</option>
+    <option>Something else</option>
+  </select>
+
+  <label class="sr-only" for="message">Message</label>
+  <textarea id="message" name="message" rows="6" placeholder="your message" required></textarea>
+
+  <button class="btn btn-primary" type="submit">Send message</button>
+</form>
+<p class="form-hint">We’ll never spam you. Just real replies.</p>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Casa Tea Games</p>
+        <div class="footer-links">
+          <a href="https://www.instagram.com/casateagames/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@_casateagames" target="_blank" rel="noopener">TikTok</a>
+         
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+    </script>
+  </body>
+</html>
