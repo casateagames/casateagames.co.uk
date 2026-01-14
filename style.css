@@ -2272,6 +2272,7 @@ footer {
   /* Game page mobile */
   .game-hero {
     padding-top: 6rem;
+    padding-bottom: 3rem;
   }
 
   .game-hero-content {
@@ -2280,19 +2281,43 @@ footer {
   }
 
   .game-hero-text {
-    order: 2;
+    order: 1;
   }
 
   .game-hero-image {
-    order: 1;
+    order: 2;
+    padding: 1.5rem;
+  }
+
+  .game-hero-text h1 {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+    transform: rotate(-1deg);
+  }
+
+  .game-tagline {
+    font-size: 1.2rem;
   }
 
   .game-quick-info {
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .quick-info-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
   }
 
   .game-cta {
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .countdown-inline {
+    align-items: center;
+    text-align: center;
   }
 
   .play-step {
