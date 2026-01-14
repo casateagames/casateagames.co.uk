@@ -4,6 +4,42 @@
 
 // ===== BASIC INTERACTIONS =====
 
+// Kickstarter Countdown Timer
+function updateCountdown() {
+  // Set your Kickstarter launch date here (March 9, 2026 at midnight UK time)
+  // Using UTC to avoid timezone issues
+  const launchDate = new Date(Date.UTC(2026, 2, 9, 0, 0, 0)); // March 9, 2026 00:00 UTC
+  const now = new Date();
+  const timeDiff = launchDate - now;
+
+  if (timeDiff > 0) {
+    // Calculate days more accurately - use Math.ceil to match how humans count
+    const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    const countdownElement = document.getElementById('countdownDays');
+    
+    if (countdownElement) {
+      countdownElement.textContent = days;
+      
+      // Add a pulsing effect when less than 7 days
+      if (days <= 7) {
+        countdownElement.parentElement.classList.add('countdown-urgent');
+      }
+    }
+  } else {
+    // Launch day or past - show "LIVE!"
+    const countdownElement = document.getElementById('countdownDays');
+    if (countdownElement) {
+      countdownElement.textContent = '🎉';
+      countdownElement.parentElement.querySelector('.stat-text').textContent = 'LIVE NOW!';
+      countdownElement.parentElement.classList.add('countdown-live');
+    }
+  }
+}
+
+// Update countdown immediately and every hour
+updateCountdown();
+setInterval(updateCountdown, 3600000); // Update every hour
+
 // Contact Modal
 function openContactModal(e) {
   if (e) e.preventDefault();
@@ -73,18 +109,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ===== MOBILE ENGAGEMENT FEATURES =====
-
-// FEATURE 1: Hide scroll hint after user scrolls
-let hasScrolled = false;
-window.addEventListener('scroll', () => {
-  if (!hasScrolled && window.scrollY > 100) {
-    const scrollHint = document.getElementById('scrollHint');
-    if (scrollHint) {
-      scrollHint.classList.add('hidden');
-      hasScrolled = true;
-    }
-  }
-});
 
 // FEATURE 2: Section reveal animations on scroll
 const observerOptions = {
@@ -167,6 +191,16 @@ const statsObserver = new IntersectionObserver((entries) => {
           animateValue(num, 0, target, 1500);
         }
       });
+      
+      // Also animate the countdown separately (it doesn't have data-target)
+      const countdownElement = document.getElementById('countdownDays');
+      if (countdownElement && countdownElement.textContent !== '🎉') {
+        const countdownValue = parseInt(countdownElement.textContent);
+        if (countdownValue) {
+          animateValue(countdownElement, 0, countdownValue, 1500);
+        }
+      }
+      
       statsObserver.disconnect();
     }
   });

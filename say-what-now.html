@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Say What Now?! • Casa Tea Games</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="top">
+      <nav>
+      <div class="nav-content">
+        <a href="#top" class="logo">
+          <img src="assets/logo.png" alt="Casa Tea Games" />
+          Casa Tea Games
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html#games">Games</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#conventions">Events</a>
+          <a href="index.html#updates">Updates</a>
+          <a href="index.html#faq">FAQ</a>
+          <a href="index.html#join">Join Us</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Game Hero -->
+    <section class="game-hero">
+      <div class="game-hero-content">
+        <div class="game-hero-text">
+          <div class="breadcrumb">
+            <a href="index.html">← Back to all games</a>
+          </div>
+          <h1>Say What Now?!</h1>
+          <p class="game-tagline">
+            The word-party game where pronunciation beats spelling
+          </p>
+
+          <div class="game-quick-info">
+            <div class="quick-info-item">
+              <span class="info-icon">👥</span>
+              <span class="info-text">3-6 players</span>
+            </div>
+            <div class="quick-info-item">
+              <span class="info-icon">⏱️</span>
+              <span class="info-text">30-45 mins</span>
+            </div>
+            <div class="quick-info-item">
+              <span class="info-icon">🎯</span>
+              <span class="info-text">Ages 12+</span>
+            </div>
+          </div>
+
+          <div class="game-cta">
+            <a href="#" class="btn btn-primary">Back on Kickstarter 🚀</a>
+            <div class="countdown-inline">
+              <span class="countdown-label">Launches in:</span>
+              <span class="countdown-value" id="gameCountdown">54 days</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-hero-image">
+          <img src="assets/saywhatnowmain.png" alt="Say What Now?! Box Art" />
+        </div>
+      </div>
+    </section>
+
+    <!-- The Pitch -->
+    <section class="game-pitch section-animate">
+      <div class="game-pitch-content">
+        <h2>What's the Big Deal? 🎤</h2>
+        <div class="pitch-grid">
+          <div class="pitch-card">
+            <div class="pitch-icon">🗣️</div>
+            <h3>Sound Over Spelling</h3>
+            <p>
+              Use letter cards to build words that match prompts. How it sounds
+              matters more than how it's spelled - get creative!
+            </p>
+          </div>
+          <div class="pitch-card">
+            <div class="pitch-icon">😂</div>
+            <h3>"Say What Now?!" Challenges</h3>
+            <p>
+              If someone doubts your word, shout "Say What Now?!" and they must
+              defend it. No phones, no looking things up - group vote decides!
+            </p>
+          </div>
+          <div class="pitch-card">
+            <div class="pitch-icon">⚡</div>
+            <h3>Strategic Scoring</h3>
+            <p>
+              Cards are worth 1-4 points. Predict your score before revealing.
+              Highest valid score wins the round!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Play -->
+    <section class="how-to-play section-animate">
+      <div class="how-to-play-content">
+        <h2>How to Play 🎲</h2>
+        <p class="section-intro">
+          A hilarious, fast-paced word game where spelling takes a back seat to
+          sound!
+        </p>
+
+        <div class="play-steps">
+          <div class="play-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Flip 3 Vowel Cards</h3>
+              <p>
+                Flip 3 vowel cards (green cards) face up on the table for
+                everyone to use.
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Flip a Round Card</h3>
+              <p>
+                Flip 1 round card face up. This sets the goal for your word
+                (Category, Question, Construction, or Action).
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Build Your Word</h3>
+              <p>
+                Use your consonant cards (purple cards) and the vowels on the
+                table to think of a word that matches the round card's goal.
+                Remember: it's how the word sounds, not spelling!
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Place Cards Face Down</h3>
+              <p>
+                Place your chosen consonant cards face down. Leave the vowels
+                where they are.
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3>Announce Your Score</h3>
+              <p>
+                When everyone's ready, announce your predicted score (add up all
+                cards: Yellow 1, Blue 2, Red 3, Green 4). This locks in your
+                choice!
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+              <h3>Reveal and Defend</h3>
+              <p>
+                Reveal in order from lowest to highest predicted score. Say your
+                word out loud – you might need creative pronunciation!
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+              <h3>Challenge Time!</h3>
+              <p>
+                If you doubt someone's word, shout "Say What Now?!". They must
+                defend it! No phones, no looking things up. If the group deems
+                it valid, the points stand. If not, they're out of this round.
+              </p>
+            </div>
+          </div>
+
+          <div class="play-step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+              <h3>Win the Round</h3>
+              <p>
+                Highest valid score that matches the round card wins! Take the
+                round card. First to 4 round cards (3-4 players) or 3 round
+                cards (5+ players) wins the game!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="play-callout">
+          <p>
+            <strong>Pro tip:</strong> Creative pronunciation is encouraged!
+            <br />
+            "KAYF" can be "Keith" with an Australian accent. If the group allows
+            it, it's valid!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chaos Cards -->
+    <section class="chaos-cards section-animate">
+      <div class="chaos-cards-content">
+        <h2>Chaos Cards 💥</h2>
+        <p class="section-intro">
+          Optional cards to add extra mayhem to your game. We love chaos, but we
+          know it's not for everyone!
+        </p>
+
+        <div class="chaos-grid">
+          <div class="chaos-card">
+            <div class="chaos-icon">🎴</div>
+            <h3>How They Work</h3>
+            <p>
+              Deal 2 Chaos cards to each player at the start. Keep them hidden
+              from opponents. Play one per round to shake things up!
+            </p>
+          </div>
+          <div class="chaos-card">
+            <div class="chaos-icon">⚡</div>
+            <h3>One-Time Use</h3>
+            <p>
+              Once played or discarded, Chaos cards are removed from the game
+              and never replaced. Use them wisely (or recklessly)!
+            </p>
+          </div>
+          <div class="chaos-card">
+            <div class="chaos-icon">🎯</div>
+            <h3>Immediate Effect</h3>
+            <p>
+              Chaos cards take effect immediately unless stated otherwise. If
+              multiple are played, resolve them in the order they were played.
+            </p>
+          </div>
+        </div>
+
+        <div class="chaos-callout">
+          <h3>Why Add Chaos?</h3>
+          <p>
+            Chaos cards let you mess with other players, steal points, change
+            rules mid-round, and generally cause delightful mayhem. Perfect for
+            groups who love a bit of strategic backstabbing!
+          </p>
+          <p>
+            <strong>Not into chaos?</strong> No problem! The game works
+            perfectly without them. Play your way!
+          </p>
+        </div>
+      </div>
+    </section>
+
+  <!-- What's in the Box - Card Design Version -->
+<section class="whats-in-box section-animate">
+  <div class="whats-in-box-content">
+    <h2>What's in the Box? 📦</h2>
+    <p class="box-subtitle">Everything you need for pronunciation-based word mayhem</p>
+    
+    <!-- Core Game Components -->
+    <div class="box-section">
+      <h3 class="box-section-title">Core Game Components</h3>
+      <div class="box-grid">
+        
+        <!-- Vowel Cards -->
+        <div class="box-item box-item-core">
+          <!-- Option 1: Single card at angle -->
+          <div class="box-card-image">
+            <img src="assets/cards/vowel-card.png" alt="Vowel Card">
+          </div>
+          
+          <!-- Option 2: Stack of cards effect (comment out above, use this instead) -->
+          <!--
+          <div class="box-card-stack">
+            <img src="assets/cards/vowel-card.png" alt="Vowel Cards">
+          </div>
+          -->
+          
+          <h3>
+            Vowel Cards
+            <span class="card-count">40</span>
+          </h3>
+          <p>Green cards with vowels - these are shared by all players each round</p>
+        </div>
+
+        <!-- Consonant Cards -->
+        <div class="box-item box-item-core">
+          <div class="box-card-image">
+            <img src="assets/cards/consonant-card.png" alt="Consonant Card">
+          </div>
+          <h3>
+            Consonant Cards
+            <span class="card-count">110</span>
+          </h3>
+          <p>Purple cards with consonants - your hand of 5 cards to build words</p>
+        </div>
+
+        <!-- Round Cards -->
+        <div class="box-item box-item-core">
+          <div class="box-card-image">
+            <img src="assets/cards/round-card.png" alt="Round Card">
+          </div>
+          <h3>
+            Round Cards
+            <span class="card-count">50</span>
+          </h3>
+          <p>Rainbow cards with categories, questions, and challenges</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional Add-Ons -->
+    <div class="box-section">
+      <h3 class="box-section-title">ALSO IN THE BOX</h3>
+      <div class="box-grid-extras">
+        
+        <!-- Chaos Cards -->
+        <div class="box-item">
+          <div class="box-card-image">
+            <img src="assets/cards/chaos-card.png" alt="Chaos Card">
+          </div>
+          <h3>
+            Chaos Cards
+            <span class="card-count">16</span>
+          </h3>
+          <p>Optional cards to add extra mayhem (for those who love chaos!)</p>
+          <span class="box-optional-badge">Optional Gameplay</span>
+        </div>
+
+        <!-- Rule Book -->
+        <div class="box-item">
+          <!-- Use icon for rulebook since it's not a card -->
+          <div class="box-icon">📖</div>
+          <h3>Rule Book</h3>
+          <p>Simple, clear instructions with examples</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- FAQ -->
+    <section class="game-faq section-animate">
+      <div class="game-faq-content">
+        <h2>Questions About Say What Now?! 🤔</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            Do I need to be good at spelling to play?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Absolutely not! That's the whole point. This game is about
+              pronunciation, not spelling. If you can say it confidently, you're
+              golden.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            Can my kids play this?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              It depends on your kids! The game requires creative thinking about
+              phonetics and pronunciation. Players need to be comfortable
+              'breaking spelling rules' (like using KS to make an X sound) and
+              defending their choices with confidence. Younger players who are
+              still learning standard spelling might find this confusing rather
+              than fun. That said, if you have a particularly clever 8 year old
+              who loves wordplay, they might enjoy it!
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            How long does a game take?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Usually 30-45 minutes, but it depends on how much you argue over
+              pronunciations (which is half the fun).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            Is this like other word games?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Not really! Most word games test vocabulary or spelling. Say What
+              Now?! is all about confidence, bluffing, and pronunciation. Think
+              party game meets word game.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            When can I buy it?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              We're launching on Kickstarter on March 9, 2026! Sign up for our
+              email list to get notified the moment we go live.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta section-animate">
+      <div class="final-cta-content">
+        <h2>Ready to Back Say What Now?! 🚀</h2>
+        <p>
+          Be one of the first to get your hands on the game. Early birds get
+          exclusive rewards!
+        </p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary">Back on Kickstarter</a>
+          <a href="index.html#join" class="btn btn-secondary"
+            >Join Our Email List</a
+          >
+        </div>
+        <p class="cta-note">
+          Launches March 9, 2026 • <span id="finalCountdown">54 days</span> to
+          go!
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/casateagames/"
+            target="_blank"
+            class="social-link"
+            >📷</a
+          >
+          <a
+            href="https://www.tiktok.com/@_casateagames"
+            target="_blank"
+            class="social-link"
+            >🎵</a
+          >
+          <a
+            href="#"
+            onclick="openContactModal(event)"
+            class="social-link contact-link"
+            aria-label="Contact Casa Tea Games"
+            >✉️</a
+          >
+        </div>
+        <p class="footer-tagline">
+          Making games with heart (and room for house rules) since that tapas
+          lunch
+        </p>
+        <p style="opacity: 0.6; margin-top: 1rem">
+          © 2025 Casa Tea Games • Built by two humans and one very good dog
+        </p>
+      </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+      <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
+      <div class="contact-modal-content">
+        <button
+          class="contact-modal-close"
+          onclick="closeContactModal()"
+          aria-label="Close contact form"
+        >
+          ×
+        </button>
+
+        <div class="contact-modal-header">
+          <h2>Get in Touch! 💬</h2>
+          <p>
+            Have a question? Want to playtest? Just want to say hi? We'd love to
+            hear from you!
+          </p>
+        </div>
+
+        <form
+          class="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onsubmit="handleContactSubmit(event)"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p style="display: none">
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+          </p>
+
+          <div class="form-group">
+            <label for="contact-name">Your Name *</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              placeholder="Matt or Abby (or Larry?)"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Your Email *</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">What's this about?</label>
+            <select id="contact-subject" name="subject">
+              <option value="general">General Question</option>
+              <option value="playtest">Playtesting Interest</option>
+              <option value="kickstarter">Kickstarter Question</option>
+              <option value="partnership">Partnership/Collaboration</option>
+              <option value="other">Something Else</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Your Message *</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="5"
+              placeholder="Tell us what's on your mind..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send Message 🚀</button>
+        </form>
+
+        <div class="contact-success" id="contactSuccess">
+          <div class="success-icon">🎉</div>
+          <h3>Message Sent!</h3>
+          <p>
+            Thanks for reaching out! We'll get back to you soon (probably with
+            Larry's approval).
+          </p>
+          <button class="btn btn-secondary" onclick="closeContactModal()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // Update countdown displays on this page
+      function updateGamePageCountdown() {
+        const launchDate = new Date(Date.UTC(2026, 2, 9, 0, 0, 0));
+        const now = new Date();
+        const timeDiff = launchDate - now;
+
+        if (timeDiff > 0) {
+          const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+          document.getElementById("gameCountdown").textContent = days + " days";
+          document.getElementById("finalCountdown").textContent =
+            days + " days";
+        } else {
+          document.getElementById("gameCountdown").textContent = "NOW LIVE!";
+          document.getElementById("finalCountdown").textContent = "LIVE NOW";
+        }
+      }
+
+      updateGamePageCountdown();
+      setInterval(updateGamePageCountdown, 3600000);
+    </script>
+  </body>
+</html>

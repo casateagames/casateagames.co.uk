@@ -191,6 +191,14 @@ nav {
   transform: rotate(-1deg);
 }
 
+.punchline {
+  color: var(--coral);
+  font-size: 0.85em;
+  font-style: italic;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
 .hero-subtext {
   font-size: 1.3rem;
   margin-bottom: 2rem;
@@ -222,6 +230,23 @@ nav {
   background: var(--coral);
   color: white;
   box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }
 
 .btn-primary:hover {
@@ -248,32 +273,111 @@ nav {
 
 .quick-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   margin-top: 3rem;
   animation: fadeInUp 0.8s ease-out 0.6s backwards;
 }
 
 .stat {
   text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem 1rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .stat-icon {
   font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   display: block;
 }
 
 .stat-number {
   font-weight: 900;
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: var(--coral);
   display: block;
+  margin-bottom: 0.25rem;
 }
 
 .stat-text {
-  font-size: 0.9rem;
-  opacity: 0.7;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Countdown specific styles */
+.countdown-stat {
+  position: relative;
+}
+
+.countdown-stat .stat-number {
+  animation: countdownPulse 2s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.1); 
+  }
+}
+
+.countdown-urgent {
+  animation: urgentShake 0.5s ease-in-out infinite;
+}
+
+@keyframes urgentShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.countdown-urgent .stat-number {
+  color: var(--coral);
+  animation: urgentPulse 1s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.countdown-live {
+  background: linear-gradient(135deg, var(--coral), var(--teal));
+  padding: 1rem;
+  border-radius: 12px;
+  animation: celebrate 1s ease-in-out infinite;
+}
+
+.countdown-live .stat-number,
+.countdown-live .stat-text {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes celebrate {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+  }
+  50% { 
+    transform: scale(1.05) rotate(2deg); 
+  }
 }
 
 .hero-visual {
@@ -828,37 +932,6 @@ nav {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile adjustments for conventions */
-@media (max-width: 768px) {
-  .convention-card {
-    padding: 2rem 1.5rem;
-  }
-
-  .convention-name {
-    font-size: 1.6rem;
-  }
-
-  .convention-date {
-    font-size: 1rem;
-  }
-
-  .convention-details {
-    gap: 1.25rem;
-  }
-
-  .detail-icon {
-    font-size: 1.5rem;
-  }
-
-  .convention-callout {
-    padding: 2rem 1.5rem;
-  }
-
-  .convention-callout p {
-    font-size: 1.1rem;
-  }
-}
-
 /* Updates Section */
 .updates {
   padding: 6rem 2rem;
@@ -1293,45 +1366,6 @@ footer {
   line-height: 1.6;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-/* Mobile adjustments for contact modal */
-@media (max-width: 768px) {
-  .contact-modal-content {
-    width: 95%;
-    max-height: 95vh;
-    border-radius: 15px;
-  }
-
-  .contact-modal-header {
-    padding: 2rem 1.5rem 1.5rem;
-    border-radius: 15px 15px 0 0;
-  }
-
-  .contact-modal-header h2 {
-    font-size: 1.6rem;
-  }
-
-  .contact-modal-header p {
-    font-size: 0.9rem;
-  }
-
-  .contact-form {
-    padding: 1.5rem;
-  }
-
-  .form-group {
-    margin-bottom: 1.25rem;
-  }
-
-  .contact-success {
-    padding: 2rem 1.5rem;
-  }
-}
-
 /* ========================================
    MOBILE ENGAGEMENT FEATURES
    ======================================== */
@@ -1370,8 +1404,620 @@ footer {
 }
 
 /* ========================================
+   GAME PAGE STYLES
+   ======================================== */
+
+/* Game Hero */
+.game-hero {
+  padding: 8rem 2rem 4rem;
+  background: radial-gradient(circle at 15% 25%, var(--teal) 0%, transparent 45%),
+              radial-gradient(circle at 85% 75%, var(--peach) 0%, transparent 45%),
+              radial-gradient(circle at 50% 90%, rgba(255, 107, 107, 0.15) 0%, transparent 40%),
+              var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.breadcrumb {
+  margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.breadcrumb a:hover {
+  opacity: 1;
+}
+
+.game-hero-text h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  transform: rotate(-1.5deg);
+  text-shadow: 3px 3px 0px rgba(255, 107, 107, 0.3);
+  display: inline-block;
+}
+
+.game-tagline {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+.game-quick-info {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.quick-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: white;
+  padding: 0.65rem 1rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+}
+
+.info-text {
+  font-weight: 700;
+}
+
+.game-cta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.countdown-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.countdown-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--coral);
+}
+
+.game-hero-image {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px var(--shadow);
+}
+
+.game-hero-image img {
+  width: 100%;
+  border-radius: 15px;
+  display: block;
+}
+
+/* Game Pitch */
+.game-pitch {
+  padding: 6rem 2rem;
+  background: white;
+}
+
+.game-pitch-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.game-pitch h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 3rem;
+}
+
+.pitch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.pitch-card {
+  background: var(--cream);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow);
+  transition: transform 0.3s;
+}
+
+.pitch-card:hover {
+  transform: translateY(-10px);
+}
+
+.pitch-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.pitch-card h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.pitch-card p {
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* How to Play */
+.how-to-play {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, rgba(246, 214, 166, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+}
+
+.how-to-play-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.how-to-play h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 3rem;
+}
+
+.play-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.play-step {
+  display: flex;
+  gap: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow);
+  align-items: flex-start;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--coral);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.step-content h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.step-content p {
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.play-callout {
+  background: var(--teal);
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.play-callout strong {
+  font-weight: 900;
+}
+
+/* What's in the Box - Refined Version */
+.whats-in-box {
+  padding: 6rem 2rem;
+  background: var(--cream);
+}
+
+.whats-in-box-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.whats-in-box h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.box-subtitle {
+  font-size: 1.05rem;
+  opacity: 0.65;
+  margin-bottom: 4rem;
+}
+
+.box-section {
+  margin-bottom: 4rem;
+}
+
+.box-section:last-child {
+  margin-bottom: 0;
+}
+
+.box-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--ink);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.box-grid-extras {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.box-item {
+  background: white;
+  padding: 2rem 1.5rem 1.75rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+}
+
+.box-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.box-item:hover .box-card-image {
+  transform: rotate(-4deg) scale(1.05);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
+}
+
+.box-item-core {
+  background: linear-gradient(135deg, white 0%, rgba(255, 107, 107, 0.02) 100%);
+  border: 2px solid rgba(255, 107, 107, 0.08);
+}
+
+/* Card Image Display - BETTER PROPORTIONS */
+.box-card-image {
+  width: 110px;
+  height: 155px;
+  margin: 0 auto 1.25rem;
+  position: relative;
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+.box-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: smooth;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  filter: blur(0.3px);
+}
+
+/* Alternative: Stack of cards effect */
+.box-card-stack {
+  width: 110px;
+  height: 155px;
+  margin: 0 auto 1.25rem;
+  position: relative;
+}
+
+.box-card-stack::before,
+.box-card-stack::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.box-card-stack::before {
+  transform: rotate(-4deg) translateY(-4px);
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.box-card-stack::after {
+  transform: rotate(-2deg) translateY(-2px);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.box-card-stack img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.box-item h3 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin-bottom: 0.6rem;
+  color: var(--coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.box-item p {
+  opacity: 0.75;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.card-count {
+  display: inline-block;
+  background: var(--coral);
+  color: white;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.box-optional-badge {
+  display: inline-block;
+  background: var(--teal);
+  color: white;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.75rem;
+}
+
+/* Fallback icon for items without card images */
+.box-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Chaos Cards - Improved Readability Version */
+.chaos-cards {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, var(--coral) 0%, var(--peach) 100%);
+}
+
+.chaos-cards-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.chaos-cards-content h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chaos-cards-content .section-intro {
+  color: white;
+  opacity: 1;
+  margin-bottom: 3rem;
+  font-size: 1.15rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chaos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.chaos-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.chaos-card:hover {
+  transform: translateY(-10px) rotate(-2deg);
+}
+
+.chaos-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.chaos-card h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  color: var(--coral);
+}
+
+.chaos-card p {
+  opacity: 0.8;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* IMPROVED VERSION: Better contrast for the callout box */
+.chaos-callout {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  color: var(--ink);
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.chaos-callout h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: var(--coral);
+}
+
+.chaos-callout p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  color: var(--ink);
+}
+
+.chaos-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.chaos-callout strong {
+  font-weight: 900;
+  color: var(--coral);
+}
+
+/* Game FAQ */
+.game-faq {
+  padding: 6rem 2rem;
+  background: var(--peach);
+}
+
+.game-faq-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.game-faq h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Final CTA */
+.final-cta {
+  padding: 6rem 2rem;
+  background: var(--cream);
+}
+
+.final-cta-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.final-cta p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.final-cta .cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.cta-note {
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* ========================================
    MOBILE RESPONSIVE
    ======================================== */
+
+@media (max-width: 968px) {
+  .box-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 768px) {
   /* Better section spacing */
@@ -1403,8 +2049,24 @@ footer {
   }
 
   .quick-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+
+  .stat {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-text {
+    font-size: 0.75rem;
   }
 
   .cta-buttons {
@@ -1412,7 +2074,7 @@ footer {
   }
 
   /* Hide secondary CTA on mobile */
-  .btn-secondary {
+  .hero .btn-secondary {
     display: none;
   }
 
@@ -1544,6 +2206,158 @@ footer {
   .progress-dot {
     width: 8px;
     height: 8px;
+  }
+
+  /* Convention mobile adjustments */
+  .convention-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .convention-name {
+    font-size: 1.6rem;
+  }
+
+  .convention-date {
+    font-size: 1rem;
+  }
+
+  .convention-details {
+    gap: 1.25rem;
+  }
+
+  .detail-icon {
+    font-size: 1.5rem;
+  }
+
+  .convention-callout {
+    padding: 2rem 1.5rem;
+  }
+
+  .convention-callout p {
+    font-size: 1.1rem;
+  }
+
+  /* Contact modal mobile adjustments */
+  .contact-modal-content {
+    width: 95%;
+    max-height: 95vh;
+    border-radius: 15px;
+  }
+
+  .contact-modal-header {
+    padding: 2rem 1.5rem 1.5rem;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .contact-modal-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .contact-modal-header p {
+    font-size: 0.9rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-success {
+    padding: 2rem 1.5rem;
+  }
+
+  /* Game page mobile */
+  .game-hero {
+    padding-top: 6rem;
+  }
+
+  .game-hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .game-hero-text {
+    order: 2;
+  }
+
+  .game-hero-image {
+    order: 1;
+  }
+
+  .game-quick-info {
+    justify-content: center;
+  }
+
+  .game-cta {
+    justify-content: center;
+  }
+
+  .play-step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pitch-grid,
+  .box-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* What's in the Box mobile */
+  .box-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .box-grid-extras {
+    grid-template-columns: 1fr;
+  }
+
+  .box-item {
+    padding: 2rem 1.5rem;
+  }
+
+  .box-card-image,
+  .box-card-stack {
+    width: 100px;
+    height: 140px;
+  }
+
+  .box-icon {
+    font-size: 3rem;
+  }
+
+  /* Chaos cards mobile */
+  .chaos-cards {
+    padding: 4rem 1.5rem;
+  }
+
+  .chaos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chaos-callout {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .whats-in-box {
+    padding: 4rem 1.5rem;
+  }
+
+  .box-section-title {
+    font-size: 0.9rem;
+  }
+
+  .box-card-image,
+  .box-card-stack {
+    width: 95px;
+    height: 135px;
   }
 }
 

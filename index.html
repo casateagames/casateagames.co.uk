@@ -36,8 +36,8 @@
       <div class="hero-content">
         <div class="hero-text">
           <h1>
-            We make <span class="highlight">memorable</span> board games worth
-            taking off your shelf
+            We make <span class="highlight">table-top games</span>
+            (turns out people like them)
           </h1>
           <p class="hero-subtext">
             Two humans, one dog, zero corporate overlords. Just indie games with
@@ -61,7 +61,12 @@
             <div class="stat">
               <span class="stat-icon">🏠</span>
               <span class="stat-number" data-target="100">100</span>
-              <span class="stat-text">% Home-Brewable</span>
+              <span class="stat-text">Home-Brewable</span>
+            </div>
+            <div class="stat countdown-stat">
+              <span class="stat-icon">🚀</span>
+              <span class="stat-number" id="countdownDays">--</span>
+              <span class="stat-text">Days to Kickstarter</span>
             </div>
           </div>
         </div>
@@ -72,7 +77,6 @@
           <div class="preview-tag">Coming to Kickstarter! 🚀</div>
         </div>
       </div>
-      <div class="scroll-hint" id="scrollHint">👇</div>
     </section>
 
     <section class="games section-animate" id="games">
@@ -98,7 +102,7 @@
               A word-party game where pronunciation beats spelling. Confidence
               is your secret weapon, and wild comebacks are expected.
             </p>
-            <a href="#" class="game-link">Back on Kickstarter →</a>
+            <a href="say-what-now.html" class="game-link">Learn More →</a>
           </div>
         </div>
         <div class="game-card">
@@ -257,7 +261,8 @@
       <div class="conventions-content">
         <h2>Come Meet Us! 👋</h2>
         <p class="conventions-intro">
-          Want to play our games in person? We'd love to meet you! Come say hi, demo our games, and maybe beat us at our own creation.
+          Want to play our games in person? We'd love to meet you! Come say hi,
+          demo our games, and maybe beat us at our own creation.
         </p>
 
         <div class="convention-featured">
@@ -265,40 +270,45 @@
           <div class="convention-card">
             <div class="convention-header">
               <h3 class="convention-name">Airecon 2026</h3>
-              <div class="convention-date">📅 March 14-15, 2026 - We won't be there Friday!</div>
+              <div class="convention-date">📅 March 14-15, 2026</div>
             </div>
             <div class="convention-details">
               <div class="convention-location">
                 <span class="detail-icon">🎯</span>
                 <div>
-                  <strong>Find us at:</strong><br>
+                  <strong>Find us at:</strong>
                   Yokocho - Gamer's Alley
                 </div>
               </div>
               <div class="convention-activity">
                 <span class="detail-icon">🎲</span>
                 <div>
-                  <strong>What's happening:</strong><br>
+                  <strong>What's happening:</strong>
                   Live demos of Say What Now?! - Come play and laugh with us!
                 </div>
               </div>
               <div class="convention-activity">
                 <span class="detail-icon">🚀</span>
                 <div>
-                  <strong>Get exclusive access:</strong><br>
+                  <strong>Get exclusive access:</strong>
                   Sign up for our Kickstarter launch list at the booth
                 </div>
               </div>
-            </div>
-            <div class="convention-cta">
-              <p class="convention-tagline">Larry won't be making an appearance 🐶</p>
             </div>
           </div>
         </div>
 
         <div class="convention-callout">
-          <p><strong>Want us at your event?</strong> We're always up for demoing games and meeting fellow board game enthusiasts!</p>
-          <a href="#" onclick="openContactModal(event)" class="btn btn-secondary">Get in Touch</a>
+          <p>
+            <strong>Want us at your event?</strong> We're always up for demoing
+            games and meeting fellow board game enthusiasts!
+          </p>
+          <a
+            href="#"
+            onclick="openContactModal(event)"
+            class="btn btn-secondary"
+            >Get in Touch</a
+          >
         </div>
       </div>
     </section>
@@ -313,7 +323,7 @@
         </button>
         <div class="faq-answer">
           <p>
-            Soon! We're in final prep mode. Join our email list to be the first
+            The 9th of March 2026! We're in final prep mode. Join our email list to be the first
             to know when we launch.
           </p>
         </div>
@@ -458,11 +468,20 @@
     <div class="contact-modal" id="contactModal">
       <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
       <div class="contact-modal-content">
-        <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close contact form">×</button>
-        
+        <button
+          class="contact-modal-close"
+          onclick="closeContactModal()"
+          aria-label="Close contact form"
+        >
+          ×
+        </button>
+
         <div class="contact-modal-header">
           <h2>Get in Touch! 💬</h2>
-          <p>Have a question? Want to playtest? Just want to say hi? We'd love to hear from you!</p>
+          <p>
+            Have a question? Want to playtest? Just want to say hi? We'd love to
+            hear from you!
+          </p>
         </div>
 
         <form
@@ -530,8 +549,13 @@
         <div class="contact-success" id="contactSuccess">
           <div class="success-icon">🎉</div>
           <h3>Message Sent!</h3>
-          <p>Thanks for reaching out! We'll get back to you soon (probably with Larry's approval).</p>
-          <button class="btn btn-secondary" onclick="closeContactModal()">Close</button>
+          <p>
+            Thanks for reaching out! We'll get back to you soon (probably with
+            Larry's approval).
+          </p>
+          <button class="btn btn-secondary" onclick="closeContactModal()">
+            Close
+          </button>
         </div>
       </div>
     </div>
