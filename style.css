@@ -1038,3 +1038,29 @@ body::before {
     height: 260px; /* was 220 */
   }
 }
+
+
+.contact-link {
+  position: relative;
+}
+
+.contact-link::after {
+  content: "Email us";
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.contact-link:hover::after {
+  opacity: 1;
+}
