@@ -24,6 +24,7 @@
         <div class="nav-links" id="navLinks">
           <a href="#games">Games</a>
           <a href="#about">About</a>
+          <a href="#conventions">Events</a>
           <a href="#updates">Updates</a>
           <a href="#faq">FAQ</a>
           <a href="#join">Join Us</a>
@@ -252,6 +253,56 @@
       </div>
     </section>
 
+    <section class="conventions section-animate" id="conventions">
+      <div class="conventions-content">
+        <h2>Come Meet Us! 👋</h2>
+        <p class="conventions-intro">
+          Want to play our games in person? We'd love to meet you! Come say hi, demo our games, and maybe beat us at our own creation.
+        </p>
+
+        <div class="convention-featured">
+          
+          <div class="convention-card">
+            <div class="convention-header">
+              <h3 class="convention-name">Airecon 2026</h3>
+              <div class="convention-date">📅 March 14-15, 2026 - We won't be there Friday!</div>
+            </div>
+            <div class="convention-details">
+              <div class="convention-location">
+                <span class="detail-icon">🎯</span>
+                <div>
+                  <strong>Find us at:</strong><br>
+                  Yokocho - Gamer's Alley
+                </div>
+              </div>
+              <div class="convention-activity">
+                <span class="detail-icon">🎲</span>
+                <div>
+                  <strong>What's happening:</strong><br>
+                  Live demos of Say What Now?! - Come play and laugh with us!
+                </div>
+              </div>
+              <div class="convention-activity">
+                <span class="detail-icon">🚀</span>
+                <div>
+                  <strong>Get exclusive access:</strong><br>
+                  Sign up for our Kickstarter launch list at the booth
+                </div>
+              </div>
+            </div>
+            <div class="convention-cta">
+              <p class="convention-tagline">Larry won't be making an appearance 🐶</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="convention-callout">
+          <p><strong>Want us at your event?</strong> We're always up for demoing games and meeting fellow board game enthusiasts!</p>
+          <a href="#" onclick="openContactModal(event)" class="btn btn-secondary">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
     <section class="faq section-animate" id="faq">
       <h2>Questions? We've Got Answers 🤔</h2>
 
@@ -386,9 +437,10 @@
             >🎵</a
           >
           <a
-            href="mailto:casateagames@gmail.com?subject=Hello%20Casa%20Tea%20Games!&body=Hi%20Matt%20and%20Abby%2C%0A%0A"
+            href="#"
+            onclick="openContactModal(event)"
             class="social-link contact-link"
-            aria-label="Email Casa Tea Games at casateagames@gmail.com"
+            aria-label="Contact Casa Tea Games"
             >✉️</a
           >
         </div>
@@ -402,230 +454,99 @@
       </div>
     </footer>
 
-    <!-- Sticky CTA (appears after scrolling past hero) -->
-    <a href="#games" class="mobile-sticky-cta" id="stickyCta">
-      🚀 Back on Kickstarter
-    </a>
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+      <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
+      <div class="contact-modal-content">
+        <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close contact form">×</button>
+        
+        <div class="contact-modal-header">
+          <h2>Get in Touch! 💬</h2>
+          <p>Have a question? Want to playtest? Just want to say hi? We'd love to hear from you!</p>
+        </div>
+
+        <form
+          class="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onsubmit="handleContactSubmit(event)"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p style="display: none">
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+          </p>
+
+          <div class="form-group">
+            <label for="contact-name">Your Name *</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              placeholder="Larry is that you?"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Your Email *</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">What's this about?</label>
+            <select id="contact-subject" name="subject">
+              <option value="general">General Question</option>
+              <option value="playtest">Playtesting Interest</option>
+              <option value="kickstarter">Kickstarter Question</option>
+              <option value="partnership">Partnership/Collaboration</option>
+              <option value="other">Something Else</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Your Message *</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="5"
+              placeholder="Tell us what's on your mind..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send Message 🚀</button>
+        </form>
+
+        <div class="contact-success" id="contactSuccess">
+          <div class="success-icon">🎉</div>
+          <h3>Message Sent!</h3>
+          <p>Thanks for reaching out! We'll get back to you soon (probably with Larry's approval).</p>
+          <button class="btn btn-secondary" onclick="closeContactModal()">Close</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Progress Dots Navigation -->
     <div class="progress-dots" id="progressDots">
       <div class="progress-dot" data-section="hero" title="Top"></div>
       <div class="progress-dot" data-section="games" title="Games"></div>
       <div class="progress-dot" data-section="about" title="About"></div>
+      <div class="progress-dot" data-section="conventions" title="Events"></div>
       <div class="progress-dot" data-section="updates" title="Updates"></div>
       <div class="progress-dot" data-section="faq" title="FAQ"></div>
       <div class="progress-dot" data-section="join" title="Join"></div>
     </div>
 
-    <!-- Easter Egg -->
-    <div class="easter-egg" id="easterEgg">
-      <h3>🎲 You found Larry's secret stash!</h3>
-      <p>Woof! Thanks for exploring. Want to be the first to know when Say What Now?! launches?</p>
-      <button onclick="closeEasterEgg()">Yes, count me in!</button>
-    </div>
-
-    <script>
-      // Mobile menu toggle
-      function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("open");
-      }
-
-      // FAQ toggle
-      function toggleFAQ(button) {
-        const item = button.parentElement;
-        item.classList.toggle("open");
-      }
-
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-            document.getElementById("navLinks").classList.remove("open");
-          }
-        });
-      });
-
-      // ===== NEW MOBILE ENGAGEMENT FEATURES =====
-
-      // FEATURE 1: Hide scroll hint after user scrolls
-      let hasScrolled = false;
-      window.addEventListener('scroll', () => {
-        if (!hasScrolled && window.scrollY > 100) {
-          const scrollHint = document.getElementById('scrollHint');
-          if (scrollHint) {
-            scrollHint.classList.add('hidden');
-            hasScrolled = true;
-          }
-        }
-      });
-
-      // FEATURE 2: Section reveal animations on scroll
-      const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.section-animate').forEach(section => {
-        sectionObserver.observe(section);
-      });
-
-      // FEATURE 3: Sticky CTA button appears after scrolling past hero
-      window.addEventListener('scroll', () => {
-        const stickyCta = document.getElementById('stickyCta');
-        if (window.scrollY > window.innerHeight * 0.7) {
-          stickyCta.classList.add('visible');
-        } else {
-          stickyCta.classList.remove('visible');
-        }
-      });
-
-      // FEATURE 4: Progress dots navigation
-      const sections = ['hero', 'games', 'about', 'updates', 'faq', 'join'];
-      const dots = document.querySelectorAll('.progress-dot');
-
-      // Update active dot based on scroll position
-      window.addEventListener('scroll', () => {
-        let currentSection = '';
-        sections.forEach(sectionId => {
-          const section = document.getElementById(sectionId);
-          if (section) {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-              currentSection = sectionId;
-            }
-          }
-        });
-
-        dots.forEach(dot => {
-          if (dot.dataset.section === currentSection) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
-      });
-
-      // Click dots to navigate to sections
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          const sectionId = dot.dataset.section;
-          const section = document.getElementById(sectionId);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      });
-
-      // FEATURE 5: Animated stats counter (when hero stats scroll into view)
-      function animateValue(element, start, end, duration) {
-        let startTime = null;
-        const step = (timestamp) => {
-          if (!startTime) startTime = timestamp;
-          const progress = Math.min((timestamp - startTime) / duration, 1);
-          const value = Math.floor(progress * (end - start) + start);
-          element.textContent = value + (end === 100 ? '%' : '');
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
-
-      // Animate stats in hero section
-      const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const numbers = document.querySelectorAll('.quick-stats .stat-number');
-            numbers.forEach(num => {
-              const target = parseInt(num.dataset.target);
-              if (target) {
-                animateValue(num, 0, target, 1500);
-              }
-            });
-            statsObserver.disconnect();
-          }
-        });
-      }, { threshold: 0.5 });
-
-      const quickStats = document.querySelector('.quick-stats');
-      if (quickStats) {
-        statsObserver.observe(quickStats);
-      }
-
-      // FEATURE 6: Scroll progress bar
-      window.addEventListener('scroll', () => {
-        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        document.body.style.setProperty('--scroll', scrollPercent);
-      });
-
-      // FEATURE 7: Easter egg - shake detection for mobile
-      let lastX, lastY, lastZ;
-      let shakeCount = 0;
-      let shakeTimeout;
-
-      if (window.DeviceMotionEvent) {
-        window.addEventListener('devicemotion', (e) => {
-          const acceleration = e.accelerationIncludingGravity;
-          if (acceleration) {
-            if (lastX !== undefined) {
-              const deltaX = Math.abs(acceleration.x - lastX);
-              const deltaY = Math.abs(acceleration.y - lastY);
-              const deltaZ = Math.abs(acceleration.z - lastZ);
-              
-              if (deltaX + deltaY + deltaZ > 30) {
-                shakeCount++;
-                clearTimeout(shakeTimeout);
-                shakeTimeout = setTimeout(() => { shakeCount = 0; }, 1000);
-                
-                if (shakeCount >= 5) {
-                  showEasterEgg();
-                  shakeCount = 0;
-                }
-              }
-            }
-            lastX = acceleration.x;
-            lastY = acceleration.y;
-            lastZ = acceleration.z;
-          }
-        });
-      }
-
-      function showEasterEgg() {
-        document.getElementById('easterEgg').classList.add('show');
-      }
-
-      function closeEasterEgg() {
-        const easterEgg = document.getElementById('easterEgg');
-        easterEgg.classList.remove('show');
-        // Scroll to signup form
-        document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
-      }
-
-      // FEATURE 8: Hide swipe indicator after user swipes testimonials
-      const testimonialGrid = document.getElementById('testimonialGrid');
-      if (testimonialGrid) {
-        let hasSwipedTestimonials = false;
-        testimonialGrid.addEventListener('scroll', () => {
-          if (!hasSwipedTestimonials && testimonialGrid.scrollLeft > 50) {
-            const indicator = document.querySelector('.swipe-indicator');
-            if (indicator) {
-              indicator.style.opacity = '0';
-              hasSwipedTestimonials = true;
-            }
-          }
-        });
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
