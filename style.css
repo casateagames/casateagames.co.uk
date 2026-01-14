@@ -543,6 +543,7 @@ nav {
   object-fit: cover;
   display: block;
   border-radius: 5px;
+  object-position: center bottom;
 }
 
 .polaroid-caption {
@@ -1020,5 +1021,11 @@ body::before {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .polaroid img {
+    height: 260px; /* was 220 */
   }
 }
