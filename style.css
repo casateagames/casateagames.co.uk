@@ -1412,7 +1412,7 @@ footer {
   }
 
   /* Hide secondary CTA on mobile */
-  .btn-secondary {
+ .hero .btn-secondary {
     display: none;
   }
 
