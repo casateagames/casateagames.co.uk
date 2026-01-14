@@ -6,6 +6,7 @@
   --cream: #fffef9;
   --ink: #1a1a1a;
   --shadow: rgba(0, 0, 0, 0.1);
+  --scroll: 0;
 }
 
 /* Reset */
@@ -25,6 +26,21 @@ body {
   color: var(--ink);
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+/* Scroll Progress Bar */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, var(--coral), var(--teal));
+  transform-origin: left;
+  transform: scaleX(var(--scroll));
+  z-index: 2000;
+  transition: transform 0.1s ease-out;
 }
 
 /* Navigation */
@@ -125,6 +141,7 @@ nav {
     ),
     radial-gradient(circle at 80% 80%, var(--peach) 0%, transparent 50%),
     var(--cream);
+  position: relative;
 }
 
 .hero-content {
@@ -210,6 +227,11 @@ nav {
 .btn-primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
 }
 
 .btn-secondary {
@@ -300,6 +322,45 @@ nav {
   50% {
     transform: scale(1.1);
   }
+}
+
+/* Scroll Hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.5s;
+  z-index: 10;
+}
+
+.scroll-hint.hidden {
+  opacity: 0;
+}
+
+@keyframes bounce {
+  0%, 100% { 
+    transform: translateX(-50%) translateY(0); 
+  }
+  50% { 
+    transform: translateX(-50%) translateY(10px); 
+  }
+}
+
+/* Section Reveal Animation */
+.section-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.section-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Games Section */
@@ -437,10 +498,10 @@ nav {
   gap: 1rem;
 }
 
-/* Testimonials */
+/* Testimonials - Swipeable on Mobile */
 .testimonials {
   padding: 6rem 2rem;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
@@ -449,6 +510,10 @@ nav {
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 3rem;
   font-weight: 900;
+}
+
+.testimonial-container {
+  position: relative;
 }
 
 .testimonial-grid {
@@ -479,6 +544,15 @@ nav {
 .testimonial-author {
   opacity: 0.7;
   font-size: 0.9rem;
+}
+
+.swipe-indicator {
+  display: none;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  transition: opacity 0.5s;
 }
 
 /* Story Section */
@@ -572,6 +646,45 @@ nav {
   font-size: 0.85rem;
   opacity: 0.8;
   font-style: italic;
+}
+
+/* Philosophy Quote */
+.philosophy-quote {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem 2.25rem;
+  border-radius: 14px;
+  background: #fffef9;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+  border: 3px solid var(--teal);
+  position: relative;
+  transform: rotate(1deg);
+}
+
+.philosophy-quote::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 120px;
+  height: 28px;
+  background: rgba(255, 107, 107, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.quote-text {
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 900;
+}
+
+.quote-attribution {
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: rgba(26, 26, 26, 0.75);
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
 /* Updates Section */
@@ -796,17 +909,182 @@ footer {
   transform: scale(1.3) rotate(10deg);
 }
 
+.contact-link {
+  position: relative;
+}
+
+.contact-link::after {
+  content: "Email us";
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.contact-link:hover::after {
+  opacity: 1;
+}
+
 .footer-tagline {
   font-size: 1.1rem;
   opacity: 0.8;
   margin-bottom: 1rem;
 }
 
-/* Responsive */
+/* ========================================
+   MOBILE ENGAGEMENT FEATURES
+   ======================================== */
+
+/* Sticky CTA Button */
+.mobile-sticky-cta {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--coral);
+  color: white;
+  padding: 1rem 1.75rem;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
+  font-weight: 900;
+  z-index: 500;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.mobile-sticky-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-sticky-cta:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* Progress Dots Navigation */
+.progress-dots {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+  opacity: 0.3;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-dot:hover {
+  opacity: 0.6;
+}
+
+.progress-dot.active {
+  opacity: 1;
+  transform: scale(1.4);
+  background: var(--coral);
+}
+
+/* Easter Egg */
+.easter-egg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: var(--coral);
+  color: white;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 3000;
+  text-align: center;
+  max-width: 320px;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.easter-egg.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.easter-egg h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 900;
+}
+
+.easter-egg p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.easter-egg button {
+  background: white;
+  color: var(--coral);
+  border: none;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.easter-egg button:active {
+  transform: scale(0.95);
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
 @media (max-width: 768px) {
+  /* Better section spacing */
+  section {
+    padding: 4rem 1.25rem;
+  }
+
+  section + section {
+    margin-top: 2rem;
+  }
+
+  /* Hero adjustments */
+  .hero {
+    min-height: auto;
+    padding-top: 6rem;
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .hero-visual {
+    margin-top: 2rem;
   }
 
   .quick-stats {
@@ -818,12 +1096,27 @@ footer {
     justify-content: center;
   }
 
+  /* Hide secondary CTA on mobile */
+  .btn-secondary {
+    display: none;
+  }
+
+  /* Larger touch targets */
+  .btn {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.15rem;
+  }
+
+  /* Mobile menu */
   .mobile-menu-btn {
     display: block;
   }
 
   .nav-links {
     display: none !important;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   .nav-links.open {
@@ -838,6 +1131,69 @@ footer {
     border-bottom: 3px solid var(--teal);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     z-index: 1001;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-links a {
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    display: block;
+  }
+
+  /* Swipeable testimonials */
+  .testimonial-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    grid-template-columns: none;
+  }
+
+  .testimonial-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    min-height: 180px;
+  }
+
+  .swipe-indicator {
+    display: block;
+    animation: fadeInOut 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Story text as cards */
+  .story-text {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.25rem;
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* Quote mobile optimization */
+  .philosophy-quote {
+    margin: 3rem auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.15rem;
+  }
+
+  /* Better polaroid sizing */
+  .polaroid img {
+    height: 260px;
   }
 
   .games-grid {
@@ -863,107 +1219,34 @@ footer {
   .signup-form input {
     min-width: 100%;
   }
-}
 
-/*-----*/
-
-.philosophy-quote {
-  max-width: 900px;
-  margin: 3rem auto;
-  padding: 2rem 2.25rem;
-  border-radius: 14px;
-  background: #fffef9; /* cream */
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
-  border: 3px solid var(--teal);
-  position: relative;
-  transform: rotate(1deg);
-}
-
-.philosophy-quote::before {
-  content: "";
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
-  width: 120px;
-  height: 28px;
-  background: rgba(255, 107, 107, 0.35); /* coral tape */
-  border-radius: 8px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-}
-
-.quote-text {
-  font-size: clamp(1.1rem, 2vw, 1.45rem);
-  font-weight: 900;
-}
-
-.quote-attribution {
-  margin-top: 0.75rem;
-  font-weight: 800;
-  color: rgba(26, 26, 26, 0.75);
-}
-
-/* =========================================
-   MOBILE-FIRST ENGAGEMENT ENHANCEMENTS
-   ========================================= */
-
-/* 1. Better vertical rhythm on mobile */
-@media (max-width: 768px) {
-  section {
-    padding: 4rem 1.25rem;
+  /* Sticky CTA mobile adjustments */
+  .mobile-sticky-cta {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.9rem;
+    padding: 0.875rem 1.5rem;
   }
 
-  section + section {
-    margin-top: 2rem;
+  /* Progress dots mobile positioning */
+  .progress-dots {
+    right: 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .progress-dot {
+    width: 8px;
+    height: 8px;
   }
 }
 
-/* 2. Mobile hero tuning */
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding-top: 6rem;
-  }
-
-  .hero-text h1 {
-    font-size: clamp(2.2rem, 9vw, 3rem);
-  }
-
-  .hero-visual {
-    margin-top: 2rem;
-    transform: scale(1.05);
-  }
-}
-
-/* 3. Gentle float animation for hero image (touch devices only) */
+/* Gentle float animation for hero image (touch devices) */
 @media (hover: none) {
   .game-preview {
     animation: floaty 4s ease-in-out infinite;
   }
-}
 
-@keyframes floaty {
-  0%,
-  100% {
-    transform: translateY(0) rotate(2deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(2deg);
-  }
-}
-
-/* 4. Story text becomes cards on mobile */
-@media (max-width: 768px) {
-  .story-text {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1.25rem;
-    border-radius: 14px;
-    backdrop-filter: blur(6px);
-  }
-}
-
-/* 5. Juicy tap feedback (mobile only) */
-@media (hover: none) {
+  /* Touch feedback */
   .btn:active,
   .game-card:active,
   .faq-question:active,
@@ -972,95 +1255,24 @@ footer {
   }
 }
 
-/* 6. Improved mobile navigation animation */
-@media (max-width: 768px) {
-  .nav-links {
-    transform: translateY(-10px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0) rotate(3deg);
   }
-
-  .nav-links.open {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .nav-links a {
-    padding: 0.75rem 0;
-    font-size: 1.1rem;
+  50% {
+    transform: translateY(-8px) rotate(3deg);
   }
 }
 
-/* 7. Mobile-first CTA focus (hide secondary CTA) */
-@media (max-width: 768px) {
-  .btn-secondary {
-    display: none;
-  }
-}
-
-/* 8. Quote optimisation for mobile */
-@media (max-width: 768px) {
-  .philosophy-quote {
-    margin: 3rem auto;
-    padding: 2rem 1.5rem;
-  }
-
-  .quote-text {
-    font-size: 1.15rem;
-  }
-}
-
-/* 9. Scroll progress indicator (visual feedback) */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: linear-gradient(to right, var(--coral), var(--teal));
-  transform-origin: left;
-  transform: scaleX(var(--scroll, 0));
-  z-index: 2000;
-}
-
-/* 10. Reduced motion support */
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
-}
-
-@media (max-width: 768px) {
-  .polaroid img {
-    height: 260px; /* was 220 */
+  
+  body::before {
+    transition: none !important;
   }
-}
-
-
-.contact-link {
-  position: relative;
-}
-
-.contact-link::after {
-  content: "Email us";
-  position: absolute;
-  bottom: 130%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--ink);
-  color: white;
-  font-size: 0.75rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-  white-space: nowrap;
-}
-
-.contact-link:hover::after {
-  opacity: 1;
 }

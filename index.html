@@ -31,7 +31,7 @@
       </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="hero-content">
         <div class="hero-text">
           <h1>
@@ -49,18 +49,18 @@
           <div class="quick-stats">
             <div class="stat">
               <span class="stat-icon">🎲</span>
-              <span class="stat-number">3</span>
+              <span class="stat-number" data-target="3">3</span>
               <span class="stat-text">Games Brewing</span>
             </div>
             <div class="stat">
               <span class="stat-icon">👥</span>
-              <span class="stat-number">2</span>
+              <span class="stat-number" data-target="2">2</span>
               <span class="stat-text">Humans (+ Larry)</span>
             </div>
             <div class="stat">
               <span class="stat-icon">🏠</span>
-              <span class="stat-number">100%</span>
-              <span class="stat-text">Home-Brewable</span>
+              <span class="stat-number" data-target="100">100</span>
+              <span class="stat-text">% Home-Brewable</span>
             </div>
           </div>
         </div>
@@ -71,9 +71,10 @@
           <div class="preview-tag">Coming to Kickstarter! 🚀</div>
         </div>
       </div>
+      <div class="scroll-hint" id="scrollHint">👇</div>
     </section>
 
-    <section class="games" id="games">
+    <section class="games section-animate" id="games">
       <div class="section-header">
         <h2>Our Games 🎲</h2>
         <p>No massive catalog. Just games we'd actually want to play.</p>
@@ -134,29 +135,32 @@
       </div>
     </section>
 
-    <section class="testimonials">
+    <section class="testimonials section-animate">
       <h2>What Playtesters Say 💬</h2>
-      <div class="testimonial-grid">
-        <div class="testimonial">
-          <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
-          <p class="testimonial-author">- Friend, mid-playtest</p>
+      <div class="testimonial-container">
+        <div class="testimonial-grid" id="testimonialGrid">
+          <div class="testimonial">
+            <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
+            <p class="testimonial-author">- Friend, mid-playtest</p>
+          </div>
+          <div class="testimonial">
+            <p class="testimonial-quote">
+              Uncontrollable laughter at the word Gooch.
+            </p>
+            <p class="testimonial-author">- The Art Team</p>
+          </div>
+          <div class="testimonial">
+            <p class="testimonial-quote">
+              "If you give me a copy I can show all my friends to get sales."
+            </p>
+            <p class="testimonial-author">- Abby's mum</p>
+          </div>
         </div>
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            Uncontrollable laughter at the word Gooch.
-          </p>
-          <p class="testimonial-author">- The Art Team</p>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            "If you give me a copy I can show all my friends to get sales."
-          </p>
-          <p class="testimonial-author">- Abby's mum</p>
-        </div>
+        <div class="swipe-indicator">👈 Swipe to see more 👉</div>
       </div>
     </section>
 
-    <section class="story" id="about">
+    <section class="story section-animate" id="about">
       <div class="story-content">
         <h2>Started over bottomless tapas 🍗</h2>
         <p class="story-text">
@@ -213,7 +217,7 @@
       </div>
     </section>
 
-    <section class="updates" id="updates">
+    <section class="updates section-animate" id="updates">
       <div class="updates-content">
         <h2>What We've Been Up To 📝</h2>
 
@@ -248,7 +252,7 @@
       </div>
     </section>
 
-    <section class="faq" id="faq">
+    <section class="faq section-animate" id="faq">
       <h2>Questions? We've Got Answers 🤔</h2>
 
       <div class="faq-item">
@@ -321,7 +325,7 @@
       </div>
     </section>
 
-    <section class="signup" id="join">
+    <section class="signup section-animate" id="join">
       <h2>Join the Inner Circle 🎉</h2>
       <p class="signup-subtext">
         Get playtest invites, behind-the-scenes updates, and early Kickstarter
@@ -382,11 +386,9 @@
             >🎵</a
           >
           <a
-            href="mailto:casateagames@gmail.com
-    ?subject=Hello%20Casa%20Tea%20Games!
-    &body=Hi%20Matt%20and%20Abby%2C%0A%0A"
+            href="mailto:casateagames@gmail.com?subject=Hello%20Casa%20Tea%20Games!&body=Hi%20Matt%20and%20Abby%2C%0A%0A"
             class="social-link contact-link"
-            aria-label="Contact Casa Tea Games"
+            aria-label="Email Casa Tea Games at casateagames@gmail.com"
             >✉️</a
           >
         </div>
@@ -400,16 +402,41 @@
       </div>
     </footer>
 
+    <!-- Sticky CTA (appears after scrolling past hero) -->
+    <a href="#games" class="mobile-sticky-cta" id="stickyCta">
+      🚀 Back on Kickstarter
+    </a>
+
+    <!-- Progress Dots Navigation -->
+    <div class="progress-dots" id="progressDots">
+      <div class="progress-dot" data-section="hero" title="Top"></div>
+      <div class="progress-dot" data-section="games" title="Games"></div>
+      <div class="progress-dot" data-section="about" title="About"></div>
+      <div class="progress-dot" data-section="updates" title="Updates"></div>
+      <div class="progress-dot" data-section="faq" title="FAQ"></div>
+      <div class="progress-dot" data-section="join" title="Join"></div>
+    </div>
+
+    <!-- Easter Egg -->
+    <div class="easter-egg" id="easterEgg">
+      <h3>🎲 You found Larry's secret stash!</h3>
+      <p>Woof! Thanks for exploring. Want to be the first to know when Say What Now?! launches?</p>
+      <button onclick="closeEasterEgg()">Yes, count me in!</button>
+    </div>
+
     <script>
+      // Mobile menu toggle
       function toggleMenu() {
         document.getElementById("navLinks").classList.toggle("open");
       }
 
+      // FAQ toggle
       function toggleFAQ(button) {
         const item = button.parentElement;
         item.classList.toggle("open");
       }
 
+      // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -420,6 +447,185 @@
           }
         });
       });
+
+      // ===== NEW MOBILE ENGAGEMENT FEATURES =====
+
+      // FEATURE 1: Hide scroll hint after user scrolls
+      let hasScrolled = false;
+      window.addEventListener('scroll', () => {
+        if (!hasScrolled && window.scrollY > 100) {
+          const scrollHint = document.getElementById('scrollHint');
+          if (scrollHint) {
+            scrollHint.classList.add('hidden');
+            hasScrolled = true;
+          }
+        }
+      });
+
+      // FEATURE 2: Section reveal animations on scroll
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.section-animate').forEach(section => {
+        sectionObserver.observe(section);
+      });
+
+      // FEATURE 3: Sticky CTA button appears after scrolling past hero
+      window.addEventListener('scroll', () => {
+        const stickyCta = document.getElementById('stickyCta');
+        if (window.scrollY > window.innerHeight * 0.7) {
+          stickyCta.classList.add('visible');
+        } else {
+          stickyCta.classList.remove('visible');
+        }
+      });
+
+      // FEATURE 4: Progress dots navigation
+      const sections = ['hero', 'games', 'about', 'updates', 'faq', 'join'];
+      const dots = document.querySelectorAll('.progress-dot');
+
+      // Update active dot based on scroll position
+      window.addEventListener('scroll', () => {
+        let currentSection = '';
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+              currentSection = sectionId;
+            }
+          }
+        });
+
+        dots.forEach(dot => {
+          if (dot.dataset.section === currentSection) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      });
+
+      // Click dots to navigate to sections
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const sectionId = dot.dataset.section;
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // FEATURE 5: Animated stats counter (when hero stats scroll into view)
+      function animateValue(element, start, end, duration) {
+        let startTime = null;
+        const step = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const value = Math.floor(progress * (end - start) + start);
+          element.textContent = value + (end === 100 ? '%' : '');
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      }
+
+      // Animate stats in hero section
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const numbers = document.querySelectorAll('.quick-stats .stat-number');
+            numbers.forEach(num => {
+              const target = parseInt(num.dataset.target);
+              if (target) {
+                animateValue(num, 0, target, 1500);
+              }
+            });
+            statsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+
+      const quickStats = document.querySelector('.quick-stats');
+      if (quickStats) {
+        statsObserver.observe(quickStats);
+      }
+
+      // FEATURE 6: Scroll progress bar
+      window.addEventListener('scroll', () => {
+        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        document.body.style.setProperty('--scroll', scrollPercent);
+      });
+
+      // FEATURE 7: Easter egg - shake detection for mobile
+      let lastX, lastY, lastZ;
+      let shakeCount = 0;
+      let shakeTimeout;
+
+      if (window.DeviceMotionEvent) {
+        window.addEventListener('devicemotion', (e) => {
+          const acceleration = e.accelerationIncludingGravity;
+          if (acceleration) {
+            if (lastX !== undefined) {
+              const deltaX = Math.abs(acceleration.x - lastX);
+              const deltaY = Math.abs(acceleration.y - lastY);
+              const deltaZ = Math.abs(acceleration.z - lastZ);
+              
+              if (deltaX + deltaY + deltaZ > 30) {
+                shakeCount++;
+                clearTimeout(shakeTimeout);
+                shakeTimeout = setTimeout(() => { shakeCount = 0; }, 1000);
+                
+                if (shakeCount >= 5) {
+                  showEasterEgg();
+                  shakeCount = 0;
+                }
+              }
+            }
+            lastX = acceleration.x;
+            lastY = acceleration.y;
+            lastZ = acceleration.z;
+          }
+        });
+      }
+
+      function showEasterEgg() {
+        document.getElementById('easterEgg').classList.add('show');
+      }
+
+      function closeEasterEgg() {
+        const easterEgg = document.getElementById('easterEgg');
+        easterEgg.classList.remove('show');
+        // Scroll to signup form
+        document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // FEATURE 8: Hide swipe indicator after user swipes testimonials
+      const testimonialGrid = document.getElementById('testimonialGrid');
+      if (testimonialGrid) {
+        let hasSwipedTestimonials = false;
+        testimonialGrid.addEventListener('scroll', () => {
+          if (!hasSwipedTestimonials && testimonialGrid.scrollLeft > 50) {
+            const indicator = document.querySelector('.swipe-indicator');
+            if (indicator) {
+              indicator.style.opacity = '0';
+              hasSwipedTestimonials = true;
+            }
+          }
+        });
+      }
     </script>
   </body>
 </html>
