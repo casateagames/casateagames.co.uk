@@ -855,3 +855,170 @@ footer {
     min-width: 100%;
   }
 }
+
+/*-----*/
+
+.philosophy-quote{
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem 2.25rem;
+  border-radius: 14px;
+  background: #fffef9; /* cream */
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+  border: 3px solid var(--teal);
+  position: relative;
+  transform: rotate(1deg);
+}
+
+.philosophy-quote::before{
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 120px;
+  height: 28px;
+  background: rgba(255, 107, 107, 0.35); /* coral tape */
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.quote-text{
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 900;
+}
+
+.quote-attribution{
+  margin-top: 0.75rem;
+  font-weight: 800;
+  color: rgba(26,26,26,0.75);
+}
+
+/* =========================================
+   MOBILE-FIRST ENGAGEMENT ENHANCEMENTS
+   ========================================= */
+
+/* 1. Better vertical rhythm on mobile */
+@media (max-width: 768px) {
+  section {
+    padding: 4rem 1.25rem;
+  }
+
+  section + section {
+    margin-top: 2rem;
+  }
+}
+
+/* 2. Mobile hero tuning */
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding-top: 6rem;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .hero-visual {
+    margin-top: 2rem;
+    transform: scale(1.05);
+  }
+}
+
+/* 3. Gentle float animation for hero image (touch devices only) */
+@media (hover: none) {
+  .game-preview {
+    animation: floaty 4s ease-in-out infinite;
+  }
+}
+
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+/* 4. Story text becomes cards on mobile */
+@media (max-width: 768px) {
+  .story-text {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.25rem;
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+  }
+}
+
+/* 5. Juicy tap feedback (mobile only) */
+@media (hover: none) {
+  .btn:active,
+  .game-card:active,
+  .faq-question:active,
+  .polaroid:active {
+    transform: scale(0.97);
+  }
+}
+
+/* 6. Improved mobile navigation animation */
+@media (max-width: 768px) {
+  .nav-links {
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-links a {
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* 7. Mobile-first CTA focus (hide secondary CTA) */
+@media (max-width: 768px) {
+  .btn-secondary {
+    display: none;
+  }
+}
+
+/* 8. Quote optimisation for mobile */
+@media (max-width: 768px) {
+  .philosophy-quote {
+    margin: 3rem auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.15rem;
+  }
+}
+
+/* 9. Scroll progress indicator (visual feedback) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, var(--coral), var(--teal));
+  transform-origin: left;
+  transform: scaleX(var(--scroll, 0));
+  z-index: 2000;
+}
+
+/* 10. Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
