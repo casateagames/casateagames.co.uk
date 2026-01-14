@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casa Tea Games • Indie Board Games with Heart</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="top">
+    <nav>
+      <div class="nav-content">
+        <a href="#top" class="logo">
+          <img src="assets/logo.png" alt="Casa Tea Games" />
+          Casa Tea Games
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="#games">Games</a>
+          <a href="#about">About</a>
+          <a href="#updates">Updates</a>
+          <a href="#faq">FAQ</a>
+          <a href="#join">Join Us</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>
+            We make <span class="highlight">memorable</span> board games worth
+            playing twice
+          </h1>
+          <p class="hero-subtext">
+            Two humans, one dog, zero corporate overlords. Just indie games with
+            personality, built for your next game night.
+          </p>
+          <div class="cta-buttons">
+            <a href="#games" class="btn btn-primary">See Our Games</a>
+            <a href="#join" class="btn btn-secondary">Join the Community</a>
+          </div>
+          <div class="quick-stats">
+            <div class="stat">
+              <span class="stat-icon">🎲</span>
+              <span class="stat-number">3</span>
+              <span class="stat-text">Games Brewing</span>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">👥</span>
+              <span class="stat-number">2</span>
+              <span class="stat-text">Humans (+ Larry)</span>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">🏠</span>
+              <span class="stat-number">100%</span>
+              <span class="stat-text">Home-Brewable</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="game-preview">
+            <img src="assets/saywhatnowmain.png" alt="Say What Now?!" />
+          </div>
+          <div class="preview-tag">Coming to Kickstarter! 🚀</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="games" id="games">
+      <div class="section-header">
+        <h2>Our Games 🎲</h2>
+        <p>No massive catalog. Just games we'd actually want to play.</p>
+      </div>
+      <div class="games-grid">
+        <div class="game-card featured">
+          <img
+            src="assets/saywhatnowmain.png"
+            alt="Say What Now?!"
+            class="game-image"
+          />
+          <div class="game-content">
+            <span class="game-status status-live">🔥 Kickstarter Soon</span>
+            <h3 class="game-title">Say What Now?!</h3>
+            <div class="game-meta">
+              <span class="meta-item">👥 3-6 players</span>
+              <span class="meta-item">⏱️ 30-45 mins</span>
+            </div>
+            <p class="game-desc">
+              A word-party game where pronunciation beats spelling. Confidence
+              is your secret weapon, and wild comebacks are expected.
+            </p>
+            <a href="#" class="game-link">Back on Kickstarter →</a>
+          </div>
+        </div>
+        <div class="game-card">
+          <img
+            src="assets/project2.png"
+            alt="Secret Project 2"
+            class="game-image"
+          />
+          <div class="game-content">
+            <span class="game-status status-brewing">🔨 In Development</span>
+            <h3 class="game-title">Secret Project #2</h3>
+            <p class="game-desc">
+              We're cooking something up. Can't say much yet, but expect
+              strategic depth with room for creativity. House rules encouraged.
+            </p>
+            <a href="#join" class="game-link">Get early access →</a>
+          </div>
+        </div>
+        <div class="game-card">
+          <img
+            src="assets/project3.png"
+            alt="Secret Project 3"
+            class="game-image"
+          />
+          <div class="game-content">
+            <span class="game-status status-brewing">💭 Early Stages</span>
+            <h3 class="game-title">Secret Project #3</h3>
+            <p class="game-desc">
+              This one's still in the "scribbled on a napkin" phase. But we
+              promise it'll be worth the wait. Quick to learn, fun to master.
+            </p>
+            <a href="#join" class="game-link">Be the first to know →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <h2>What Playtesters Say 💬</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
+          <p class="testimonial-author">- Friend, mid-playtest</p>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            Uncontrollable laughter at the word Gooch.
+          </p>
+          <p class="testimonial-author">- The Art Team</p>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            "If you give me a copy I can show all my friends to get sales."
+          </p>
+          <p class="testimonial-author">- Abby's mum</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="about">
+      <div class="story-content">
+        <h2>Started over bottomless tapas 🍗</h2>
+        <p class="story-text">
+          We're Matt and Abby - two game-obsessed humans who spent years
+          tweaking rules at the dining table. One day at Las Iguanas (way too
+          much food, honestly), we decided: why not make our own games?
+        </p>
+        <p class="story-text">
+          <strong>Casa Tea Games</strong> was born that afternoon.
+          <em>Casa</em> = home, <em>tea</em> = brew. A place where we test ideas
+          until they're actually fun. We make games that are easy to learn, fun
+          to play, and even better when you add your own house rules.
+        </p>
+        <div class="founders">
+          <div class="polaroid">
+            <img src="assets/matt.png" alt="Matt" />
+            <div class="polaroid-caption">
+              <div class="polaroid-name">Matt</div>
+              <div class="polaroid-role">Rules Guy</div>
+              <div class="polaroid-bio">
+                Brings out that secret rule when he's losing.
+              </div>
+            </div>
+          </div>
+          <div class="polaroid">
+            <img src="assets/abby.png" alt="Abby" />
+            <div class="polaroid-caption">
+              <div class="polaroid-name">Abby</div>
+              <div class="polaroid-role">Chaotic Energy</div>
+              <div class="polaroid-bio">Consequences? Deal with 'em later.</div>
+            </div>
+          </div>
+          <div class="polaroid">
+            <img src="assets/larry.png" alt="Larry" />
+            <div class="polaroid-caption">
+              <div class="polaroid-name">Larry 🐶</div>
+              <div class="polaroid-role">Chief Morale Officer</div>
+              <div class="polaroid-bio">
+                Enjoys reorganising the board games on the bottom shelf.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="updates" id="updates">
+      <div class="updates-content">
+        <h2>What We've Been Up To 📝</h2>
+
+        <div class="update-card">
+          <div class="update-date">This Week</div>
+          <h3 class="update-title">Larry's playtest feedback:</h3>
+          <p class="update-text">
+            Barked twice, tried to eat a pen, knocked a vowel card off the
+            table. Somehow this helped us fix a timing issue. We don't question
+            his methods anymore.
+          </p>
+        </div>
+
+        <div class="update-card">
+          <div class="update-date">Last Month</div>
+          <h3 class="update-title">Kickstarter prep is WILD</h3>
+          <p class="update-text">
+            Turns out launching a board game involves way more spreadsheets than
+            we thought. But the prototypes look incredible and our playtesters
+            keep asking when they can buy it. Good sign?
+          </p>
+        </div>
+
+        <div class="update-card">
+          <div class="update-date">Earlier</div>
+          <h3 class="update-title">Best house rule we've seen yet</h3>
+          <p class="update-text">
+            A playtester added a "dramatic pause" rule that completely changed
+            the energy of the game. This is exactly why we build our games to be
+            tweakable. Make it yours!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <h2>Questions? We've Got Answers 🤔</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          When's Say What Now?! coming to Kickstarter?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Soon! We're in final prep mode. Join our email list to be the first
+            to know when we launch.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Can I playtest your games?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Absolutely! Sign up for our playtest list and we'll send you invites
+            when we need fresh perspectives. We value honest feedback and there
+            might be some goodies involved.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          What makes your games different?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            We design for actual humans, not game theory. Quick to learn, fun to
+            replay, and built to be modified. House rules aren't bugs - they're
+            features!
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Will you ship internationally?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Yes! We're working on making our games available worldwide. Specific
+            countries and shipping costs will be detailed in the Kickstarter
+            campaign.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Can I suggest a house rule?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            PLEASE DO! We love seeing how people adapt our games. Share your
+            house rules with us on Instagram or TikTok - the best ones might
+            become official variants!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="signup" id="join">
+      <h2>Join the Inner Circle 🎉</h2>
+      <p class="signup-subtext">
+        Get playtest invites, behind-the-scenes updates, and early Kickstarter
+        access. No spam. Just game night goodness.
+      </p>
+
+      <form
+        class="signup-form"
+        name="newsletter"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="newsletter" />
+        <p style="display: none;">
+          <label>
+            Don't fill this out if you're human: <input name="bot-field" />
+          </label>
+        </p>
+        <input
+          type="email"
+          name="email"
+          placeholder="your.email@example.com"
+          required
+        />
+        <button type="submit" class="btn btn-primary">Count Me In!</button>
+      </form>
+
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-icon">🎲</div>
+          <div class="perk-text">Early Playtest Access</div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">💡</div>
+          <div class="perk-text">Shape Future Games</div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">🎁</div>
+          <div class="perk-text">Kickstarter Exclusives</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/casateagames/"
+            target="_blank"
+            class="social-link"
+            >📷</a
+          >
+          <a
+            href="https://www.tiktok.com/@_casateagames"
+            target="_blank"
+            class="social-link"
+            >🎵</a
+          >
+          <a href="#join" class="social-link">✉️</a>
+        </div>
+        <p class="footer-tagline">
+          Making games with heart (and room for house rules) since that tapas
+          lunch
+        </p>
+        <p style="opacity: 0.6; margin-top: 1rem">
+          © 2025 Casa Tea Games • Built by two humans and one very good dog
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("open");
+      }
+
+      function toggleFAQ(button) {
+        const item = button.parentElement;
+        item.classList.toggle("open");
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            document.getElementById("navLinks").classList.remove("open");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
