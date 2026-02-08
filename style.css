@@ -416,6 +416,12 @@ nav {
   font-size: 0.9rem;
   box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
   animation: pulse 2s ease-in-out infinite;
+    text-decoration: none;
+  display: inline-block;
+}
+
+.preview-tag:hover {
+  transform: scale(1.08);
 }
 
 @keyframes pulse {
@@ -549,7 +555,14 @@ nav {
   font-size: 0.8rem;
   font-weight: 900;
   margin-bottom: 0.5rem;
+    text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
+.game-status:hover {
+  transform: translateY(-2px);
+}
+
 
 .status-live {
   background: var(--coral);
