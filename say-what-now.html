@@ -60,10 +60,10 @@
           </div>
 
           <div class="game-cta">
-            <a href="https://www.kickstarter.com/projects/casateagames/say-what-now" class="btn btn-primary" target="_blank" rel="noopener">Back on Kickstarter 🚀</a>
+            <a href="https://www.kickstarter.com/projects/casateagames/say-what-now" class="btn btn-primary" target="_blank" rel="noopener">Back Now on Kickstarter 🚀</a>
             <div class="countdown-inline">
-              <span class="countdown-label">Launches in:</span>
-              <span class="countdown-value" id="gameCountdown">54 days</span>
+              <span class="countdown-label">Status:</span>
+              <span class="countdown-value" id="gameCountdown">🚀 Live Now!</span>
             </div>
           </div>
         </div>
@@ -285,7 +285,6 @@
         
         <!-- Vowel Cards -->
         <div class="box-item box-item-core">
-          <!-- Option 1: Single card at angle -->
           <div class="box-card-image">
             <img src="assets/cards/vowel-card.png" alt="Vowel Card">
           </div>
@@ -343,7 +342,6 @@
 
         <!-- Rule Book -->
         <div class="box-item">
-          <!-- Use icon for rulebook since it's not a card -->
           <div class="box-icon">📖</div>
           <h3>Rule Book</h3>
           <p>Simple, clear instructions with examples</p>
@@ -425,8 +423,7 @@
           </button>
           <div class="faq-answer">
             <p>
-              We're launching on Kickstarter on March 9, 2026! Sign up for our
-              email list to get notified the moment we go live.
+              Right now! We're live on Kickstarter — head over and back us today. Early backers get exclusive rewards, so don't miss out!
             </p>
           </div>
         </div>
@@ -438,18 +435,16 @@
       <div class="final-cta-content">
         <h2>Ready to Back Say What Now?! 🚀</h2>
         <p>
-          Be one of the first to get your hands on the game. Early birds get
-          exclusive rewards!
+          We're live on Kickstarter! Be one of the first backers and get exclusive early bird rewards.
         </p>
         <div class="cta-buttons">
-          <a href="https://www.kickstarter.com/projects/casateagames/say-what-now" class="btn btn-primary" target="_blank" rel="noopener">Back on Kickstarter</a>
+          <a href="https://www.kickstarter.com/projects/casateagames/say-what-now" class="btn btn-primary" target="_blank" rel="noopener">Back Now on Kickstarter 🚀</a>
           <a href="index.html#join" class="btn btn-secondary"
             >Join Our Email List</a
           >
         </div>
         <p class="cta-note">
-          Launches March 9, 2026 • <span id="finalCountdown">54 days</span> to
-          go!
+          🚀 Live on Kickstarter now!
         </p>
       </div>
     </section>
@@ -584,26 +579,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-      // Update countdown displays on this page
-      function updateGamePageCountdown() {
-        const launchDate = new Date(Date.UTC(2026, 2, 9, 0, 0, 0));
-        const now = new Date();
-        const timeDiff = launchDate - now;
-
-        if (timeDiff > 0) {
-          const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-          document.getElementById("gameCountdown").textContent = days + " days";
-          document.getElementById("finalCountdown").textContent =
-            days + " days";
-        } else {
-          document.getElementById("gameCountdown").textContent = "NOW LIVE!";
-          document.getElementById("finalCountdown").textContent = "LIVE NOW";
-        }
-      }
-
-      updateGamePageCountdown();
-      setInterval(updateGamePageCountdown, 3600000);
-    </script>
   </body>
 </html>
