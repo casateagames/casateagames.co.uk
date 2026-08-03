@@ -2558,3 +2558,9 @@ footer {
         .t-item { width: 75vw; }
         .timeline-track { padding: 0 1rem 1rem; }
       }
+
+      .tm {
+  font-size: 0.5em;
+  vertical-align: super;
+  opacity: 0.8;
+}
