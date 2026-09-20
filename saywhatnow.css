@@ -1329,3 +1329,99 @@
     padding: 2rem 1.25rem 3rem;
   }
 }
+
+/* ---------- Picture guide ---------- */
+
+.picture-guide {
+  padding: 4rem 2rem;
+  background: var(--cream);
+}
+
+.picture-guide-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.picture-guide h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.picture-guide .section-intro {
+  margin-bottom: 2rem;
+}
+
+.picture-guide .section-intro a,
+.guide-download a {
+  color: var(--coral-deep);
+  font-weight: 900;
+}
+
+.guide-pages {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.guide-page img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 34px var(--shadow);
+}
+
+.guide-download {
+  text-align: center;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 768px) {
+  .picture-guide {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.guide-page video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 34px var(--shadow);
+  background: white;
+}
+
+/* ---------- Rules as text (collapsed) ---------- */
+
+.picture-guide .rules-note {
+  margin-bottom: 2rem;
+}
+
+.text-rules {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.text-rules summary {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.text-rules ol {
+  padding-left: 1.3rem;
+  margin: 1rem 0;
+}
+
+.text-rules li {
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+.text-rules p {
+  margin: 0 0 0.8rem;
+  line-height: 1.65;
+}

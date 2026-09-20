@@ -328,4 +328,53 @@
       }).observe(bottomBuy);
     }
   }
+
+  // ---------- 11. Picture guide: use animated MP4s when they exist ----------
+  // Each .guide-page has a data-video path. If that file exists, the still image is
+  // swapped for a muted looping video that only plays while it's on screen.
+  var guidePages = document.querySelectorAll('.guide-page[data-video]');
+  if (guidePages.length && !reduceMotion && window.fetch) {
+    var guideObserver =
+      'IntersectionObserver' in window
+        ? new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                var v = entry.target;
+                if (entry.isIntersecting) {
+                  var p = v.play();
+                  if (p && p.catch) p.catch(function () {});
+                } else {
+                  v.pause();
+                }
+              });
+            },
+            { threshold: 0.35 }
+          )
+        : null;
+
+    guidePages.forEach(function (fig) {
+      var url = fig.getAttribute('data-video');
+      var img = fig.querySelector('img');
+      if (!img) return;
+      fetch(url, { method: 'HEAD' })
+        .then(function (res) {
+          var type = res.headers.get('content-type') || '';
+          if (!res.ok || type.indexOf('video') !== 0) return;
+          var video = document.createElement('video');
+          video.src = url;
+          video.poster = img.currentSrc || img.src;
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          video.setAttribute('muted', '');
+          video.setAttribute('playsinline', '');
+          video.setAttribute('role', 'img');
+          video.setAttribute('aria-label', fig.getAttribute('data-video-alt') || img.alt);
+          fig.replaceChild(video, img);
+          if (guideObserver) guideObserver.observe(video);
+        })
+        .catch(function () {});
+    });
+  }
 })();

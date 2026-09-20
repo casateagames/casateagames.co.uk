@@ -74,7 +74,7 @@
 
           <div class="game-cta">
             <a href="#how-to-play" class="btn btn-primary">How to play</a>
-            <a href="#example" class="btn btn-secondary">See an example round</a>
+            <a href="#house-rules" class="btn btn-secondary">House rules</a>
           </div>
         </div>
 
@@ -87,306 +87,89 @@
     <!-- Sticky jump bar (a div, not a nav, so it doesn't pick up the site nav styling) -->
     <div class="jump-bar" role="navigation" aria-label="On this page">
       <div class="jump-bar-inner">
-        <a href="#how-to-play">How to play</a>
-        <a href="#example">Example round</a>
+        <a href="#picture-guide">How to play</a>
         <a href="#chaos">Chaos cards</a>
         <a href="#house-rules">House rules</a>
         <a href="#faq">FAQ</a>
       </div>
     </div>
 
-    <!-- How to play -->
-    <section class="how-to-play" id="how-to-play">
-      <div class="how-to-play-content">
+    <!-- Picture guide -->
+    <section class="picture-guide" id="picture-guide">
+      <span id="how-to-play"></span>
+      <div class="picture-guide-inner">
         <h2>How to play</h2>
-        <p class="section-intro">
-          A hilarious, fast-paced word game where spelling takes a back seat to
-          sound!
-        </p>
+        <p class="section-intro">Scroll through the guide below.</p>
         <p class="rules-note">
           There's no paper rulebook in the box. This page is the rulebook, and
           we've left room for you to bend the rules and make the game your own.
           Got a house rule you love? <a href="#house-rules">Share it with us.</a>
         </p>
-
-        <!--
-          OPTIONAL CLIPS: to add a short looping clip to any step, paste this
-          inside that step's <div class="play-step">, after </div> of step-content:
-
-          <div class="step-media">
-            <video autoplay loop muted playsinline preload="metadata" poster="assets/clips/reveal.jpg">
-              <source src="assets/clips/reveal.webm" type="video/webm" />
-              <source src="assets/clips/reveal.mp4" type="video/mp4" />
-            </video>
-          </div>
-
-          Or use a photo: <div class="step-media"><img src="assets/clips/step1.jpg" alt="..." /></div>
-        -->
-
-        <div class="play-steps">
-          <div class="play-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Flip 3 Vowel Cards</h3>
-              <p>
-                Flip 3 vowel cards (green cards) face up on the table for
-                everyone to use.
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Flip a Round Card</h3>
-              <p>
-                Flip 1 round card face up. This sets the goal for your word
-                (Category, Question, Construction, or Action).
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Build Your Word</h3>
-              <p>
-                Use your consonant cards (purple cards) and the vowels on the
-                table to think of a word that matches the round card's goal.
-                Remember: it's how the word sounds, not spelling!
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Place Cards Face Down</h3>
-              <p>
-                Place your chosen consonant cards face down. Leave the vowels
-                where they are.
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">5</div>
-            <div class="step-content">
-              <h3>Announce Your Score</h3>
-              <p>
-                When everyone's ready, announce your predicted score (add up all
-                cards: Yellow 1, Blue 2, Red 3, Green 4). This locks in your
-                choice!
-              </p>
-              <div class="score-legend">
-                <span class="score-chip chip-yellow"><i>1</i> Yellow</span>
-                <span class="score-chip chip-blue"><i>2</i> Blue</span>
-                <span class="score-chip chip-red"><i>3</i> Red</span>
-                <span class="score-chip chip-green"><i>4</i> Green</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">6</div>
-            <div class="step-content">
-              <h3>Reveal and Defend</h3>
-              <p>
-                Reveal in order from lowest to highest predicted score. Say your
-                word out loud - you might need creative pronunciation!
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">7</div>
-            <div class="step-content">
-              <h3>Challenge Time!</h3>
-              <p>
-                If you doubt someone's word, shout "Say What Now?!". They must
-                defend it! No phones, no looking things up. If the group deems
-                it valid, the points stand. If not, they're out of this round.
-              </p>
-            </div>
-          </div>
-
-          <div class="play-step">
-            <div class="step-number">8</div>
-            <div class="step-content">
-              <h3>Win the Round</h3>
-              <p>
-                Highest valid score that matches the round card wins! Take the
-                round card. First to 4 round cards (3-4 players) or 3 round
-                cards (5+ players) wins the game!
-              </p>
-            </div>
-          </div>
+        <div class="guide-pages">
+          <figure class="guide-page" data-video="assets/how-to-play/guide-1.mp4">
+            <img src="assets/how-to-play/guide-1.webp" width="1020" height="2250" decoding="async" alt="How to play, steps 1 and 2. Each round starts with three flipped vowel cards and one round card, which is your goal for the round. Each player starts with five consonant cards in their hand. Use your consonant cards and the vowels on the table to think of a word that matches the round goal. It is how the word sounds over spelling, so get creative." />
+          </figure>
+          <figure class="guide-page" data-video="assets/how-to-play/guide-2.mp4">
+            <img src="assets/how-to-play/guide-2.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, step 3. Place your chosen consonant cards face down and leave the vowels where they are. When everyone is ready, announce your predicted score to lock in your word. Important: you add the points from the consonants and the vowels you are using. They are found in the corner of the cards." />
+          </figure>
+          <figure class="guide-page" data-video="assets/how-to-play/guide-3.mp4" data-video-alt="How to play, steps 4 and 5, with an animated example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name. Player 2 scores 4. Player 1 tries D-AIR-TCH, the group agrees it is not a word, and Player 1 scores 0. Player 3 says KAYF as Keith in an Australian accent, the group allows it, and Player 3 scores 7 and wins the round card.">
+            <img src="assets/how-to-play/guide-3.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, steps 4 and 5, with an example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. If other players deem it valid the points stand, if not you are out of this round. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name, Player 1 reveals D, AIR and TCH, and the group agrees D-AIR-TCH is not a word, so Player 1 scores 0." />
+          </figure>
+          <figure class="guide-page" data-video="assets/how-to-play/guide-4.mp4">
+            <img src="assets/how-to-play/guide-4.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, step 6 and how to win. The highest value score that matches the objective wins the round and claims the round card. Discard all used consonant cards and the three vowel cards. Each player draws back up to five consonant cards and starts a new round. The game ends when one player reaches the winning number of round cards: 4 round cards with 3 to 4 players, or 3 round cards with 5 to 6 players." />
+          </figure>
         </div>
 
-        <div class="play-callout">
-          <p>
-            <strong>Pro tip:</strong> Creative pronunciation is encouraged!
-            <br />
-            "KAYF" can be "Keith" with an Australian accent. If the group allows
-            it, it's valid!
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Example round -->
-    <section class="example" id="example">
-      <div class="example-inner">
-        <h2>An example round</h2>
-        <p class="section-intro">
-          One round from start to finish. Your cards will be different, but the
-          flow is the same.
+        <p class="guide-download">
+          Want a one-page cheat sheet?
+          <a href="assets/downloads/say-what-now-quick-reference.pdf" target="_blank" rel="noopener">Open the quick reference (PDF)</a>
         </p>
 
-        <!--
-          EXAMPLE ROUND PHOTOS
-          Drop four photos of a real round into /assets/example/ named:
-            1-table.jpg     the 3 vowel cards + round card on the table
-            2-hand.jpg      the 5 consonant cards in your hand
-            3-word.jpg      the cards laid out to make the word
-            4-lock-in.jpg   consonants face down, vowels still on the table
-          A photo that doesn't exist is simply hidden, so nothing breaks
-          in the meantime.
-
-          The wording below is a SAMPLE (KRISP, total of 11). Make it match
-          your photos, and check:
-            - Do the table vowels you use count towards your total?
-              (This sample says yes: K 3 + R 1 + I 4 + S 1 + P 2 = 11)
-            - Do the point colours match your real deck?
-        -->
-        <div class="example-stepper" id="exampleStepper">
-          <ol class="example-stages">
-            <li class="stage">
-              <h3>The table</h3>
-              <figure class="stage-photo">
-                <img src="assets/example/1-table.jpg" alt="Three vowel cards and a round card face up on the table" loading="lazy" onerror="this.parentElement.hidden = true" />
-              </figure>
-              <p>Three vowels (I, A and O) and one round card go face up. The round card is a category: something in a snack cupboard.</p>
-            </li>
-
-            <li class="stage">
-              <h3>Your hand</h3>
-              <figure class="stage-photo">
-                <img src="assets/example/2-hand.jpg" alt="A hand of five consonant cards" loading="lazy" onerror="this.parentElement.hidden = true" />
-              </figure>
-              <p>You hold five consonants: K, R, S, P and T. Time to think about snacks.</p>
-            </li>
-
-            <li class="stage">
-              <h3>The word</h3>
-              <figure class="stage-photo">
-                <img src="assets/example/3-word.jpg" alt="Consonant and vowel cards laid out to spell a word" loading="lazy" onerror="this.parentElement.hidden = true" />
-              </figure>
-              <p>K, R, I, S, P. Say it out loud: "krisp". It sounds like "crisp", and that's a snack. Sound beats spelling.</p>
-            </li>
-
-            <li class="stage">
-              <h3>Lock it in</h3>
-              <figure class="stage-photo">
-                <img src="assets/example/4-lock-in.jpg" alt="Consonant cards face down with the vowel still on the table" loading="lazy" onerror="this.parentElement.hidden = true" />
-              </figure>
-              <p>K, R, S and P go face down. The I stays on the table. Add up the points:</p>
-              <span class="stage-sum">K 3 + R 1 + I 4 + S 1 + P 2 = 11</span>
-              <p>Announce "11". That locks in your choice.</p>
-            </li>
-
-            <li class="stage">
-              <h3>The reveal</h3>
-              <p>Everyone reveals from lowest announced score to highest. Yours is the highest, so you go last. Flip your cards and say your word.</p>
-            </li>
-
-            <li class="stage">
-              <h3>The challenge</h3>
-              <span class="say-what">"Krisp? Say What Now?!"</span>
-              <p>Someone doubts you. Defend it: "It's a crisp. Say it out loud." No phones, no looking things up. The group decides. If your word is valid, your points stand. If not, you're out of this round.</p>
-            </li>
-
-            <li class="stage">
-              <h3>The result</h3>
-              <p>Highest valid score that fits the round card wins. That's you, so take the round card. First to 4 round cards (3-4 players) or 3 round cards (5+ players) wins the game.</p>
-            </li>
+        <details class="text-rules" id="text-rules">
+          <summary>Read the rules as text</summary>
+          <ol>
+            <li>Flip <strong>3 vowel cards</strong> (green) face up for everyone to use.</li>
+            <li>Flip <strong>1 round card</strong> face up. It sets the goal for your word (Category, Question or Construction).</li>
+            <li>Use your consonant cards (purple) and the vowels on the table to think of a word that matches the round card's goal. It's how the word <strong>sounds</strong>, not how it's spelled.</li>
+            <li>Place your chosen consonant cards face down. Leave the vowels where they are.</li>
+            <li>Announce your predicted score. Add up the points in the corner of each card you're using, vowels included (Yellow 1, Blue 2, Red 3, Green 4). This locks in your choice.</li>
+            <li>Reveal from lowest to highest predicted score. Say your word out loud. Creative pronunciation is encouraged.</li>
+            <li>If you doubt someone's word, shout <strong>"Say What Now?!"</strong> They must defend it. No phones, no looking things up. If the group deems it valid, the points stand. If not, they're out of this round. If something has been allowed, that house ruling stands for the rest of the game.</li>
+            <li>The highest valid score that matches the round card wins the round and takes the round card. If players tie, the player who used the most cards wins the round. If that's the same too, the group decides the winner. A dance-off? A rap battle? You decide!</li>
+            <li>Discard the consonant cards that were used and the three vowel cards. Each player draws back up to five consonant cards, then a new round starts.</li>
           </ol>
-
-          <div class="example-controls" hidden>
-            <button type="button" class="btn btn-primary btn-small" id="exampleNext">Next step</button>
-            <span class="example-progress" id="exampleProgress" aria-live="polite"></span>
-            <button type="button" class="btn btn-secondary btn-small" id="exampleToggle">Show all steps</button>
-          </div>
-        </div>
+          <p><strong>Winning:</strong> the game ends when one player reaches 4 round cards (3-4 players) or 3 round cards (5-6 players).</p>
+          <p><strong>Pro tip:</strong> if the group allows a pronunciation, it's valid. Sound beats spelling, so get creative!</p>
+        </details>
       </div>
     </section>
 
-    <!-- Downloads: hidden until the PDFs exist. Remove class="is-hidden" once uploaded to /assets/downloads/ -->
-    <section class="downloads is-hidden" id="downloads">
-      <div class="downloads-inner">
-        <h2>Print it</h2>
-        <div class="download-grid">
-          <a class="download-card" href="assets/downloads/say-what-now-quick-reference.pdf" download>
-            <strong>Quick reference</strong>
-            <span>One page: setup, turn order and scoring.</span>
-          </a>
-          <a class="download-card" href="assets/downloads/say-what-now-rulebook.pdf" download>
-            <strong>Full rulebook</strong>
-            <span>The complete rules to print or save.</span>
-          </a>
-          <a class="download-card" href="assets/downloads/blank-chaos-cards.pdf" download>
-            <strong>Blank Chaos cards</strong>
-            <span>Print, cut out and invent your own.</span>
-          </a>
-        </div>
-      </div>
-    </section>
 
-    <!-- Chaos Cards -->
-    <section class="chaos-cards" id="chaos">
-      <div class="chaos-cards-content">
-        <h2>Chaos Cards</h2>
+
+    <!-- Chaos cards -->
+    <section class="picture-guide chaos-guide" id="chaos">
+      <div class="picture-guide-inner">
+        <h2>Chaos cards</h2>
         <p class="section-intro">
-          Optional cards to add extra mayhem to your game. We love chaos, but we
-          know it's not for everyone!
+          Optional cards to add extra mayhem. Not into chaos? The game works
+          perfectly without them.
         </p>
-
-        <div class="chaos-grid">
-          <div class="chaos-card">
-            <h3>How They Work</h3>
-            <p>
-              Deal 2 Chaos cards to each player at the start. Keep them hidden
-              from opponents. Play one per round to shake things up!
-            </p>
-          </div>
-          <div class="chaos-card">
-            <h3>One-Time Use</h3>
-            <p>
-              Once played or discarded, Chaos cards are removed from the game
-              and never replaced. Use them wisely (or recklessly)!
-            </p>
-          </div>
-          <div class="chaos-card">
-            <h3>Immediate Effect</h3>
-            <p>
-              Chaos cards take effect immediately unless stated otherwise. If
-              multiple are played, resolve them in the order they were played.
-            </p>
-          </div>
+        <div class="guide-pages">
+          <figure class="guide-page" data-video="assets/chaos/chaos.mp4">
+            <img src="assets/chaos/chaos.webp" width="680" height="2300" loading="lazy" decoding="async" alt="Chaos cards, optional gameplay. Not everyone loves chaos, but we do. Rules: 2 hidden Chaos cards per player, one-time use, only 1 per round for each player, and it activates immediately. Have fun whilst ruining lives! Three example cards are shown: Who invited this guy? (if you have the lowest amount of round cards and someone is about to win the entire game, play this and you take that round card), Oops, did I do that? (play this to stop someone winning the round) and Hold that thought (freeze a player, who can't play this round)." />
+          </figure>
         </div>
 
-        <div class="chaos-callout">
-          <h3>Why Add Chaos?</h3>
-          <p>
-            Chaos cards let you mess with other players, steal points, change
-            rules mid-round, and generally cause delightful mayhem. Perfect for
-            groups who love a bit of strategic backstabbing!
-          </p>
-          <p>
-            <strong>Not into chaos?</strong> No problem! The game works
-            perfectly without them. Play your way!
-          </p>
-        </div>
+        <details class="text-rules">
+          <summary>Read the Chaos rules as text</summary>
+          <ol>
+            <li>Deal <strong>2 Chaos cards</strong> to each player at the start. Keep them hidden from opponents.</li>
+            <li>Each player can only play <strong>one per round</strong>.</li>
+            <li>Chaos cards take effect immediately unless stated otherwise. If several are played, resolve them in the order they were played.</li>
+            <li>Once played or discarded, a Chaos card is removed from the game and never replaced.</li>
+          </ol>
+          <p>Chaos cards let you mess with other players, steal points, change rules mid-round and generally cause delightful mayhem. Perfect for groups who love a bit of strategic backstabbing!</p>
+        </details>
       </div>
     </section>
 
