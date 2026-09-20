@@ -1,0 +1,1331 @@
+/* ==========================================================
+   SAY WHAT NOW?! RULES PAGE - additions
+   Load AFTER style.css. Uses the variables defined there
+   (--teal, --peach, --coral, --cream, --ink, --shadow).
+   ========================================================== */
+
+:root {
+  --nav-h: 68px; /* saywhatnow.js sets the real value */
+  --coral-deep: #d94545; /* white text passes contrast on this */
+  --chip-yellow: #f4c542;
+  --chip-blue: #2f73c0;
+  --chip-red: #d1432e;
+  --chip-green: #2e8b57;
+}
+
+.rules-page [hidden],
+.rules-page .is-hidden {
+  display: none !important;
+}
+
+/* Visible keyboard focus everywhere on this page */
+.rules-page a:focus-visible,
+.rules-page button:focus-visible,
+.rules-page input:focus-visible,
+.rules-page select:focus-visible,
+.rules-page textarea:focus-visible,
+.rules-page summary:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Anchored sections land below the sticky nav + jump bar */
+.rules-page section[id] {
+  scroll-margin-top: calc(var(--nav-h) + 64px);
+}
+
+/* Sections on this page manage their own spacing */
+.rules-page section + section {
+  margin-top: 0;
+}
+
+/* ---------- Hero (compact, rules first) ---------- */
+
+.rules-hero {
+  padding: 2.5rem 2rem 3rem;
+}
+
+.rules-hero .game-hero-content {
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 3rem;
+}
+
+.rules-hero .game-hero-image {
+  padding: 1.25rem;
+}
+
+/* ---------- Jump bar ---------- */
+
+.jump-bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 900;
+  background: var(--cream);
+  border-bottom: 2px solid rgba(83, 199, 198, 0.4);
+}
+
+.jump-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.jump-bar-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.jump-bar a {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.95rem;
+  border-radius: 50px;
+  background: white;
+  border: 2px solid var(--teal);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.jump-bar a:hover {
+  background: rgba(83, 199, 198, 0.15);
+}
+
+.jump-bar a.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+
+/* ---------- Score chips (used in quick start + step 5) ---------- */
+
+.score-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+  border-radius: 50px;
+  background: white;
+  border: 2px solid var(--ink);
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+
+.score-chip i {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.chip-yellow i { background: var(--chip-yellow); color: var(--ink); }
+.chip-blue i { background: var(--chip-blue); }
+.chip-red i { background: var(--chip-red); }
+.chip-green i { background: var(--chip-green); }
+
+/* ---------- How to play (existing classes + extras) ---------- */
+
+.rules-page .how-to-play {
+  padding: 4.5rem 2rem;
+}
+
+.rules-page .play-step .step-content {
+  flex: 1;
+}
+
+.step-content .score-legend {
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.step-media {
+  flex: 0 0 240px;
+}
+
+.step-media video,
+.step-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  background: #eee;
+}
+
+/* ---------- Example round ---------- */
+
+.example {
+  padding: 4.5rem 2rem;
+  background: var(--cream);
+}
+
+.example-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.example h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.example .section-intro {
+  margin-bottom: 2rem;
+}
+
+.example-stages {
+  list-style: none;
+  display: grid;
+  gap: 1.25rem;
+  padding: 0;
+}
+
+.stage {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  border-left: 6px solid var(--teal);
+}
+
+.stage h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 0.4rem;
+}
+
+.stage p {
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.stage-sum {
+  display: inline-block;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0.5rem 1rem;
+  background: var(--cream);
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+
+.say-what {
+  display: inline-block;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0.5rem 1.1rem;
+  background: var(--coral-deep);
+  color: white;
+  font-weight: 900;
+  font-size: 1.15rem;
+  border-radius: 20px 20px 20px 4px;
+}
+
+/* Stepper: everything is visible unless JS turns stepping on */
+.example-stepper.is-stepping .stage:not(.is-shown) {
+  display: none;
+}
+
+.example-stepper.is-stepping .stage.is-current {
+  border-left-color: var(--coral-deep);
+  animation: stage-in 0.35s ease-out;
+}
+
+@keyframes stage-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.example-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.example-progress {
+  font-weight: 700;
+  opacity: 0.75;
+  min-width: 6.5rem;
+  text-align: center;
+}
+
+.btn-small {
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+}
+
+.btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------- Downloads (hidden until PDFs exist) ---------- */
+
+.downloads {
+  padding: 3.5rem 2rem;
+  background: white;
+}
+
+.downloads-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.downloads h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.download-card {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--cream);
+  border: 3px solid var(--teal);
+  border-radius: 18px;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.download-card:hover {
+  background: rgba(83, 199, 198, 0.12);
+}
+
+.download-card strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.download-card span {
+  opacity: 0.75;
+  font-size: 0.95rem;
+}
+
+/* ---------- Chaos + box + FAQ spacing (existing look) ---------- */
+
+.rules-page .chaos-cards,
+.rules-page .whats-in-box,
+.rules-page .game-faq {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* ---------- House rules ---------- */
+
+.house-rules {
+  padding: 4.5rem 2rem;
+  background: linear-gradient(135deg, rgba(83, 199, 198, 0.2), rgba(246, 214, 166, 0.4));
+}
+
+.house-rules-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.house-rules h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.house-rules .section-intro {
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+}
+
+.house-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.house-gallery h3,
+.house-form-wrap h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.rules-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.rule-card {
+  background: white;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  border-left: 6px solid var(--coral-deep);
+}
+
+.rule-card.is-featured {
+  border-left-color: var(--teal);
+}
+
+.rule-card h4 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin-bottom: 0.35rem;
+}
+
+.rule-card p {
+  opacity: 0.85;
+  white-space: pre-line;
+  line-height: 1.55;
+}
+
+.rule-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.rule-tag {
+  background: var(--peach);
+  border-radius: 50px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.rule-tag.is-star {
+  background: var(--teal);
+  color: var(--ink);
+}
+
+.rules-empty {
+  background: white;
+  border: 3px dashed var(--teal);
+  border-radius: 18px;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.rules-empty p {
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.rules-empty a {
+  color: var(--coral-deep);
+  font-weight: 900;
+}
+
+.rule-form {
+  background: white;
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.rule-form .btn {
+  width: 100%;
+}
+
+.form-hint {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 0.35rem;
+}
+
+.char-count {
+  text-align: right;
+}
+
+.consent {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+}
+
+.consent input {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+  accent-color: var(--coral-deep);
+}
+
+.rule-form-status {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--coral-deep);
+}
+
+.rule-success {
+  background: white;
+  border-radius: 20px;
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.rule-success h4 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.rule-success p {
+  margin-bottom: 1.25rem;
+  opacity: 0.85;
+}
+
+/* ---------- Buy panel ---------- */
+
+.buy {
+  padding: 4.5rem 2rem;
+  background: var(--cream);
+}
+
+.buy-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  background: white;
+  border: 3px solid var(--teal);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+.buy h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.buy p {
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.buy .buy-note {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin: 1.25rem 0 0;
+}
+
+/* ---------- Thank-you page ---------- */
+
+.thanks {
+  padding: 4rem 2rem;
+  background: radial-gradient(circle at 15% 25%, var(--teal) 0%, transparent 45%),
+              radial-gradient(circle at 85% 75%, var(--peach) 0%, transparent 45%),
+              var(--cream);
+}
+
+.thanks-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.thanks h1 {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.thanks-lead {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.thanks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+
+.thanks-card {
+  display: block;
+  background: white;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  text-decoration: none;
+  color: var(--ink);
+  border-left: 6px solid var(--teal);
+}
+
+.thanks-card strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.thanks-card span {
+  opacity: 0.8;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .house-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .rules-hero {
+    padding: 1.75rem 1.25rem 2.25rem;
+  }
+
+  .rules-hero .game-hero-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .rules-hero .game-hero-image {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .example,
+  .house-rules,
+  .buy,
+  .downloads,
+  .rules-page .how-to-play,
+  .rules-page .chaos-cards,
+  .rules-page .whats-in-box,
+  .rules-page .game-faq {
+    padding: 3.25rem 1.25rem;
+  }
+
+  .step-media {
+    flex-basis: auto;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .step-content .score-legend {
+    justify-content: center;
+  }
+
+  .rule-form,
+  .buy-inner {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .example-stepper.is-stepping .stage.is-current {
+    animation: none;
+  }
+}
+
+/* ---------- No-rulebook note ---------- */
+
+.rules-note {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  background: white;
+  border-left: 6px solid var(--teal);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  line-height: 1.6;
+}
+
+.rules-note a {
+  color: var(--coral-deep);
+  font-weight: 900;
+}
+
+.rules-page .how-to-play .section-intro {
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Example round photos ---------- */
+
+.stage-photo {
+  margin: 1rem 0;
+}
+
+.stage-photo img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+/* ---------- What's in the box: one row of four ---------- */
+
+.rules-page .whats-in-box h2 {
+  margin-bottom: 2.5rem;
+}
+
+.rules-page .box-section {
+  margin-bottom: 0;
+}
+
+.rules-page .box-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 968px) {
+  .rules-page .box-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .rules-page .box-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Footer links (text instead of emoji icons) ---------- */
+
+.rules-page .social-links {
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.rules-page .social-link {
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rules-page .social-link:hover {
+  transform: none;
+  color: var(--peach);
+}
+
+.rules-page .contact-link::after {
+  display: none;
+}
+
+/* ---------- Shop page ---------- */
+
+.shop-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.shop-price strong {
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.shop-price span {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.shop-note {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.rules-page .game-pitch {
+  padding: 4.5rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .rules-page .game-pitch {
+    padding: 3.25rem 1.25rem;
+  }
+}
+
+/* ---------- Shop: product page ---------- */
+
+.product {
+  padding: 1.25rem 2rem 4rem;
+  background: var(--cream);
+}
+
+.product-crumbs {
+  max-width: 1150px;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.product-crumbs a {
+  color: var(--ink);
+}
+
+.product-inner {
+  max-width: 1150px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.gallery {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+}
+
+.gallery-main {
+  background: white;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+.gallery-main img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.gallery-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.gallery-thumbs:has(.gallery-thumb:only-child) {
+  display: none;
+}
+
+.gallery-thumb {
+  width: 84px;
+  height: 64px;
+  padding: 0;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-thumb.is-active {
+  border-color: var(--coral-deep);
+}
+
+.buy-box {
+  background: white;
+  border: 3px solid var(--teal);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+.buy-box h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.buy-box-tagline {
+  font-size: 1.15rem;
+  opacity: 0.8;
+  margin-bottom: 1.25rem;
+}
+
+.buy-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.buy-price strong {
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.buy-price span {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.buy-facts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.buy-facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.buy-facts span {
+  opacity: 0.7;
+}
+
+.btn-buy {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 1.15rem 1.5rem;
+}
+
+.buy-assure {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+.buy-assure li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.buy-assure li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.buy-box .shop-note {
+  margin-top: 1rem;
+}
+
+/* About + details */
+
+.about-game {
+  padding: 4rem 2rem;
+  background: white;
+}
+
+.about-game-inner {
+  max-width: 1150px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-game h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.about-game-text p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+.about-game-text a {
+  color: var(--coral-deep);
+  font-weight: 900;
+}
+
+.about-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: grid;
+  gap: 0.6rem;
+  max-width: 62ch;
+}
+
+.about-points li {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  line-height: 1.5;
+}
+
+.details-card {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.details-card h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-table th,
+.details-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.65rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-table th {
+  width: 34%;
+  font-weight: 700;
+  opacity: 0.7;
+  padding-right: 1rem;
+}
+
+/* Delivery */
+
+.delivery-info {
+  padding: 3.5rem 2rem;
+  background: var(--cream);
+}
+
+.delivery-info-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.delivery-info h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.delivery-info p {
+  margin-bottom: 0.85rem;
+  line-height: 1.7;
+}
+
+.delivery-info a {
+  color: var(--coral-deep);
+  font-weight: 900;
+}
+
+/* Testimonials, more games (shop page) */
+
+.rules-page .testimonials {
+  padding: 4rem 2rem;
+}
+
+.rules-page .testimonials h2 {
+  margin-bottom: 2rem;
+}
+
+.more-games {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.more-games h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.more-games .games-grid {
+  margin-top: 0;
+}
+
+.more-games .game-image {
+  height: 200px;
+}
+
+/* Sticky mobile buy bar */
+
+.sticky-buy {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .product-inner,
+  .about-game-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .gallery {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .product {
+    padding: 1rem 1.25rem 3rem;
+  }
+
+  .about-game,
+  .delivery-info,
+  .more-games,
+  .rules-page .testimonials {
+    padding: 3rem 1.25rem;
+  }
+
+  .buy-box {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .sticky-buy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 950;
+    padding: 0.75rem 1rem;
+    background: white;
+    border-top: 3px solid var(--teal);
+    box-shadow: 0 -6px 20px var(--shadow);
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: transform 0.25s ease, visibility 0.25s;
+  }
+
+  .sticky-buy.is-visible {
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .sticky-buy-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .sticky-buy-text span {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  .sticky-buy .btn {
+    padding: 0.85rem 1.5rem;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+}
+
+/* Delivery and returns headings, buy box link */
+
+.delivery-info h3 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin: 1.5rem 0 0.4rem;
+}
+
+.buy-assure a {
+  color: var(--coral-deep);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Cancellation form */
+
+.cancel-form {
+  margin: 1rem 0;
+  background: white;
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.cancel-form summary {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.cancel-form p {
+  margin: 0.6rem 0 0;
+  line-height: 1.6;
+}
+
+.cancel-steps {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.4rem;
+}
+
+.cancel-steps li {
+  margin-bottom: 0.6rem;
+  line-height: 1.7;
+}
+
+.cancel-form .btn {
+  margin-top: 1rem;
+}
+
+/* Buttons inside the delivery section keep white text (the link colour rule was overriding it) */
+.delivery-info a.btn-primary {
+  color: white;
+  text-decoration: none;
+}
+
+/* ---------- Legal pages ---------- */
+
+.legal {
+  padding: 3rem 2rem 4rem;
+  background: var(--cream);
+}
+
+.legal-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.legal h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.legal-updated {
+  opacity: 0.7;
+  margin-bottom: 2rem;
+}
+
+.legal h2 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin: 2.25rem 0 0.6rem;
+}
+
+.legal p,
+.legal li {
+  line-height: 1.75;
+}
+
+.legal p {
+  margin-bottom: 0.9rem;
+}
+
+.legal ul,
+.legal ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.legal li {
+  margin-bottom: 0.5rem;
+}
+
+.legal a {
+  color: var(--coral-deep);
+  font-weight: 700;
+}
+
+.legal-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.legal-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+}
+
+.legal-table thead th {
+  background: var(--peach);
+  font-weight: 900;
+}
+
+.legal-table tbody th {
+  font-weight: 900;
+}
+
+.shop-note a {
+  color: var(--coral-deep);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .legal {
+    padding: 2rem 1.25rem 3rem;
+  }
+}

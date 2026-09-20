@@ -3,9 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Say What Now?! • Casa Tea Games</title>
+    <title>Say What Now?! Rules &amp; How to Play • Casa Tea Games</title>
+    <meta
+      name="description"
+      content="How to play Say What Now?!, the word-party game where pronunciation beats spelling. Quick start, full rules, an example round and player house rules."
+    />
+    <link rel="canonical" href="https://casateagames.co.uk/say-what-now" />
+    <meta property="og:title" content="Say What Now?! Rules &amp; How to Play" />
+    <meta
+      property="og:description"
+      content="The word-party game where pronunciation beats spelling. Learn to play in a minute."
+    />
+    <meta
+      property="og:image"
+      content="https://casateagames.co.uk/assets/saywhatnowmain.png"
+    />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="saywhatnow.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,16 +28,17 @@
       rel="stylesheet"
     />
   </head>
-  <body id="top">
-      <nav>
+  <body id="top" class="rules-page">
+    <nav>
       <div class="nav-content">
         <a href="#top" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
-          Casa Tea Games
+          Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
         <div class="nav-links" id="navLinks">
           <a href="index.html#games">Games</a>
+          <a href="shop.html">Shop</a>
           <a href="index.html#about">About</a>
           <a href="index.html#conventions">Events</a>
           <a href="index.html#updates">Updates</a>
@@ -32,39 +48,33 @@
       </div>
     </nav>
 
-    <!- Game Hero ->
-    <section class="game-hero">
+    <!-- Hero: rules first -->
+    <section class="game-hero rules-hero">
       <div class="game-hero-content">
         <div class="game-hero-text">
           <div class="breadcrumb">
             <a href="index.html">← Back to all games</a>
           </div>
-          <h1>Say What Now?!</h1>
+          <h1>Say What Now?!<span class="tm">&reg;</span></h1>
           <p class="game-tagline">
-            The word-party game where pronunciation beats spelling
+            How to play the word-party game where pronunciation beats spelling
           </p>
 
           <div class="game-quick-info">
             <div class="quick-info-item">
-              <span class="info-icon">👥</span>
               <span class="info-text">3-6 players</span>
             </div>
             <div class="quick-info-item">
-              <span class="info-icon">⏱️</span>
               <span class="info-text">30-45 mins</span>
             </div>
             <div class="quick-info-item">
-              <span class="info-icon">🎯</span>
               <span class="info-text">Ages 12+</span>
             </div>
           </div>
 
           <div class="game-cta">
-            <a href="index.html#join" class="btn btn-primary">Notify Me When Available 🔔</a>
-            <div class="countdown-inline">
-              <span class="countdown-label">Status:</span>
-              <span class="countdown-value" id="gameCountdown">🎉 Coming Soon!</span>
-            </div>
+            <a href="#how-to-play" class="btn btn-primary">How to play</a>
+            <a href="#example" class="btn btn-secondary">See an example round</a>
           </div>
         </div>
 
@@ -74,47 +84,44 @@
       </div>
     </section>
 
-    <!- The Pitch ->
-    <section class="game-pitch section-animate">
-      <div class="game-pitch-content">
-        <h2>What's the Big Deal? 🎤</h2>
-        <div class="pitch-grid">
-          <div class="pitch-card">
-            <div class="pitch-icon">🗣️</div>
-            <h3>Sound Over Spelling</h3>
-            <p>
-              Use cards to build words that match prompts. How it sounds
-              matters more than how it's spelled - get creative!
-            </p>
-          </div>
-          <div class="pitch-card">
-            <div class="pitch-icon">😂</div>
-            <h3>"Say What Now?!" Challenges</h3>
-            <p>
-              If someone doubts the validity of your word, they'll shout "Say What Now?!" and you must
-              defend it. No phones, no looking things up - group vote decides!
-            </p>
-          </div>
-          <div class="pitch-card">
-            <div class="pitch-icon">⚡</div>
-            <h3>Strategic Scoring</h3>
-            <p>
-              Cards are worth 1-4 points. You announce your predicted score before revealing the word.
-              Highest valid score wins the round!
-            </p>
-          </div>
-        </div>
+    <!-- Sticky jump bar (a div, not a nav, so it doesn't pick up the site nav styling) -->
+    <div class="jump-bar" role="navigation" aria-label="On this page">
+      <div class="jump-bar-inner">
+        <a href="#how-to-play">How to play</a>
+        <a href="#example">Example round</a>
+        <a href="#chaos">Chaos cards</a>
+        <a href="#house-rules">House rules</a>
+        <a href="#faq">FAQ</a>
       </div>
-    </section>
+    </div>
 
-    <!- How to Play ->
-    <section class="how-to-play section-animate">
+    <!-- How to play -->
+    <section class="how-to-play" id="how-to-play">
       <div class="how-to-play-content">
-        <h2>How to Play 🎲</h2>
+        <h2>How to play</h2>
         <p class="section-intro">
           A hilarious, fast-paced word game where spelling takes a back seat to
           sound!
         </p>
+        <p class="rules-note">
+          There's no paper rulebook in the box. This page is the rulebook, and
+          we've left room for you to bend the rules and make the game your own.
+          Got a house rule you love? <a href="#house-rules">Share it with us.</a>
+        </p>
+
+        <!--
+          OPTIONAL CLIPS: to add a short looping clip to any step, paste this
+          inside that step's <div class="play-step">, after </div> of step-content:
+
+          <div class="step-media">
+            <video autoplay loop muted playsinline preload="metadata" poster="assets/clips/reveal.jpg">
+              <source src="assets/clips/reveal.webm" type="video/webm" />
+              <source src="assets/clips/reveal.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          Or use a photo: <div class="step-media"><img src="assets/clips/step1.jpg" alt="..." /></div>
+        -->
 
         <div class="play-steps">
           <div class="play-step">
@@ -171,6 +178,12 @@
                 cards: Yellow 1, Blue 2, Red 3, Green 4). This locks in your
                 choice!
               </p>
+              <div class="score-legend">
+                <span class="score-chip chip-yellow"><i>1</i> Yellow</span>
+                <span class="score-chip chip-blue"><i>2</i> Blue</span>
+                <span class="score-chip chip-red"><i>3</i> Red</span>
+                <span class="score-chip chip-green"><i>4</i> Green</span>
+              </div>
             </div>
           </div>
 
@@ -221,10 +234,118 @@
       </div>
     </section>
 
-    <!- Chaos Cards ->
-    <section class="chaos-cards section-animate">
+    <!-- Example round -->
+    <section class="example" id="example">
+      <div class="example-inner">
+        <h2>An example round</h2>
+        <p class="section-intro">
+          One round from start to finish. Your cards will be different, but the
+          flow is the same.
+        </p>
+
+        <!--
+          EXAMPLE ROUND PHOTOS
+          Drop four photos of a real round into /assets/example/ named:
+            1-table.jpg     the 3 vowel cards + round card on the table
+            2-hand.jpg      the 5 consonant cards in your hand
+            3-word.jpg      the cards laid out to make the word
+            4-lock-in.jpg   consonants face down, vowels still on the table
+          A photo that doesn't exist is simply hidden, so nothing breaks
+          in the meantime.
+
+          The wording below is a SAMPLE (KRISP, total of 11). Make it match
+          your photos, and check:
+            - Do the table vowels you use count towards your total?
+              (This sample says yes: K 3 + R 1 + I 4 + S 1 + P 2 = 11)
+            - Do the point colours match your real deck?
+        -->
+        <div class="example-stepper" id="exampleStepper">
+          <ol class="example-stages">
+            <li class="stage">
+              <h3>The table</h3>
+              <figure class="stage-photo">
+                <img src="assets/example/1-table.jpg" alt="Three vowel cards and a round card face up on the table" loading="lazy" onerror="this.parentElement.hidden = true" />
+              </figure>
+              <p>Three vowels (I, A and O) and one round card go face up. The round card is a category: something in a snack cupboard.</p>
+            </li>
+
+            <li class="stage">
+              <h3>Your hand</h3>
+              <figure class="stage-photo">
+                <img src="assets/example/2-hand.jpg" alt="A hand of five consonant cards" loading="lazy" onerror="this.parentElement.hidden = true" />
+              </figure>
+              <p>You hold five consonants: K, R, S, P and T. Time to think about snacks.</p>
+            </li>
+
+            <li class="stage">
+              <h3>The word</h3>
+              <figure class="stage-photo">
+                <img src="assets/example/3-word.jpg" alt="Consonant and vowel cards laid out to spell a word" loading="lazy" onerror="this.parentElement.hidden = true" />
+              </figure>
+              <p>K, R, I, S, P. Say it out loud: "krisp". It sounds like "crisp", and that's a snack. Sound beats spelling.</p>
+            </li>
+
+            <li class="stage">
+              <h3>Lock it in</h3>
+              <figure class="stage-photo">
+                <img src="assets/example/4-lock-in.jpg" alt="Consonant cards face down with the vowel still on the table" loading="lazy" onerror="this.parentElement.hidden = true" />
+              </figure>
+              <p>K, R, S and P go face down. The I stays on the table. Add up the points:</p>
+              <span class="stage-sum">K 3 + R 1 + I 4 + S 1 + P 2 = 11</span>
+              <p>Announce "11". That locks in your choice.</p>
+            </li>
+
+            <li class="stage">
+              <h3>The reveal</h3>
+              <p>Everyone reveals from lowest announced score to highest. Yours is the highest, so you go last. Flip your cards and say your word.</p>
+            </li>
+
+            <li class="stage">
+              <h3>The challenge</h3>
+              <span class="say-what">"Krisp? Say What Now?!"</span>
+              <p>Someone doubts you. Defend it: "It's a crisp. Say it out loud." No phones, no looking things up. The group decides. If your word is valid, your points stand. If not, you're out of this round.</p>
+            </li>
+
+            <li class="stage">
+              <h3>The result</h3>
+              <p>Highest valid score that fits the round card wins. That's you, so take the round card. First to 4 round cards (3-4 players) or 3 round cards (5+ players) wins the game.</p>
+            </li>
+          </ol>
+
+          <div class="example-controls" hidden>
+            <button type="button" class="btn btn-primary btn-small" id="exampleNext">Next step</button>
+            <span class="example-progress" id="exampleProgress" aria-live="polite"></span>
+            <button type="button" class="btn btn-secondary btn-small" id="exampleToggle">Show all steps</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Downloads: hidden until the PDFs exist. Remove class="is-hidden" once uploaded to /assets/downloads/ -->
+    <section class="downloads is-hidden" id="downloads">
+      <div class="downloads-inner">
+        <h2>Print it</h2>
+        <div class="download-grid">
+          <a class="download-card" href="assets/downloads/say-what-now-quick-reference.pdf" download>
+            <strong>Quick reference</strong>
+            <span>One page: setup, turn order and scoring.</span>
+          </a>
+          <a class="download-card" href="assets/downloads/say-what-now-rulebook.pdf" download>
+            <strong>Full rulebook</strong>
+            <span>The complete rules to print or save.</span>
+          </a>
+          <a class="download-card" href="assets/downloads/blank-chaos-cards.pdf" download>
+            <strong>Blank Chaos cards</strong>
+            <span>Print, cut out and invent your own.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chaos Cards -->
+    <section class="chaos-cards" id="chaos">
       <div class="chaos-cards-content">
-        <h2>Chaos Cards 💥</h2>
+        <h2>Chaos Cards</h2>
         <p class="section-intro">
           Optional cards to add extra mayhem to your game. We love chaos, but we
           know it's not for everyone!
@@ -232,7 +353,6 @@
 
         <div class="chaos-grid">
           <div class="chaos-card">
-            <div class="chaos-icon">🎴</div>
             <h3>How They Work</h3>
             <p>
               Deal 2 Chaos cards to each player at the start. Keep them hidden
@@ -240,7 +360,6 @@
             </p>
           </div>
           <div class="chaos-card">
-            <div class="chaos-icon">⚡</div>
             <h3>One-Time Use</h3>
             <p>
               Once played or discarded, Chaos cards are removed from the game
@@ -248,7 +367,6 @@
             </p>
           </div>
           <div class="chaos-card">
-            <div class="chaos-icon">🎯</div>
             <h3>Immediate Effect</h3>
             <p>
               Chaos cards take effect immediately unless stated otherwise. If
@@ -272,93 +390,189 @@
       </div>
     </section>
 
-  <!- What's in the Box - Card Design Version ->
-<section class="whats-in-box section-animate">
-  <div class="whats-in-box-content">
-    <h2>What's in the Box? 📦</h2>
-    <p class="box-subtitle">Everything you need for pronunciation-based word mayhem</p>
-    
-    <!- Core Game Components ->
-    <div class="box-section">
-      <h3 class="box-section-title">Core Game Components</h3>
-      <div class="box-grid">
-        
-        <!- Vowel Cards ->
-        <div class="box-item box-item-core">
-          <div class="box-card-image">
-            <img src="assets/cards/vowel-card.png" alt="Vowel Card">
-          </div>
-                            
-          <h3>
-            Vowel Cards
-            <span class="card-count">40</span>
-          </h3>
-          <p>Green cards with vowels - these are shared by all players each round</p>
-        </div>
+    <!-- House rules -->
+    <section class="house-rules" id="house-rules">
+      <div class="house-rules-inner">
+        <h2>House rules</h2>
+        <p class="section-intro">
+          We're Casa Tea Games because we home-brew our games. Every group ends
+          up with its own way of playing, so tell us yours and other players can
+          give it a go.
+        </p>
 
-        <!- Consonant Cards ->
-        <div class="box-item box-item-core">
-          <div class="box-card-image">
-            <img src="assets/cards/consonant-card.png" alt="Consonant Card">
+        <div class="house-grid">
+          <div class="house-gallery">
+            <h3>Rules from players</h3>
+            <div id="houseRulesList" class="rules-list" aria-live="polite">
+              <div class="rules-empty">
+                <p>Loading house rules...</p>
+              </div>
+            </div>
+            <noscript>
+              <div class="rules-empty">
+                <p>House rules need JavaScript to load, but you can still send us yours.</p>
+              </div>
+            </noscript>
           </div>
-          <h3>
-            Consonant Cards
-            <span class="card-count">110</span>
-          </h3>
-          <p>Purple cards with consonants - your hand of 5 cards to build words</p>
-        </div>
 
-        <!- Round Cards ->
-        <div class="box-item box-item-core">
-          <div class="box-card-image">
-            <img src="assets/cards/round-card.png" alt="Round Card">
+          <div class="house-form-wrap" id="house-rule-form">
+            <h3>Share your house rule</h3>
+
+            <form
+              class="rule-form"
+              id="ruleForm"
+              name="house-rule"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="house-rule" />
+              <p style="display: none">
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </p>
+
+              <div class="form-group">
+                <label for="rule-nickname">Your name or nickname *</label>
+                <input
+                  type="text"
+                  id="rule-nickname"
+                  name="nickname"
+                  maxlength="40"
+                  placeholder="Shown next to your rule"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="rule-title">Name your rule *</label>
+                <input
+                  type="text"
+                  id="rule-title"
+                  name="rule_title"
+                  maxlength="60"
+                  placeholder="e.g. The Grandma Clause"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="rule-text">How does it work? *</label>
+                <textarea
+                  id="rule-text"
+                  name="rule_text"
+                  rows="5"
+                  maxlength="600"
+                  placeholder="Explain it so another group could try it tonight..."
+                  required
+                ></textarea>
+                <p class="form-hint char-count" id="ruleCount">0 / 600</p>
+              </div>
+
+              <div class="form-group">
+                <label for="rule-style">Works with</label>
+                <select id="rule-style" name="play_style">
+                  <option value="either">Either way</option>
+                  <option value="standard">Standard game</option>
+                  <option value="chaos">Chaos cards</option>
+                </select>
+              </div>
+
+              <label class="consent">
+                <input type="checkbox" name="consent" value="yes" required />
+                <span>
+                  I'm happy for Casa Tea Games to publish this rule with my name
+                  or nickname, and to use the idea in future games or expansions.
+                </span>
+              </label>
+
+              <button type="submit" class="btn btn-primary" id="ruleSubmit">Send my rule</button>
+              <p class="form-hint">
+                We read every rule before it goes live, so it may take a little
+                while to appear. Our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a> explains how we use your details.
+              </p>
+              <p class="rule-form-status" id="ruleStatus" role="alert"></p>
+            </form>
+
+            <div class="rule-success" id="ruleSuccess" hidden>
+              <h4>Rule received!</h4>
+              <p>
+                Thanks for sharing. If it's a keeper, we'll put it on the wall
+                (Larry will taste-test it first).
+              </p>
+              <button type="button" class="btn btn-secondary btn-small" id="ruleAnother">
+                Send another
+              </button>
+            </div>
           </div>
-          <h3>
-            Round Cards
-            <span class="card-count">50</span>
-          </h3>
-          <p>Rainbow cards with categories, questions, and challenges</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!- Optional Add-Ons ->
-    <div class="box-section">
-      <h3 class="box-section-title">ALSO IN THE BOX</h3>
-      <div class="box-grid-extras">
-        
-        <!- Chaos Cards ->
-        <div class="box-item">
-          <div class="box-card-image">
-            <img src="assets/cards/chaos-card.png" alt="Chaos Card">
+    <!-- What's in the Box -->
+    <section class="whats-in-box" id="box">
+      <div class="whats-in-box-content">
+        <h2>What's in the box?</h2>
+
+        <div class="box-section">
+          <div class="box-grid">
+            <div class="box-item box-item-core">
+              <div class="box-card-image">
+                <img src="assets/cards/vowel-card.png" alt="Vowel Card" />
+              </div>
+              <h3>
+                Vowel Cards
+                <span class="card-count">38</span>
+              </h3>
+              <p>Green cards with vowels - these are shared by all players each round</p>
+            </div>
+
+            <div class="box-item box-item-core">
+              <div class="box-card-image">
+                <img src="assets/cards/consonant-card.png" alt="Consonant Card" />
+              </div>
+              <h3>
+                Consonant Cards
+                <span class="card-count">64</span>
+              </h3>
+              <p>Purple cards with consonants - your hand of 5 cards to build words</p>
+            </div>
+
+            <div class="box-item box-item-core">
+              <div class="box-card-image">
+                <img src="assets/cards/round-card.png" alt="Round Card" />
+              </div>
+              <h3>
+                Round Cards
+                <span class="card-count">42</span>
+              </h3>
+              <p>Rainbow cards with categories, questions, and challenges</p>
+            </div>
+
+            <div class="box-item box-item-core">
+              <div class="box-card-image">
+                <img src="assets/cards/chaos-card.png" alt="Chaos Card" />
+              </div>
+              <h3>
+                Chaos Cards
+                <span class="card-count">24</span>
+              </h3>
+              <p>Optional cards to add extra mayhem (for those who love chaos!)</p>
+              <span class="box-optional-badge">Optional Gameplay</span>
+            </div>
           </div>
-          <h3>
-            Chaos Cards
-            <span class="card-count">16</span>
-          </h3>
-          <p>Optional cards to add extra mayhem (for those who love chaos!)</p>
-          <span class="box-optional-badge">Optional Gameplay</span>
-        </div>
-
-        <!- Rule Book ->
-        <div class="box-item">
-          <div class="box-icon">📖</div>
-          <h3>Rule Book</h3>
-          <p>Simple, clear instructions with examples</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-    <!- FAQ ->
-    <section class="game-faq section-animate">
+    <!-- FAQ -->
+    <section class="game-faq" id="faq">
       <div class="game-faq-content">
-        <h2>Questions About Say What Now?! 🤔</h2>
+        <h2>Questions About Say What Now?!</h2>
 
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
             Do I need to be good at spelling to play?
             <span class="faq-icon">▼</span>
           </button>
@@ -372,7 +586,34 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            Do we have to use the Chaos cards?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              No. Chaos cards are optional, and the game works perfectly without
+              them. Add them if your group loves a bit of strategic backstabbing.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            Can we make up our own rules?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Please do! Home-brewing is what we're all about. Send yours in
+              through the <a href="#house-rules">house rules</a> section and we
+              might share it with other players.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
             Can my kids play this?
             <span class="faq-icon">▼</span>
           </button>
@@ -390,7 +631,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
             How long does a game take?
             <span class="faq-icon">▼</span>
           </button>
@@ -403,7 +644,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
             Is this like other word games?
             <span class="faq-icon">▼</span>
           </button>
@@ -415,72 +656,38 @@
             </p>
           </div>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            When can I buy it?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We're self-funding and selling directly, so there's no crowdfunding wait. Sign up to our mailing list and we'll let you know the moment orders open — you'll be first in the queue!
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!- Final CTA ->
-    <section class="final-cta section-animate">
-      <div class="final-cta-content">
-        <h2>Want to Be First in Line? 🎉</h2>
-        <p>
-          We're self-funding Say What Now?! and selling it directly. Sign up and we'll let you know the moment it's ready to order.
-        </p>
-        <div class="cta-buttons">
-          <a href="index.html#join" class="btn btn-primary">Notify Me When Available 🔔</a>
-          <a href="index.html#join" class="btn btn-secondary">Join Our Email List</a>
-        </div>
-        <p class="cta-note">
-          🎉 Coming soon — directly from us to you!
-        </p>
-      </div>
-    </section>
 
     <footer>
       <div class="footer-content">
         <div class="social-links">
-          <a
-            href="https://www.instagram.com/casateagames/"
-            target="_blank"
-            class="social-link"
-            >📷</a
-          >
-          <a
-            href="https://www.tiktok.com/@casateagames"
-            target="_blank"
-            class="social-link"
-            >🎵</a
-          >
-          <a
-            href="#"
-            onclick="openContactModal(event)"
-            class="social-link contact-link"
-            aria-label="Contact Casa Tea Games"
-            >✉️</a
-          >
+          <a href="https://www.instagram.com/casateagames/" target="_blank" rel="noopener" class="social-link">Instagram</a>
+          <a href="https://www.tiktok.com/@casateagames" target="_blank" rel="noopener" class="social-link">TikTok</a>
+          <!-- href="#contact" (not "#") stops script.js's smooth-scroll handler throwing an error -->
+          <a href="#contact" onclick="openContactModal(event)" class="social-link contact-link">Contact us</a>
         </div>
         <p class="footer-tagline">
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
         <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games • Built by two humans and one very good dog
+          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        </p>
+        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+          Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
+          Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
+          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+        </p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem">
+          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
+          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
         </p>
       </div>
     </footer>
 
-    <!- Contact Modal ->
+    <!-- Contact Modal (unchanged) -->
     <div class="contact-modal" id="contactModal">
       <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
       <div class="contact-modal-content">
@@ -493,7 +700,7 @@
         </button>
 
         <div class="contact-modal-header">
-          <h2>Get in Touch! 💬</h2>
+          <h2>Get in Touch!</h2>
           <p>
             Have a question? Want to playtest? Just want to say hi? We'd love to
             hear from you!
@@ -559,11 +766,13 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary">Send Message 🚀</button>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; text-align: center">
+            We'll use your details to reply to you. See our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a>.
+          </p>
         </form>
 
         <div class="contact-success" id="contactSuccess">
-          <div class="success-icon">🎉</div>
           <h3>Message Sent!</h3>
           <p>
             Thanks for reaching out! We'll get back to you soon (probably with
@@ -577,5 +786,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="saywhatnow.js"></script>
   </body>
 </html>
