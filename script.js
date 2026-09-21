@@ -56,8 +56,8 @@
   }
 
   function openContactModal(e) {
+    if (!contactModal) return; // no modal on this page: let the mailto: link work
     if (e) e.preventDefault();
-    if (!contactModal) return;
     lastFocused = document.activeElement;
     contactModal.classList.add('active');
     document.body.style.overflow = 'hidden'; // stop the page scrolling behind it
@@ -105,8 +105,14 @@
         form.style.display = 'none';
         if (success) {
           success.style.display = 'block';
+          var successHeading = success.querySelector('h3');
           var closeBtn = success.querySelector('button');
-          if (closeBtn) closeBtn.focus();
+          if (successHeading) {
+            successHeading.setAttribute('tabindex', '-1');
+            successHeading.focus();
+          } else if (closeBtn) {
+            closeBtn.focus();
+          }
         }
       })
       .catch(function () {
@@ -157,6 +163,14 @@
     button.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
+  // Tie each FAQ button to the answer it opens
+  Array.prototype.forEach.call(document.querySelectorAll('.faq-question'), function (btn, i) {
+    var answer = btn.nextElementSibling;
+    if (!answer) return;
+    if (!answer.id) answer.id = 'faq-answer-' + (i + 1);
+    btn.setAttribute('aria-controls', answer.id);
+  });
+
   // ---------- Smooth scroll for in-page links ----------
   Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function (anchor) {
     if (anchor.classList.contains('skip-link')) return; // native jump keeps keyboard focus right
@@ -195,7 +209,9 @@
             }
           });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+        // threshold 0 on purpose: a section taller than ~6.7 screens can never be
+        // 15% visible (high zoom, landscape phones), and would stay hidden.
+        { threshold: 0, rootMargin: '0px 0px -50px 0px' }
       );
       animated.forEach(function (s) { revealObserver.observe(s); });
     } else {

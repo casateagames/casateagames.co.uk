@@ -252,13 +252,21 @@
   // while it is on screen. Nothing is requested until then.
   var guidePages = Array.prototype.slice.call(document.querySelectorAll('.guide-page[data-video]'));
   if (guidePages.length && hasIO && !reduceMotion) {
+    var motionPaused = false;
+    var guideVideos = [];
+
+    var playVideo = function (v) {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+
     var playObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           var v = entry.target;
-          if (entry.isIntersecting) {
-            var p = v.play();
-            if (p && p.catch) p.catch(function () {});
+          v.setAttribute('data-on-screen', entry.isIntersecting ? 'true' : 'false');
+          if (entry.isIntersecting && !motionPaused) {
+            playVideo(v);
           } else {
             v.pause();
           }
@@ -293,12 +301,14 @@
       // If the file is missing or won't play, put the still image back
       video.addEventListener('error', function () {
         playObserver.unobserve(video);
+        guideVideos = guideVideos.filter(function (g) { return g !== video; });
         if (video.parentNode) video.parentNode.replaceChild(img, video);
       });
 
       video.src = fig.getAttribute('data-video');
       fig.replaceChild(video, img);
       playObserver.observe(video);
+      guideVideos.push(video);
     };
 
     var swapObserver = new IntersectionObserver(
@@ -314,5 +324,30 @@
     guidePages.forEach(function (fig) {
       swapObserver.observe(fig);
     });
+
+    // The animations loop, so give people a way to stop them (WCAG 2.2.2).
+    // One button covers every animated guide on the page.
+    var guideList = guidePages[0].parentNode;
+    if (guideList && guideList.parentNode) {
+      var motionWrap = document.createElement('p');
+      motionWrap.className = 'guide-motion';
+      var motionBtn = document.createElement('button');
+      motionBtn.type = 'button';
+      motionBtn.className = 'btn btn-secondary btn-small';
+      motionBtn.textContent = 'Pause animations';
+      motionBtn.addEventListener('click', function () {
+        motionPaused = !motionPaused;
+        motionBtn.textContent = motionPaused ? 'Play animations' : 'Pause animations';
+        guideVideos.forEach(function (v) {
+          if (motionPaused) {
+            v.pause();
+          } else if (v.getAttribute('data-on-screen') === 'true') {
+            playVideo(v);
+          }
+        });
+      });
+      motionWrap.appendChild(motionBtn);
+      guideList.parentNode.insertBefore(motionWrap, guideList);
+    }
   }
 })();

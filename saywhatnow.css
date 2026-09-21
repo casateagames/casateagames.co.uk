@@ -1023,6 +1023,12 @@
   margin-top: 1.75rem;
 }
 
+/* Pause/play button for the looping guide animations (added by saywhatnow.js) */
+.guide-motion {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
 @media (max-width: 768px) {
   .picture-guide {
     padding: 2.5rem 1rem;
