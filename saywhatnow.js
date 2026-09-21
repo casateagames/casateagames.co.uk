@@ -1,12 +1,14 @@
 // ===================================================
-// SAY WHAT NOW?! RULES PAGE
-// Load AFTER script.js. Nothing here edits script.js.
+// RULES PAGE + SHOP PAGE
+// Load AFTER script.js (it reuses window.submitNetlifyForm).
+// Each block only runs if its elements exist on the page.
 // ===================================================
 (function () {
   'use strict';
 
   var reduceMotion =
     window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
   // ---------- 1. Keep the jump bar under the site nav ----------
   var siteNav = document.querySelector('nav');
@@ -27,7 +29,7 @@
     if (target) sectionToLink.set(target, link);
   });
 
-  if ('IntersectionObserver' in window && sectionToLink.size) {
+  if (hasIO && sectionToLink.size) {
     var jumpObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -56,117 +58,7 @@
     });
   }
 
-  // ---------- 3. Stripe guard ----------
-  // Anything marked data-needs-stripe starts hidden and only appears once
-  // the Payment Link no longer contains REPLACE_ME.
-  var stripeLinks = Array.prototype.slice.call(document.querySelectorAll('[data-stripe-link]'));
-  var stripeReady =
-    stripeLinks.length > 0 &&
-    stripeLinks.every(function (a) {
-      var href = a.getAttribute('href') || '';
-      // must be a real Stripe link, and not a sandbox/test one (those contain /test_)
-      return (
-        href.indexOf('REPLACE_ME') === -1 &&
-        href.indexOf('https://buy.stripe.com/') === 0 &&
-        href.indexOf('/test_') === -1
-      );
-    });
-  if (!document.querySelector('[data-needs-stripe]')) {
-    // nothing on this page depends on the Stripe link
-  } else if (stripeReady) {
-    document.querySelectorAll('[data-needs-stripe]').forEach(function (el) {
-      el.classList.remove('is-hidden');
-    });
-  } else if (window.console) {
-    console.info('Say What Now: Buy button hidden until a live Stripe Payment Link (not a test one) is added in say-what-now.html.');
-  }
-
-  // ---------- 4. FAQ: keep aria-expanded in step with the existing toggle ----------
-  document.querySelectorAll('.faq-question').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btn.setAttribute('aria-expanded', btn.parentElement.classList.contains('open') ? 'true' : 'false');
-    });
-  });
-
-  // ---------- 5. Optional step clips: play only when visible, respect reduced motion ----------
-  var clips = Array.prototype.slice.call(document.querySelectorAll('.step-media video'));
-  if (clips.length) {
-    if (reduceMotion) {
-      clips.forEach(function (v) {
-        v.removeAttribute('autoplay');
-        v.pause();
-        v.controls = true;
-      });
-    } else if ('IntersectionObserver' in window) {
-      var clipObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              var p = entry.target.play();
-              if (p && p.catch) p.catch(function () {});
-            } else {
-              entry.target.pause();
-            }
-          });
-        },
-        { threshold: 0.4 }
-      );
-      clips.forEach(function (v) {
-        v.pause();
-        clipObserver.observe(v);
-      });
-    }
-  }
-
-  // ---------- 6. Example round: step through it ----------
-  var stepper = document.getElementById('exampleStepper');
-  if (stepper) {
-    var stages = Array.prototype.slice.call(stepper.querySelectorAll('.stage'));
-    var controls = stepper.querySelector('.example-controls');
-    var nextBtn = document.getElementById('exampleNext');
-    var toggleBtn = document.getElementById('exampleToggle');
-    var progress = document.getElementById('exampleProgress');
-    var current = 0;
-    var stepping = true;
-
-    var renderStepper = function () {
-      stepper.classList.toggle('is-stepping', stepping);
-      stages.forEach(function (stage, i) {
-        stage.classList.toggle('is-shown', i <= current);
-        stage.classList.toggle('is-current', stepping && i === current);
-      });
-      var atEnd = current >= stages.length - 1;
-      progress.textContent = stepping ? 'Step ' + (current + 1) + ' of ' + stages.length : '';
-      nextBtn.hidden = !stepping;
-      nextBtn.textContent = atEnd ? 'Start again' : 'Next step';
-      toggleBtn.textContent = stepping ? 'Show all steps' : 'Step through it';
-    };
-
-    nextBtn.addEventListener('click', function () {
-      if (current >= stages.length - 1) {
-        current = 0;
-        var top = stepper.getBoundingClientRect().top + window.scrollY - 140;
-        window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
-      } else {
-        current += 1;
-      }
-      renderStepper();
-      if (current > 0) {
-        stages[current].scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
-      }
-    });
-
-    toggleBtn.addEventListener('click', function () {
-      stepping = !stepping;
-      if (stepping) current = 0;
-      renderStepper();
-    });
-
-    controls.hidden = false;
-    renderStepper();
-  }
-
-  // ---------- 7. House rules gallery ----------
+  // ---------- 3. House rules gallery ----------
   var list = document.getElementById('houseRulesList');
 
   function el(tag, className, text) {
@@ -176,13 +68,20 @@
     return node;
   }
 
-  function emptyState() {
+  function messageBox(text, linkText) {
     var box = el('div', 'rules-empty');
-    box.appendChild(el('p', '', 'No house rules on the wall yet. Yours could be the first.'));
-    var link = el('a', '', 'Share your house rule');
-    link.href = '#house-rule-form';
-    box.appendChild(link);
+    box.appendChild(el('p', '', text));
+    if (linkText) {
+      var link = el('a', '', linkText);
+      link.href = '#house-rule-form';
+      box.appendChild(link);
+    }
     return box;
+  }
+
+  function showInList(node) {
+    list.textContent = '';
+    list.appendChild(node);
   }
 
   var styleLabels = { standard: 'Standard game', chaos: 'Chaos cards', either: 'Either way' };
@@ -203,11 +102,11 @@
   }
 
   function renderRules(rules) {
-    list.textContent = '';
     if (!Array.isArray(rules) || rules.length === 0) {
-      list.appendChild(emptyState());
+      showInList(messageBox('No house rules on the wall yet. Yours could be the first.', 'Share your house rule'));
       return;
     }
+    list.textContent = '';
     rules
       .slice()
       .sort(function (a, b) {
@@ -219,6 +118,9 @@
   }
 
   if (list) {
+    // The "Loading" message is added here, not in the HTML, so visitors
+    // without JS see the <noscript> message instead of a spinner that never ends.
+    showInList(messageBox('Loading house rules...'));
     fetch('/house-rules.json', { cache: 'no-cache' })
       .then(function (res) {
         if (!res.ok) throw new Error('No rules file');
@@ -226,11 +128,16 @@
       })
       .then(renderRules)
       .catch(function () {
-        renderRules([]);
+        showInList(
+          messageBox(
+            "We couldn't load the house rules just now. Try refreshing the page, or send us yours.",
+            'Share your house rule'
+          )
+        );
       });
   }
 
-  // ---------- 8. House rule submission (Netlify Forms) ----------
+  // ---------- 4. House rule submission (Netlify Forms) ----------
   var form = document.getElementById('ruleForm');
   if (form) {
     var status = document.getElementById('ruleStatus');
@@ -252,15 +159,13 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(form)).toString(),
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('Status ' + res.status);
+      window
+        .submitNetlifyForm(form)
+        .then(function () {
           form.hidden = true;
           success.hidden = false;
+          var heading = success.querySelector('h4');
+          if (heading) heading.focus();
           success.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
         })
         .catch(function () {
@@ -282,7 +187,7 @@
     });
   }
 
-  // ---------- 9. Shop: product gallery ----------
+  // ---------- 5. Shop: product gallery ----------
   var gallery = document.getElementById('gallery');
   if (gallery) {
     var mainImg = document.getElementById('galleryMain');
@@ -300,10 +205,21 @@
     });
   }
 
-  // ---------- 10. Shop: sticky buy bar on phones ----------
+  // ---------- 6. Shop: one Payment Link, three buttons ----------
+  // Edit the link on the main Buy button (inside #buyBox); the other buttons
+  // marked data-buy copy it on load. They also carry the same href in the HTML
+  // so they still work without JS.
+  var mainBuy = document.querySelector('#buyBox [data-buy]');
+  if (mainBuy) {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-buy]'), function (a) {
+      a.href = mainBuy.href;
+    });
+  }
+
+  // ---------- 7. Shop: sticky buy bar on phones ----------
   var stickyBuy = document.getElementById('stickyBuy');
   var buyBox = document.getElementById('buyBox');
-  if (stickyBuy && buyBox && 'IntersectionObserver' in window) {
+  if (stickyBuy && buyBox && hasIO) {
     var boxGone = false;
     var bottomBuyDone = false;
     var updateSticky = function () {
@@ -329,52 +245,74 @@
     }
   }
 
-  // ---------- 11. Picture guide: use animated MP4s when they exist ----------
-  // Each .guide-page has a data-video path. If that file exists, the still image is
-  // swapped for a muted looping video that only plays while it's on screen.
-  var guidePages = document.querySelectorAll('.guide-page[data-video]');
-  if (guidePages.length && !reduceMotion && window.fetch) {
-    var guideObserver =
-      'IntersectionObserver' in window
-        ? new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (entry) {
-                var v = entry.target;
-                if (entry.isIntersecting) {
-                  var p = v.play();
-                  if (p && p.catch) p.catch(function () {});
-                } else {
-                  v.pause();
-                }
-              });
-            },
-            { threshold: 0.35 }
-          )
-        : null;
+  // ---------- 8. Picture guide: swap in the animated MP4s ----------
+  // Each .guide-page has a data-video path. The still image stays in the HTML
+  // (lazy-loaded, and the fallback if the video won't load). When a figure gets
+  // near the screen it is swapped for a muted looping video, which only plays
+  // while it is on screen. Nothing is requested until then.
+  var guidePages = Array.prototype.slice.call(document.querySelectorAll('.guide-page[data-video]'));
+  if (guidePages.length && hasIO && !reduceMotion) {
+    var playObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          var v = entry.target;
+          if (entry.isIntersecting) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            v.pause();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    guidePages.forEach(function (fig) {
-      var url = fig.getAttribute('data-video');
+    var upgrade = function (fig) {
       var img = fig.querySelector('img');
       if (!img) return;
-      fetch(url, { method: 'HEAD' })
-        .then(function (res) {
-          var type = res.headers.get('content-type') || '';
-          if (!res.ok || type.indexOf('video') !== 0) return;
-          var video = document.createElement('video');
-          video.src = url;
-          video.poster = img.currentSrc || img.src;
-          video.muted = true;
-          video.loop = true;
-          video.playsInline = true;
-          video.preload = 'metadata';
-          video.setAttribute('muted', '');
-          video.setAttribute('playsinline', '');
-          video.setAttribute('role', 'img');
-          video.setAttribute('aria-label', fig.getAttribute('data-video-alt') || img.alt);
-          fig.replaceChild(video, img);
-          if (guideObserver) guideObserver.observe(video);
-        })
-        .catch(function () {});
+
+      var video = document.createElement('video');
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('role', 'img');
+      video.setAttribute('aria-label', fig.getAttribute('data-video-alt') || img.alt);
+      video.poster = img.currentSrc || img.src;
+
+      // Same width/height as the image, so the page doesn't jump when it swaps
+      var w = img.getAttribute('width');
+      var h = img.getAttribute('height');
+      if (w && h) {
+        video.width = parseInt(w, 10);
+        video.height = parseInt(h, 10);
+      }
+
+      // If the file is missing or won't play, put the still image back
+      video.addEventListener('error', function () {
+        playObserver.unobserve(video);
+        if (video.parentNode) video.parentNode.replaceChild(img, video);
+      });
+
+      video.src = fig.getAttribute('data-video');
+      fig.replaceChild(video, img);
+      playObserver.observe(video);
+    };
+
+    var swapObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          swapObserver.unobserve(entry.target);
+          upgrade(entry.target);
+        });
+      },
+      { rootMargin: '400px 0px' }
+    );
+    guidePages.forEach(function (fig) {
+      swapObserver.observe(fig);
     });
   }
 })();

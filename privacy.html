@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,23 +7,33 @@
     <meta name="description" content="How Casa Tea Games Ltd collects and uses your personal information." />
     <link rel="canonical" href="https://casateagames.co.uk/privacy" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/fonts/nunito-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="saywhatnow.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body id="top" class="rules-page">
-    <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <nav aria-label="Main">
       <div class="nav-content">
         <a href="index.html" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
           Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          onclick="toggleMenu()"
+          aria-label="Menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >☰</button>
         <div class="nav-links" id="navLinks">
           <a href="index.html#games">Games</a>
           <a href="shop.html">Shop</a>
@@ -35,17 +45,10 @@
       </div>
     </nav>
 
-    <main class="legal">
+    <main class="legal" id="main">
       <div class="legal-inner">
-        <!--
-          DRAFT - please read through and check before relying on it. It should describe what you actually do:
-          - Retention periods below (6 years for orders, 12 months for enquiries) are suggestions - change them to match your practice.
-          - "No cookies for analytics or advertising" - confirm in your browser's developer tools before publishing.
-          - Mailing list: add the name of your email tool if you use one (e.g. Mailchimp).
-          - Check whether Casa Tea Games Ltd needs to pay the ICO data protection fee.
-        -->
         <h1>Privacy policy</h1>
-        <p class="legal-updated">Last updated: 20 September 2026</p>
+        <p class="legal-updated">Last updated: 21 September 2026</p>
 
         <p>
           Casa Tea Games Ltd runs casateagames.co.uk. We're the controller of the
@@ -119,13 +122,12 @@
         </ul>
         <p>We don't sell your information.</p>
 
-        <h2>Cookies and fonts</h2>
+        <h2>Cookies</h2>
         <p>
-          Our website doesn't use cookies for analytics or advertising. Our pages
-          load fonts from Google Fonts, which means your browser connects to
-          Google and your IP address is sent to them. Stripe's checkout page,
-          and any links to other websites such as Instagram and TikTok, have
-          their own cookies and privacy policies.
+          Our website doesn't use cookies for analytics or advertising, and the
+          fonts it uses are served from our own site. Stripe's checkout page, and
+          any links to other websites such as Instagram and TikTok, have their
+          own cookies and privacy policies.
         </p>
 
         <h2>Marketing emails</h2>
@@ -195,17 +197,17 @@
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
-        <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        <p class="footer-copy">
+          © 2025–<span data-year>2026</span> Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
         </p>
-        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+        <p class="footer-company">
           Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
           Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
-          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+          Email: <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
         </p>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem">
-          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
-          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
+        <p class="footer-links">
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy policy</a>
         </p>
       </div>
     </footer>

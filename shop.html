@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,8 @@
       content="Buy Say What Now?!, the word-party game where pronunciation beats spelling. 168 cards, 3-6 players, UK delivery included."
     />
     <link rel="canonical" href="https://casateagames.co.uk/shop" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://casateagames.co.uk/shop" />
     <meta property="og:title" content="Buy Say What Now?!" />
     <meta
       property="og:description"
@@ -16,26 +18,37 @@
     />
     <meta
       property="og:image"
-      content="https://casateagames.co.uk/assets/saywhatnowmain.png"
+      content="https://casateagames.co.uk/assets/games/saywhatnowmain.png"
     />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/fonts/nunito-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="saywhatnow.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body id="top" class="rules-page">
-    <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <nav aria-label="Main">
       <div class="nav-content">
         <a href="index.html" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
           Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          onclick="toggleMenu()"
+          aria-label="Menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >☰</button>
         <div class="nav-links" id="navLinks">
           <a href="index.html#games">Games</a>
           <a href="shop.html">Shop</a>
@@ -47,132 +60,126 @@
       </div>
     </nav>
 
-    <!-- Product: gallery on the left, buy box on the right -->
-    <section class="product">
-      <div class="product-crumbs">
-        <a href="index.html">Home</a>
-        <span aria-hidden="true">/</span>
-        <span>Shop</span>
-        <span aria-hidden="true">/</span>
-        <span>Say What Now?!</span>
-      </div>
+    <main id="main">
+      <!-- Product: gallery on the left, buy box on the right -->
+      <section class="product">
+        <div class="product-crumbs">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>Shop</span>
+          <span aria-hidden="true">/</span>
+          <span>Say What Now?!</span>
+        </div>
 
-      <div class="product-inner">
-        <!--
-          PRODUCT PHOTOS
-          The first image is the box art. To add more, drop photos into /assets/shop/
-          named photo-1.jpg, photo-2.jpg, photo-3.jpg, photo-4.jpg (the box, the cards
-          fanned out, the game being played, the contents laid out). Any that don't
-          exist are simply not shown.
-        -->
-        <div class="gallery" id="gallery">
-          <div class="gallery-main">
-            <img id="galleryMain" src="assets/saywhatnowmain.png" alt="Say What Now?! box art" />
+        <div class="product-inner">
+          <!--
+            PRODUCT PHOTOS
+            Only the box art is here for now (the thumbnail row stays hidden while there is
+            just one image). To add photos, put them in /assets/shop/ and add another button
+            below, copying the box-art one and changing data-src, data-alt, aria-label and
+            the img src.
+          -->
+          <div class="gallery" id="gallery">
+            <div class="gallery-main">
+              <img id="galleryMain" src="assets/games/saywhatnowmain.png" alt="Say What Now?! box art" />
+            </div>
+            <div class="gallery-thumbs">
+              <button type="button" class="gallery-thumb is-active" aria-pressed="true" aria-label="Show the box art" data-src="assets/games/saywhatnowmain.png" data-alt="Say What Now?! box art">
+                <img src="assets/games/saywhatnowmain.png" alt="" />
+              </button>
+            </div>
           </div>
-          <div class="gallery-thumbs">
-            <button type="button" class="gallery-thumb is-active" aria-pressed="true" data-src="assets/saywhatnowmain.png" data-alt="Say What Now?! box art">
-              <img src="assets/saywhatnowmain.png" alt="" />
-            </button>
-            <button type="button" class="gallery-thumb" aria-pressed="false" data-src="assets/shop/photo-1.jpg" data-alt="Say What Now?! photo 1">
-              <img src="assets/shop/photo-1.jpg" alt="" onerror="this.parentElement.remove()" />
-            </button>
-            <button type="button" class="gallery-thumb" aria-pressed="false" data-src="assets/shop/photo-2.jpg" data-alt="Say What Now?! photo 2">
-              <img src="assets/shop/photo-2.jpg" alt="" onerror="this.parentElement.remove()" />
-            </button>
-            <button type="button" class="gallery-thumb" aria-pressed="false" data-src="assets/shop/photo-3.jpg" data-alt="Say What Now?! photo 3">
-              <img src="assets/shop/photo-3.jpg" alt="" onerror="this.parentElement.remove()" />
-            </button>
-            <button type="button" class="gallery-thumb" aria-pressed="false" data-src="assets/shop/photo-4.jpg" data-alt="Say What Now?! photo 4">
-              <img src="assets/shop/photo-4.jpg" alt="" onerror="this.parentElement.remove()" />
-            </button>
+
+          <div class="buy-box" id="buyBox">
+            <h1>Say What Now?!<span class="tm">&reg;</span></h1>
+            <p class="buy-box-tagline">
+              The word-party game where pronunciation beats spelling.
+            </p>
+
+            <p class="buy-price">
+              <strong>£20</strong>
+              <span>UK delivery included</span>
+            </p>
+
+            <ul class="buy-facts">
+              <li><span>Players</span><strong>3-6</strong></li>
+              <li><span>Play time</span><strong>30-45 minutes</strong></li>
+              <li><span>Ages</span><strong>12+</strong></li>
+              <li><span>Cards</span><strong>168</strong></li>
+            </ul>
+
+            <!--
+              STRIPE PAYMENT LINK: change it here, on this main button. The bottom "Ready to
+              play?" button and the phone buy bar are marked data-buy too, and saywhatnow.js
+              copies this link onto them. (They keep the same href in the HTML so they still
+              work without JS, so it's worth updating those two as well.)
+            -->
+            <a class="btn btn-primary btn-buy" data-buy href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy now</a>
+
+            <ul class="buy-assure">
+              <li>Posted with Royal Mail Tracked 48, delivery included in the price. <a href="#delivery">Delivery and returns</a></li>
+              <li>Secure checkout by Stripe</li>
+              <li>Rules are online, with a QR code on the box</li>
+            </ul>
+
+            <p class="shop-note">By buying you agree to our <a href="terms.html">terms and conditions</a>. Our <a href="privacy.html">privacy policy</a> explains how we use your information.</p>
+            <p class="shop-note">Kickstarter backer? Use the personal link in your email.</p>
           </div>
         </div>
+      </section>
 
-        <div class="buy-box" id="buyBox">
-          <h1>Say What Now?!<span class="tm">&reg;</span></h1>
-          <p class="buy-box-tagline">
-            The word-party game where pronunciation beats spelling.
-          </p>
+      <!-- About + details -->
+      <section class="about-game">
+        <div class="about-game-inner">
+          <div class="about-game-text">
+            <h2>About the game</h2>
+            <p>
+              Say What Now?! is a word-party game where how a word sounds matters
+              more than how it's spelled. Build a word from your consonant cards
+              and the vowels on the table to match the round card, announce your
+              score, then say it out loud and defend it.
+            </p>
+            <p>
+              If someone doubts your word, they shout "Say What Now?!" and the
+              group decides. No phones, no looking things up. It's quick to
+              learn, and it's even better when you add your own house rules.
+            </p>
+            <ul class="about-points">
+              <li><strong>Sound over spelling.</strong> Get creative with how a word is said.</li>
+              <li><strong>Say What Now?! challenges.</strong> Defend your word or you're out of the round.</li>
+              <li><strong>Strategic scoring.</strong> Cards are worth 1-4 points, and you announce your score before you reveal.</li>
+            </ul>
+            <p>
+              Want the full rules first?
+              <a href="say-what-now.html#how-to-play">Read how to play</a>.
+            </p>
+          </div>
 
-          <p class="buy-price">
-            <strong>£20</strong>
-            <span>UK delivery included</span>
-          </p>
-
-          <ul class="buy-facts">
-            <li><span>Players</span><strong>3-6</strong></li>
-            <li><span>Play time</span><strong>30-45 minutes</strong></li>
-            <li><span>Ages</span><strong>12+</strong></li>
-            <li><span>Cards</span><strong>168</strong></li>
-          </ul>
-
-          <a class="btn btn-primary btn-buy" href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy now</a>
-
-          <ul class="buy-assure">
-            <li>Posted with Royal Mail Tracked 48, delivery included in the price. <a href="#delivery">Delivery and returns</a></li>
-            <li>Secure checkout by Stripe</li>
-            <li>Rules are online, with a QR code on the box</li>
-          </ul>
-
-          <p class="shop-note">By buying you agree to our <a href="terms.html">terms and conditions</a>. Our <a href="privacy.html">privacy policy</a> explains how we use your information.</p>
-          <p class="shop-note">Kickstarter backer? Use the personal link in your email.</p>
+          <div class="details-card">
+            <h3>Details</h3>
+            <table class="details-table">
+              <tbody>
+                <tr><th scope="row">Players</th><td>3-6</td></tr>
+                <tr><th scope="row">Play time</th><td>30-45 minutes</td></tr>
+                <tr><th scope="row">Ages</th><td>12+</td></tr>
+                <tr><th scope="row">In the box</th><td>168 cards: 38 vowel, 64 consonant, 42 round and 24 Chaos</td></tr>
+                <tr><th scope="row">Rules</th><td>Online, with a QR code on the box</td></tr>
+                <tr><th scope="row">Made by</th><td>Casa Tea Games</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- About + details -->
-    <section class="about-game">
-      <div class="about-game-inner">
-        <div class="about-game-text">
-          <h2>About the game</h2>
-          <p>
-            Say What Now?! is a word-party game where how a word sounds matters
-            more than how it's spelled. Build a word from your consonant cards
-            and the vowels on the table to match the round card, announce your
-            score, then say it out loud and defend it.
-          </p>
-          <p>
-            If someone doubts your word, they shout "Say What Now?!" and the
-            group decides. No phones, no looking things up. It's quick to
-            learn, and it's even better when you add your own house rules.
-          </p>
-          <ul class="about-points">
-            <li><strong>Sound over spelling.</strong> Get creative with how a word is said.</li>
-            <li><strong>Say What Now?! challenges.</strong> Defend your word or you're out of the round.</li>
-            <li><strong>Strategic scoring.</strong> Cards are worth 1-4 points, and you announce your score before you reveal.</li>
-          </ul>
-          <p>
-            Want the full rules first?
-            <a href="say-what-now.html#how-to-play">Read how to play</a>.
-          </p>
-        </div>
+      <!-- What's in the box -->
+      <section class="whats-in-box" id="box">
+        <div class="whats-in-box-content">
+          <h2>What's in the box?</h2>
 
-        <div class="details-card">
-          <h3>Details</h3>
-          <table class="details-table">
-            <tbody>
-              <tr><th scope="row">Players</th><td>3-6</td></tr>
-              <tr><th scope="row">Play time</th><td>30-45 minutes</td></tr>
-              <tr><th scope="row">Ages</th><td>12+</td></tr>
-              <tr><th scope="row">In the box</th><td>168 cards: 38 vowel, 64 consonant, 42 round and 24 Chaos</td></tr>
-              <tr><th scope="row">Rules</th><td>Online, with a QR code on the box</td></tr>
-              <tr><th scope="row">Made by</th><td>Casa Tea Games</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- What's in the box -->
-    <section class="whats-in-box" id="box">
-      <div class="whats-in-box-content">
-        <h2>What's in the box?</h2>
-
-        <div class="box-section">
           <div class="box-grid">
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/vowel-card.png" alt="Vowel Card" />
+                <img src="assets/cards/vowel-card.png" alt="Vowel Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Vowel Cards
@@ -183,7 +190,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/consonant-card.png" alt="Consonant Card" />
+                <img src="assets/cards/consonant-card.png" alt="Consonant Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Consonant Cards
@@ -194,7 +201,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/round-card.png" alt="Round Card" />
+                <img src="assets/cards/round-card.png" alt="Round Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Round Cards
@@ -205,7 +212,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/chaos-card.png" alt="Chaos Card" />
+                <img src="assets/cards/chaos-card.png" alt="Chaos Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Chaos Cards
@@ -216,232 +223,227 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!--
-      TODO before you share this page widely (not legal advice - please check):
-      - link your terms and privacy policy
-      - if you're away or at an event, change the "5 working days" line to match
-    -->
-    <section class="delivery-info" id="delivery">
-      <div class="delivery-info-inner">
-        <h2>Delivery and returns</h2>
+      <!-- If you're away or at an event, change the "5 working days" line below to match -->
+      <section class="delivery-info" id="delivery">
+        <div class="delivery-info-inner">
+          <h2>Delivery and returns</h2>
 
-        <h3>Delivery</h3>
-        <p>
-          We post orders within 5 working days, by Royal Mail Tracked 48. It
-          aims to deliver within 2 to 3 working days of posting, though that
-          isn't guaranteed and it may take longer to some areas, including
-          Northern Ireland and the Scottish Highlands and Islands. UK delivery
-          is included in the price.
-        </p>
+          <h3>Delivery</h3>
+          <p>
+            We post orders within 5 working days, by Royal Mail Tracked 48. It
+            aims to deliver within 2 to 3 working days of posting, though that
+            isn't guaranteed and it may take longer to some areas, including
+            Northern Ireland and the Scottish Highlands and Islands. UK delivery
+            is included in the price.
+          </p>
 
-        <h3>Cancelling your order</h3>
-        <p>You can cancel for any reason within 14 days of receiving your game.</p>
-        <ol class="cancel-steps">
-          <li>
-            Email <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
-            to tell us you want to cancel. You can use the form below, but you
-            don't have to.
-          </li>
-          <li>
-            We'll reply with the address to send the game back to. Please don't
-            post anything to our registered office address.
-          </li>
-          <li>
-            Post the game back within 14 days of telling us. You pay the return
-            postage, so we suggest a tracked service. Please email us your
-            tracking number or proof of postage.
-          </li>
-          <li>
-            We'll refund what you paid for your order within 14 days of getting
-            the game back (or of you sending us proof of postage, if that's
-            sooner). Delivery is already included in the price, so there's
-            nothing extra to refund. We can't refund your return postage.
-          </li>
-        </ol>
-        <p>
-          Please return the game complete and undamaged, as we may reduce the
-          refund if cards are missing or damaged.
-        </p>
+          <h3>Cancelling your order</h3>
+          <p>You can cancel for any reason within 14 days of receiving your game.</p>
+          <ol class="cancel-steps">
+            <li>
+              Email <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
+              to tell us you want to cancel. You can use the form below, but you
+              don't have to.
+            </li>
+            <li>
+              We'll reply with the address to send the game back to. Please don't
+              post anything to our registered office address.
+            </li>
+            <li>
+              Post the game back within 14 days of telling us. You pay the return
+              postage, so we suggest a tracked service. Please email us your
+              tracking number or proof of postage.
+            </li>
+            <li>
+              We'll refund what you paid for your order within 14 days of getting
+              the game back (or of you sending us proof of postage, if that's
+              sooner). Delivery is already included in the price, so there's
+              nothing extra to refund. We can't refund your return postage.
+            </li>
+          </ol>
+          <p>
+            Please return the game complete and undamaged, as we may reduce the
+            refund if cards are missing or damaged.
+          </p>
 
+          <details class="cancel-form">
+            <summary>Cancellation form</summary>
+            <p>You can use this form to cancel your order, but you don't have to. Any clear email will do.</p>
+            <p>To: Casa Tea Games Ltd, Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom (email: casateagames@gmail.com)</p>
+            <p>I hereby give notice that I cancel my contract of sale of the following goods: Say What Now?!</p>
+            <p>Ordered on / received on: ______________</p>
+            <p>Name of consumer(s): ______________</p>
+            <p>Address of consumer(s): ______________</p>
+            <p>Signature of consumer(s) (only if this form is notified on paper): ______________</p>
+            <p>Date: ______________</p>
+            <a class="btn btn-primary btn-small" href="mailto:casateagames@gmail.com?subject=Cancellation%20of%20my%20Say%20What%20Now%3F%21%20order&body=I%20hereby%20give%20notice%20that%20I%20cancel%20my%20contract%20of%20sale%20of%20the%20following%20goods%3A%20Say%20What%20Now%3F%21%0D%0A%0D%0AOrdered%20on%20%2F%20received%20on%3A%20%0D%0AName%3A%20%0D%0AAddress%3A%20%0D%0ADate%3A%20">Email us to cancel</a>
+          </details>
 
-        <details class="cancel-form">
-          <summary>Cancellation form</summary>
-          <p>You can use this form to cancel your order, but you don't have to. Any clear email will do.</p>
-          <p>To: Casa Tea Games Ltd, Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom (email: casateagames@gmail.com)</p>
-          <p>I hereby give notice that I cancel my contract of sale of the following goods: Say What Now?!</p>
-          <p>Ordered on / received on: ______________</p>
-          <p>Name of consumer(s): ______________</p>
-          <p>Address of consumer(s): ______________</p>
-          <p>Signature of consumer(s) (only if this form is notified on paper): ______________</p>
-          <p>Date: ______________</p>
-          <a class="btn btn-primary btn-small" href="mailto:casateagames@gmail.com?subject=Cancellation%20of%20my%20Say%20What%20Now%3F%21%20order&body=I%20hereby%20give%20notice%20that%20I%20cancel%20my%20contract%20of%20sale%20of%20the%20following%20goods%3A%20Say%20What%20Now%3F%21%0D%0A%0D%0AOrdered%20on%20%2F%20received%20on%3A%20%0D%0AName%3A%20%0D%0AAddress%3A%20%0D%0ADate%3A%20">Email us to cancel</a>
-        </details>
+          <h3>Faulty or damaged games</h3>
+          <p>
+            If your game arrives damaged or faulty, get in touch and we'll replace
+            it or refund you, and we'll cover the return postage. This is on top
+            of your legal rights.
+          </p>
 
-        <h3>Faulty or damaged games</h3>
-        <p>
-          If your game arrives damaged or faulty, get in touch and we'll replace
-          it or refund you, and we'll cover the return postage. This is on top
-          of your legal rights.
-        </p>
+          <p>
+            Payments are handled by Stripe, so your card details go straight to
+            them and never pass through our website. Questions about an order? Email <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>.
+          </p>
+        </div>
+      </section>
 
-        <p>
-          Payments are handled by Stripe, so your card details go straight to
-          them and never pass through our website. Questions about an order? Email <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>.
-        </p>
-      </div>
-    </section>
-
-    <!-- Playtester quotes -->
-    <section class="testimonials">
-      <h2>What playtesters say</h2>
-      <div class="testimonial-container">
-        <div class="testimonial-grid">
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "Such a fun game to play with friends. Really gets you thinking! 100% play recommendation."
-            </p>
-            <p class="testimonial-author">- Playtester</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "I thought I would suck at this game. Still can't believe I won!"
-            </p>
-            <p class="testimonial-author">- Playtester</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "I can't wait to get my own copy of this for our family game nights"
-            </p>
-            <p class="testimonial-author">- Playtester</p>
+      <!-- Playtester quotes -->
+      <section class="testimonials">
+        <h2>What playtesters say</h2>
+        <div class="testimonial-container">
+          <div class="testimonial-grid">
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "Such a fun game to play with friends. Really gets you thinking! 100% play recommendation."
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "I thought I would suck at this game. Still can't believe I won!"
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "I can't wait to get my own copy of this for our family game nights"
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FAQ -->
-    <section class="game-faq" id="faq">
-      <div class="game-faq-content">
-        <h2>Before you buy</h2>
+      <!-- FAQ -->
+      <section class="game-faq" id="faq">
+        <div class="game-faq-content">
+          <h2>Before you buy</h2>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Is there a rulebook in the box?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              No paper rulebook. The rules live on
-              <a href="say-what-now.html#how-to-play">our rules page</a>, and a
-              QR code on the box takes you straight there. We've left room for
-              you to bend the rules and make the game your own.
-            </p>
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Is there a rulebook in the box?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                No paper rulebook. The rules live on
+                <a href="say-what-now.html#how-to-play">our rules page</a>, and a
+                QR code on the box takes you straight there. We've left room for
+                you to bend the rules and make the game your own.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Do I need to be good at spelling to play?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Absolutely not! That's the whole point. This game is about
+                pronunciation, not spelling. If you can say it confidently, you're
+                golden.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Can my kids play this?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                It depends on your kids! Players need to be comfortable
+                'breaking spelling rules' and defending their choices with
+                confidence. Younger players who are still learning standard
+                spelling might find it confusing rather than fun, but a clever
+                child who loves wordplay might enjoy it.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Where do you deliver?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                We post with Royal Mail Tracked 48 to addresses in the United Kingdom, and delivery is
+                included in the price. See <a href="#delivery">delivery and returns</a> for timings.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Is paying safe?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Payments are handled by Stripe. Your card details go straight to
+                Stripe and never pass through our website.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Do I need to be good at spelling to play?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Absolutely not! That's the whole point. This game is about
-              pronunciation, not spelling. If you can say it confidently, you're
-              golden.
-            </p>
+      <!-- More from us (not buyable yet) -->
+      <section class="more-games">
+        <h2>More from Casa Tea Games</h2>
+        <div class="games-grid">
+          <div class="game-card">
+            <img src="assets/games/project2.png" alt="Secret Project 2" class="game-image" loading="lazy" decoding="async" />
+            <div class="game-content">
+              <span class="game-status status-brewing">In Development</span>
+              <h3 class="game-title">Secret Project #2</h3>
+              <p class="game-desc">
+                We're cooking something up. Expect strategic depth with room for
+                creativity. House rules encouraged.
+              </p>
+              <a href="index.html#join" class="game-link">Get early access →</a>
+            </div>
+          </div>
+          <div class="game-card">
+            <img src="assets/games/project3.png" alt="Secret Project 3" class="game-image" loading="lazy" decoding="async" />
+            <div class="game-content">
+              <span class="game-status status-brewing">Early Stages</span>
+              <h3 class="game-title">Secret Project #3</h3>
+              <p class="game-desc">
+                Still in the "scribbled on a napkin" phase. Quick to learn, fun to
+                master.
+              </p>
+              <a href="index.html#join" class="game-link">Be the first to know →</a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Can my kids play this?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              It depends on your kids! Players need to be comfortable
-              'breaking spelling rules' and defending their choices with
-              confidence. Younger players who are still learning standard
-              spelling might find it confusing rather than fun, but a clever
-              child who loves wordplay might enjoy it.
-            </p>
-          </div>
+      <!-- Bottom buy -->
+      <section class="buy" id="buy">
+        <div class="buy-inner">
+          <h2>Ready to play?</h2>
+          <p>
+            We sell direct, so every copy helps two humans and one very good dog
+            keep making games.
+          </p>
+          <a class="btn btn-primary" data-buy href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy Say What Now?! - £20</a>
+          <p class="buy-note">UK delivery included. Secure checkout by Stripe.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Where do you deliver?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We post with Royal Mail Tracked 48 to addresses in the United Kingdom, and delivery is
-              included in the price. See <a href="#delivery">delivery and returns</a> for timings.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Is paying safe?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Payments are handled by Stripe. Your card details go straight to
-              Stripe and never pass through our website.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- More from us (not buyable yet) -->
-    <section class="more-games">
-      <h2>More from Casa Tea Games</h2>
-      <div class="games-grid">
-        <div class="game-card">
-          <img src="assets/project2.png" alt="Secret Project 2" class="game-image" />
-          <div class="game-content">
-            <span class="game-status status-brewing">In Development</span>
-            <h3 class="game-title">Secret Project #2</h3>
-            <p class="game-desc">
-              We're cooking something up. Expect strategic depth with room for
-              creativity. House rules encouraged.
-            </p>
-            <a href="index.html#join" class="game-link">Get early access →</a>
-          </div>
-        </div>
-        <div class="game-card">
-          <img src="assets/project3.png" alt="Secret Project 3" class="game-image" />
-          <div class="game-content">
-            <span class="game-status status-brewing">Early Stages</span>
-            <h3 class="game-title">Secret Project #3</h3>
-            <p class="game-desc">
-              Still in the "scribbled on a napkin" phase. Quick to learn, fun to
-              master.
-            </p>
-            <a href="index.html#join" class="game-link">Be the first to know →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bottom buy -->
-    <section class="buy" id="buy">
-      <div class="buy-inner">
-        <h2>Ready to play?</h2>
-        <p>
-          We sell direct, so every copy helps two humans and one very good dog
-          keep making games.
-        </p>
-        <a class="btn btn-primary" href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy Say What Now?! - £20</a>
-        <p class="buy-note">UK delivery included. Secure checkout by Stripe.</p>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <!-- Sticky buy bar, shown on phones once the main buy button scrolls out of view -->
     <div class="sticky-buy" id="stickyBuy">
@@ -449,7 +451,7 @@
         <strong>Say What Now?!</strong>
         <span>£20, UK delivery included</span>
       </div>
-      <a class="btn btn-primary" href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy now</a>
+      <a class="btn btn-primary" data-buy href="https://buy.stripe.com/28E7sM7Fb9fFguo1QL1gs01" rel="noopener">Buy now</a>
     </div>
 
     <footer>
@@ -457,41 +459,45 @@
         <div class="social-links">
           <a href="https://www.instagram.com/casateagames/" target="_blank" rel="noopener" class="social-link">Instagram</a>
           <a href="https://www.tiktok.com/@casateagames" target="_blank" rel="noopener" class="social-link">TikTok</a>
-          <a href="#contact" onclick="openContactModal(event)" class="social-link contact-link">Contact us</a>
+          <a href="#contact" onclick="openContactModal(event)" class="social-link">Contact us</a>
         </div>
         <p class="footer-tagline">
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
-        <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        <p class="footer-copy">
+          © 2025–<span data-year>2026</span> Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
         </p>
-        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+        <p class="footer-company">
           Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
           Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
-          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+          Email: <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
         </p>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem">
-          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
-          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
+        <p class="footer-links">
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy policy</a>
         </p>
       </div>
     </footer>
 
-    <!-- Contact Modal (same as the rules page) -->
+    <!-- Contact Modal -->
     <div class="contact-modal" id="contactModal">
       <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
-      <div class="contact-modal-content">
+      <div
+        class="contact-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contactTitle"
+      >
         <button
+          type="button"
           class="contact-modal-close"
           onclick="closeContactModal()"
           aria-label="Close contact form"
-        >
-          ×
-        </button>
+        >×</button>
 
         <div class="contact-modal-header">
-          <h2>Get in Touch!</h2>
+          <h2 id="contactTitle">Get in Touch!</h2>
           <p>
             Have a question? Want to playtest? Just want to say hi? We'd love to
             hear from you!
@@ -507,7 +513,7 @@
           onsubmit="handleContactSubmit(event)"
         >
           <input type="hidden" name="form-name" value="contact" />
-          <p style="display: none">
+          <p hidden>
             <label>
               Don't fill this out if you're human: <input name="bot-field" />
             </label>
@@ -519,7 +525,8 @@
               type="text"
               id="contact-name"
               name="name"
-              placeholder="Matt or Abby (or Larry?)"
+              placeholder="Larry is that you?"
+              autocomplete="name"
               required
             />
           </div>
@@ -531,6 +538,7 @@
               id="contact-email"
               name="email"
               placeholder="you@example.com"
+              autocomplete="email"
               required
             />
           </div>
@@ -558,8 +566,9 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Send Message</button>
-          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; text-align: center">
-            We'll use your details to reply to you. See our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a>.
+          <p class="form-error" role="alert"></p>
+          <p class="form-note">
+            We'll use your details to reply to you. See our <a class="link-inherit" href="privacy.html">privacy policy</a>.
           </p>
         </form>
 
@@ -569,7 +578,7 @@
             Thanks for reaching out! We'll get back to you soon (probably with
             Larry's approval).
           </p>
-          <button class="btn btn-secondary" onclick="closeContactModal()">
+          <button type="button" class="btn btn-secondary" onclick="closeContactModal()">
             Close
           </button>
         </div>

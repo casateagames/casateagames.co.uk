@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,23 +7,33 @@
     <meta name="description" content="Terms and conditions for buying from Casa Tea Games Ltd." />
     <link rel="canonical" href="https://casateagames.co.uk/terms" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/fonts/nunito-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="saywhatnow.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body id="top" class="rules-page">
-    <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <nav aria-label="Main">
       <div class="nav-content">
         <a href="index.html" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
           Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          onclick="toggleMenu()"
+          aria-label="Menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >☰</button>
         <div class="nav-links" id="navLinks">
           <a href="index.html#games">Games</a>
           <a href="shop.html">Shop</a>
@@ -35,16 +45,8 @@
       </div>
     </nav>
 
-    <main class="legal">
+    <main class="legal" id="main">
       <div class="legal-inner">
-        <!--
-          DRAFT - please read through and check with an adviser before relying on it.
-          Things to confirm:
-          - VAT: Casa Tea Games Ltd is not VAT registered. If that changes, say whether prices include VAT and add the VAT number.
-          - Order confirmation: section 3 says Stripe's payment receipt email counts as the order confirmation.
-            Turn on "Successful payments" under Stripe's customer email settings so that this is true.
-          - Delivery times: these match the shop page (post within 5 working days, Royal Mail Tracked 48).
-        -->
         <h1>Terms and conditions</h1>
         <p class="legal-updated">Last updated: 20 September 2026</p>
 
@@ -225,17 +227,17 @@
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
-        <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        <p class="footer-copy">
+          © 2025–<span data-year>2026</span> Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
         </p>
-        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+        <p class="footer-company">
           Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
           Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
-          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+          Email: <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
         </p>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem">
-          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
-          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
+        <p class="footer-links">
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy policy</a>
         </p>
       </div>
     </footer>

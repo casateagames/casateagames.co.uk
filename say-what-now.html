@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,8 @@
       content="How to play Say What Now?!, the word-party game where pronunciation beats spelling. Quick start, full rules, an example round and player house rules."
     />
     <link rel="canonical" href="https://casateagames.co.uk/say-what-now" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://casateagames.co.uk/say-what-now" />
     <meta property="og:title" content="Say What Now?! Rules &amp; How to Play" />
     <meta
       property="og:description"
@@ -16,31 +18,41 @@
     />
     <meta
       property="og:image"
-      content="https://casateagames.co.uk/assets/saywhatnowmain.png"
+      content="https://casateagames.co.uk/assets/games/saywhatnowmain.png"
     />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/fonts/nunito-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="saywhatnow.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body id="top" class="rules-page">
-    <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <nav aria-label="Main">
       <div class="nav-content">
         <a href="#top" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
           Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          onclick="toggleMenu()"
+          aria-label="Menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >☰</button>
         <div class="nav-links" id="navLinks">
           <a href="index.html#games">Games</a>
           <a href="shop.html">Shop</a>
           <a href="index.html#about">About</a>
-          <a href="index.html#conventions">Events</a>
           <a href="index.html#updates">Updates</a>
           <a href="index.html#faq">FAQ</a>
           <a href="index.html#join">Join Us</a>
@@ -48,261 +60,258 @@
       </div>
     </nav>
 
-    <!-- Hero: rules first -->
-    <section class="game-hero rules-hero">
-      <div class="game-hero-content">
-        <div class="game-hero-text">
-          <div class="breadcrumb">
-            <a href="index.html">← Back to all games</a>
+    <main id="main">
+      <!-- Hero: rules first -->
+      <section class="game-hero rules-hero">
+        <div class="game-hero-content">
+          <div class="game-hero-text">
+            <div class="breadcrumb">
+              <a href="index.html">← Back to all games</a>
+            </div>
+            <h1>Say What Now?!<span class="tm">&reg;</span></h1>
+            <p class="game-tagline">
+              How to play the word-party game where pronunciation beats spelling
+            </p>
+
+            <div class="game-quick-info">
+              <div class="quick-info-item">
+                <span class="info-text">3-6 players</span>
+              </div>
+              <div class="quick-info-item">
+                <span class="info-text">30-45 mins</span>
+              </div>
+              <div class="quick-info-item">
+                <span class="info-text">Ages 12+</span>
+              </div>
+            </div>
+
+            <div class="game-cta">
+              <a href="#how-to-play" class="btn btn-primary">How to play</a>
+              <a href="#house-rules" class="btn btn-secondary">House rules</a>
+            </div>
           </div>
-          <h1>Say What Now?!<span class="tm">&reg;</span></h1>
-          <p class="game-tagline">
-            How to play the word-party game where pronunciation beats spelling
+
+          <div class="game-hero-image">
+            <img src="assets/games/saywhatnowmain.png" alt="Say What Now?! Box Art" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Sticky jump bar (a div, not a nav, so it doesn't pick up the site nav styling) -->
+      <div class="jump-bar" role="navigation" aria-label="On this page">
+        <div class="jump-bar-inner">
+          <a href="#picture-guide">How to play</a>
+          <a href="#chaos">Chaos cards</a>
+          <a href="#house-rules">House rules</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+
+      <!-- Picture guide -->
+      <section class="picture-guide" id="picture-guide">
+        <span id="how-to-play"></span>
+        <div class="picture-guide-inner">
+          <h2>How to play</h2>
+          <p class="section-intro">Scroll through the guide below.</p>
+          <p class="rules-note">
+            There's no paper rulebook in the box. This page is the rulebook, and
+            we've left room for you to bend the rules and make the game your own.
+            Got a house rule you love? <a href="#house-rules">Share it with us.</a>
+          </p>
+          <div class="guide-pages">
+            <figure class="guide-page" data-video="assets/how-to-play/guide-1.mp4">
+              <img src="assets/how-to-play/guide-1.webp" width="1020" height="2250" decoding="async" alt="How to play, steps 1 and 2. Each round starts with three flipped vowel cards and one round card, which is your goal for the round. Each player starts with five consonant cards in their hand. Use your consonant cards and the vowels on the table to think of a word that matches the round goal. It is how the word sounds over spelling, so get creative." />
+            </figure>
+            <figure class="guide-page" data-video="assets/how-to-play/guide-2.mp4">
+              <img src="assets/how-to-play/guide-2.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, step 3. Place your chosen consonant cards face down and leave the vowels where they are. When everyone is ready, announce your predicted score to lock in your word. Important: you add the points from the consonants and the vowels you are using. They are found in the corner of the cards." />
+            </figure>
+            <figure class="guide-page" data-video="assets/how-to-play/guide-3.mp4" data-video-alt="How to play, steps 4 and 5, with an animated example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name. Player 2 scores 4. Player 1 tries D-AIR-TCH, the group agrees it is not a word, and Player 1 scores 0. Player 3 says KAYF as Keith in an Australian accent, the group allows it, and Player 3 scores 7 and wins the round card.">
+              <img src="assets/how-to-play/guide-3.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, steps 4 and 5, with an example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. If other players deem it valid the points stand, if not you are out of this round. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name, Player 1 reveals D, AIR and TCH, and the group agrees D-AIR-TCH is not a word, so Player 1 scores 0." />
+            </figure>
+            <figure class="guide-page" data-video="assets/how-to-play/guide-4.mp4">
+              <img src="assets/how-to-play/guide-4.webp" width="680" height="2000" loading="lazy" decoding="async" alt="How to play, step 6 and how to win. The highest value score that matches the objective wins the round and claims the round card. Discard all used consonant cards and the three vowel cards. Each player draws back up to five consonant cards and starts a new round. Tie-breaker: if players are tied for the round victory, the player who has used the most cards wins, or the group decides with a dance battle. The game ends when one player reaches the winning number of round cards: 4 round cards with 3 to 4 players, or 3 round cards with 5 to 6 players." />
+            </figure>
+          </div>
+
+          <p class="guide-download">
+            Want a one-page cheat sheet?
+            <a href="assets/downloads/say-what-now-quick-reference.pdf" target="_blank" rel="noopener">Open the quick reference (PDF)</a>
           </p>
 
-          <div class="game-quick-info">
-            <div class="quick-info-item">
-              <span class="info-text">3-6 players</span>
-            </div>
-            <div class="quick-info-item">
-              <span class="info-text">30-45 mins</span>
-            </div>
-            <div class="quick-info-item">
-              <span class="info-text">Ages 12+</span>
-            </div>
+          <details class="text-rules" id="text-rules">
+            <summary>Read the rules as text</summary>
+            <ol>
+              <li>Each player starts with <strong>5 consonant cards</strong> (purple) in their hand.</li>
+              <li>Flip <strong>3 vowel cards</strong> (green) face up for everyone to use.</li>
+              <li>Flip <strong>1 round card</strong> face up. It sets the goal for your word (Category, Question or Construction).</li>
+              <li>Use your consonant cards (purple) and the vowels on the table to think of a word that matches the round card's goal. It's how the word <strong>sounds</strong>, not how it's spelled.</li>
+              <li>Place your chosen consonant cards face down. Leave the vowels where they are.</li>
+              <li>Announce your predicted score. Add up the points in the corner of each card you're using, vowels included (Yellow 1, Blue 2, Red 3, Green 4). This locks in your choice.</li>
+              <li>Reveal from lowest to highest predicted score. Say your word out loud. Creative pronunciation is encouraged.</li>
+              <li>If you doubt someone's word, shout <strong>"Say What Now?!"</strong> They must defend it. No phones, no looking things up. If the group deems it valid, the points stand. If not, they're out of this round. If something has been allowed, that house ruling stands for the rest of the game.</li>
+              <li>The highest valid score that matches the round card wins the round and takes the round card. If players tie, the player who used the most cards wins the round. If that's the same too, the group decides the winner. A dance-off? A rap battle? You decide!</li>
+              <li>Discard the consonant cards that were used and the three vowel cards. Each player draws back up to five consonant cards, then a new round starts.</li>
+            </ol>
+            <p><strong>Winning:</strong> the game ends when one player reaches 4 round cards (3-4 players) or 3 round cards (5-6 players).</p>
+            <p><strong>Pro tip:</strong> if the group allows a pronunciation, it's valid. Sound beats spelling, so get creative!</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Chaos cards -->
+      <section class="picture-guide chaos-guide" id="chaos">
+        <div class="picture-guide-inner">
+          <h2>Chaos cards</h2>
+          <p class="section-intro">
+            Optional cards to add extra mayhem. Not into chaos? The game works
+            perfectly without them.
+          </p>
+          <div class="guide-pages">
+            <figure class="guide-page" data-video="assets/chaos/chaos.mp4">
+              <img src="assets/chaos/chaos.webp" width="680" height="2300" loading="lazy" decoding="async" alt="Chaos cards, optional gameplay. Not everyone loves chaos, but we do. Rules: 2 hidden Chaos cards per player, one-time use, only 1 per round for each player, and it activates immediately. Have fun whilst ruining lives! Three example cards are shown: Who invited this guy? (if you have the lowest amount of round cards and someone is about to win the entire game, play this and you take that round card), Oops, did I do that? (play this to stop someone winning the round) and Hold that thought (freeze a player, who can't play this round)." />
+            </figure>
           </div>
 
-          <div class="game-cta">
-            <a href="#how-to-play" class="btn btn-primary">How to play</a>
-            <a href="#house-rules" class="btn btn-secondary">House rules</a>
-          </div>
+          <details class="text-rules">
+            <summary>Read the Chaos rules as text</summary>
+            <ol>
+              <li>Deal <strong>2 Chaos cards</strong> to each player at the start. Keep them hidden from opponents.</li>
+              <li>Each player can only play <strong>one per round</strong>.</li>
+              <li>Chaos cards take effect immediately unless stated otherwise. If several are played, resolve them in the order they were played.</li>
+              <li>Once played or discarded, a Chaos card is removed from the game and never replaced.</li>
+            </ol>
+            <p>Chaos cards let you mess with other players, steal points, change rules mid-round and generally cause delightful mayhem. Perfect for groups who love a bit of strategic backstabbing!</p>
+          </details>
         </div>
+      </section>
 
-        <div class="game-hero-image">
-          <img src="assets/saywhatnowmain.png" alt="Say What Now?! Box Art" />
-        </div>
-      </div>
-    </section>
+      <!-- House rules -->
+      <section class="house-rules" id="house-rules">
+        <div class="house-rules-inner">
+          <h2>House rules</h2>
+          <p class="section-intro">
+            We're Casa Tea Games because we home-brew our games. Every group ends
+            up with its own way of playing, so tell us yours and other players can
+            give it a go.
+          </p>
 
-    <!-- Sticky jump bar (a div, not a nav, so it doesn't pick up the site nav styling) -->
-    <div class="jump-bar" role="navigation" aria-label="On this page">
-      <div class="jump-bar-inner">
-        <a href="#picture-guide">How to play</a>
-        <a href="#chaos">Chaos cards</a>
-        <a href="#house-rules">House rules</a>
-        <a href="#faq">FAQ</a>
-      </div>
-    </div>
-
-    <!-- Picture guide -->
-    <section class="picture-guide" id="picture-guide">
-      <span id="how-to-play"></span>
-      <div class="picture-guide-inner">
-        <h2>How to play</h2>
-        <p class="section-intro">Scroll through the guide below.</p>
-        <p class="rules-note">
-          There's no paper rulebook in the box. This page is the rulebook, and
-          we've left room for you to bend the rules and make the game your own.
-          Got a house rule you love? <a href="#house-rules">Share it with us.</a>
-        </p>
-        <div class="guide-pages">
-          <figure class="guide-page" data-video="assets/how-to-play/guide-1.mp4">
-            <img src="assets/how-to-play/guide-1.webp" width="1020" height="2250" decoding="async" alt="How to play, steps 1 and 2. Each round starts with three flipped vowel cards and one round card, which is your goal for the round. Each player starts with five consonant cards in their hand. Use your consonant cards and the vowels on the table to think of a word that matches the round goal. It is how the word sounds over spelling, so get creative." />
-          </figure>
-          <figure class="guide-page" data-video="assets/how-to-play/guide-2.mp4">
-            <img src="assets/how-to-play/guide-2.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, step 3. Place your chosen consonant cards face down and leave the vowels where they are. When everyone is ready, announce your predicted score to lock in your word. Important: you add the points from the consonants and the vowels you are using. They are found in the corner of the cards." />
-          </figure>
-          <figure class="guide-page" data-video="assets/how-to-play/guide-3.mp4" data-video-alt="How to play, steps 4 and 5, with an animated example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name. Player 2 scores 4. Player 1 tries D-AIR-TCH, the group agrees it is not a word, and Player 1 scores 0. Player 3 says KAYF as Keith in an Australian accent, the group allows it, and Player 3 scores 7 and wins the round card.">
-            <img src="assets/how-to-play/guide-3.webp" width="1020" height="2250" loading="lazy" decoding="async" alt="How to play, steps 4 and 5, with an example. Players reveal from lowest to highest predicted score and say their word out loud. If you doubt someone's word, shout Say What Now and they must defend it. If other players deem it valid the points stand, if not you are out of this round. No phones, no looking things up. If something has been allowed, that house ruling stands for the rest of the game. In the example, the round card is Pet Name, Player 1 reveals D, AIR and TCH, and the group agrees D-AIR-TCH is not a word, so Player 1 scores 0." />
-          </figure>
-          <figure class="guide-page" data-video="assets/how-to-play/guide-4.mp4">
-            <img src="assets/how-to-play/guide-4.webp" width="680" height="2000" loading="lazy" decoding="async" alt="How to play, step 6 and how to win. The highest value score that matches the objective wins the round and claims the round card. Discard all used consonant cards and the three vowel cards. Each player draws back up to five consonant cards and starts a new round. Tie-breaker: if players are tied for the round victory, the player who has used the most cards wins, or the group decides with a dance battle. The game ends when one player reaches the winning number of round cards: 4 round cards with 3 to 4 players, or 3 round cards with 5 to 6 players." />
-          </figure>
-        </div>
-
-        <p class="guide-download">
-          Want a one-page cheat sheet?
-          <a href="assets/downloads/say-what-now-quick-reference.pdf" target="_blank" rel="noopener">Open the quick reference (PDF)</a>
-        </p>
-
-        <details class="text-rules" id="text-rules">
-          <summary>Read the rules as text</summary>
-          <ol>
-            <li>Flip <strong>3 vowel cards</strong> (green) face up for everyone to use.</li>
-            <li>Flip <strong>1 round card</strong> face up. It sets the goal for your word (Category, Question or Construction).</li>
-            <li>Use your consonant cards (purple) and the vowels on the table to think of a word that matches the round card's goal. It's how the word <strong>sounds</strong>, not how it's spelled.</li>
-            <li>Place your chosen consonant cards face down. Leave the vowels where they are.</li>
-            <li>Announce your predicted score. Add up the points in the corner of each card you're using, vowels included (Yellow 1, Blue 2, Red 3, Green 4). This locks in your choice.</li>
-            <li>Reveal from lowest to highest predicted score. Say your word out loud. Creative pronunciation is encouraged.</li>
-            <li>If you doubt someone's word, shout <strong>"Say What Now?!"</strong> They must defend it. No phones, no looking things up. If the group deems it valid, the points stand. If not, they're out of this round. If something has been allowed, that house ruling stands for the rest of the game.</li>
-            <li>The highest valid score that matches the round card wins the round and takes the round card. If players tie, the player who used the most cards wins the round. If that's the same too, the group decides the winner. A dance-off? A rap battle? You decide!</li>
-            <li>Discard the consonant cards that were used and the three vowel cards. Each player draws back up to five consonant cards, then a new round starts.</li>
-          </ol>
-          <p><strong>Winning:</strong> the game ends when one player reaches 4 round cards (3-4 players) or 3 round cards (5-6 players).</p>
-          <p><strong>Pro tip:</strong> if the group allows a pronunciation, it's valid. Sound beats spelling, so get creative!</p>
-        </details>
-      </div>
-    </section>
-
-
-
-    <!-- Chaos cards -->
-    <section class="picture-guide chaos-guide" id="chaos">
-      <div class="picture-guide-inner">
-        <h2>Chaos cards</h2>
-        <p class="section-intro">
-          Optional cards to add extra mayhem. Not into chaos? The game works
-          perfectly without them.
-        </p>
-        <div class="guide-pages">
-          <figure class="guide-page" data-video="assets/chaos/chaos.mp4">
-            <img src="assets/chaos/chaos.webp" width="680" height="2300" loading="lazy" decoding="async" alt="Chaos cards, optional gameplay. Not everyone loves chaos, but we do. Rules: 2 hidden Chaos cards per player, one-time use, only 1 per round for each player, and it activates immediately. Have fun whilst ruining lives! Three example cards are shown: Who invited this guy? (if you have the lowest amount of round cards and someone is about to win the entire game, play this and you take that round card), Oops, did I do that? (play this to stop someone winning the round) and Hold that thought (freeze a player, who can't play this round)." />
-          </figure>
-        </div>
-
-        <details class="text-rules">
-          <summary>Read the Chaos rules as text</summary>
-          <ol>
-            <li>Deal <strong>2 Chaos cards</strong> to each player at the start. Keep them hidden from opponents.</li>
-            <li>Each player can only play <strong>one per round</strong>.</li>
-            <li>Chaos cards take effect immediately unless stated otherwise. If several are played, resolve them in the order they were played.</li>
-            <li>Once played or discarded, a Chaos card is removed from the game and never replaced.</li>
-          </ol>
-          <p>Chaos cards let you mess with other players, steal points, change rules mid-round and generally cause delightful mayhem. Perfect for groups who love a bit of strategic backstabbing!</p>
-        </details>
-      </div>
-    </section>
-
-    <!-- House rules -->
-    <section class="house-rules" id="house-rules">
-      <div class="house-rules-inner">
-        <h2>House rules</h2>
-        <p class="section-intro">
-          We're Casa Tea Games because we home-brew our games. Every group ends
-          up with its own way of playing, so tell us yours and other players can
-          give it a go.
-        </p>
-
-        <div class="house-grid">
-          <div class="house-gallery">
-            <h3>Rules from players</h3>
-            <div id="houseRulesList" class="rules-list" aria-live="polite">
-              <div class="rules-empty">
-                <p>Loading house rules...</p>
+          <div class="house-grid">
+            <div class="house-gallery">
+              <h3>Rules from players</h3>
+              <!-- saywhatnow.js fills this in. Without JS, visitors see the noscript message. -->
+              <div id="houseRulesList" class="rules-list" aria-live="polite">
+                <noscript>
+                  <div class="rules-empty">
+                    <p>House rules need JavaScript to load, but you can still send us yours.</p>
+                  </div>
+                </noscript>
               </div>
             </div>
-            <noscript>
-              <div class="rules-empty">
-                <p>House rules need JavaScript to load, but you can still send us yours.</p>
-              </div>
-            </noscript>
-          </div>
 
-          <div class="house-form-wrap" id="house-rule-form">
-            <h3>Share your house rule</h3>
+            <div class="house-form-wrap" id="house-rule-form">
+              <h3>Share your house rule</h3>
 
-            <form
-              class="rule-form"
-              id="ruleForm"
-              name="house-rule"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <input type="hidden" name="form-name" value="house-rule" />
-              <p style="display: none">
-                <label>
-                  Don't fill this out if you're human: <input name="bot-field" />
+              <form
+                class="rule-form"
+                id="ruleForm"
+                name="house-rule"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="house-rule" />
+                <p hidden>
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
+
+                <div class="form-group">
+                  <label for="rule-nickname">Your name or nickname *</label>
+                  <input
+                    type="text"
+                    id="rule-nickname"
+                    name="nickname"
+                    maxlength="40"
+                    placeholder="Shown next to your rule"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="rule-title">Name your rule *</label>
+                  <input
+                    type="text"
+                    id="rule-title"
+                    name="rule_title"
+                    maxlength="60"
+                    placeholder="e.g. The Grandma Clause"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="rule-text">How does it work? *</label>
+                  <textarea
+                    id="rule-text"
+                    name="rule_text"
+                    rows="5"
+                    maxlength="600"
+                    placeholder="Explain it so another group could try it tonight..."
+                    required
+                  ></textarea>
+                  <p class="form-hint char-count" id="ruleCount">0 / 600</p>
+                </div>
+
+                <div class="form-group">
+                  <label for="rule-style">Works with</label>
+                  <select id="rule-style" name="play_style">
+                    <option value="either">Either way</option>
+                    <option value="standard">Standard game</option>
+                    <option value="chaos">Chaos cards</option>
+                  </select>
+                </div>
+
+                <label class="consent">
+                  <input type="checkbox" name="consent" value="yes" required />
+                  <span>
+                    I'm happy for Casa Tea Games to publish this rule with my name
+                    or nickname, and to use the idea in future games or expansions.
+                  </span>
                 </label>
-              </p>
 
-              <div class="form-group">
-                <label for="rule-nickname">Your name or nickname *</label>
-                <input
-                  type="text"
-                  id="rule-nickname"
-                  name="nickname"
-                  maxlength="40"
-                  placeholder="Shown next to your rule"
-                  required
-                />
+                <button type="submit" class="btn btn-primary" id="ruleSubmit">Send my rule</button>
+                <p class="form-hint">
+                  We read every rule before it goes live, so it may take a little
+                  while to appear. Our <a class="link-inherit" href="privacy.html">privacy policy</a> explains how we use your details.
+                </p>
+                <p class="rule-form-status" id="ruleStatus" role="alert"></p>
+              </form>
+
+              <div class="rule-success" id="ruleSuccess" hidden>
+                <h4 tabindex="-1">Rule received!</h4>
+                <p>
+                  Thanks for sharing. If it's a keeper, we'll put it on the wall
+                  (Larry will taste-test it first).
+                </p>
+                <button type="button" class="btn btn-secondary btn-small" id="ruleAnother">
+                  Send another
+                </button>
               </div>
-
-              <div class="form-group">
-                <label for="rule-title">Name your rule *</label>
-                <input
-                  type="text"
-                  id="rule-title"
-                  name="rule_title"
-                  maxlength="60"
-                  placeholder="e.g. The Grandma Clause"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="rule-text">How does it work? *</label>
-                <textarea
-                  id="rule-text"
-                  name="rule_text"
-                  rows="5"
-                  maxlength="600"
-                  placeholder="Explain it so another group could try it tonight..."
-                  required
-                ></textarea>
-                <p class="form-hint char-count" id="ruleCount">0 / 600</p>
-              </div>
-
-              <div class="form-group">
-                <label for="rule-style">Works with</label>
-                <select id="rule-style" name="play_style">
-                  <option value="either">Either way</option>
-                  <option value="standard">Standard game</option>
-                  <option value="chaos">Chaos cards</option>
-                </select>
-              </div>
-
-              <label class="consent">
-                <input type="checkbox" name="consent" value="yes" required />
-                <span>
-                  I'm happy for Casa Tea Games to publish this rule with my name
-                  or nickname, and to use the idea in future games or expansions.
-                </span>
-              </label>
-
-              <button type="submit" class="btn btn-primary" id="ruleSubmit">Send my rule</button>
-              <p class="form-hint">
-                We read every rule before it goes live, so it may take a little
-                while to appear. Our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a> explains how we use your details.
-              </p>
-              <p class="rule-form-status" id="ruleStatus" role="alert"></p>
-            </form>
-
-            <div class="rule-success" id="ruleSuccess" hidden>
-              <h4>Rule received!</h4>
-              <p>
-                Thanks for sharing. If it's a keeper, we'll put it on the wall
-                (Larry will taste-test it first).
-              </p>
-              <button type="button" class="btn btn-secondary btn-small" id="ruleAnother">
-                Send another
-              </button>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- What's in the Box -->
-    <section class="whats-in-box" id="box">
-      <div class="whats-in-box-content">
-        <h2>What's in the box?</h2>
+      <!-- What's in the Box -->
+      <section class="whats-in-box" id="box">
+        <div class="whats-in-box-content">
+          <h2>What's in the box?</h2>
 
-        <div class="box-section">
           <div class="box-grid">
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/vowel-card.png" alt="Vowel Card" />
+                <img src="assets/cards/vowel-card.png" alt="Vowel Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Vowel Cards
@@ -313,7 +322,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/consonant-card.png" alt="Consonant Card" />
+                <img src="assets/cards/consonant-card.png" alt="Consonant Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Consonant Cards
@@ -324,7 +333,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/round-card.png" alt="Round Card" />
+                <img src="assets/cards/round-card.png" alt="Round Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Round Cards
@@ -335,7 +344,7 @@
 
             <div class="box-item box-item-core">
               <div class="box-card-image">
-                <img src="assets/cards/chaos-card.png" alt="Chaos Card" />
+                <img src="assets/cards/chaos-card.png" alt="Chaos Card" loading="lazy" decoding="async" />
               </div>
               <h3>
                 Chaos Cards
@@ -346,144 +355,146 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FAQ -->
-    <section class="game-faq" id="faq">
-      <div class="game-faq-content">
-        <h2>Questions About Say What Now?!</h2>
+      <!-- FAQ -->
+      <section class="game-faq" id="faq">
+        <div class="game-faq-content">
+          <h2>Questions About Say What Now?!</h2>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Do I need to be good at spelling to play?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Absolutely not! That's the whole point. This game is about
-              pronunciation, not spelling. If you can say it confidently, you're
-              golden.
-            </p>
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Do I need to be good at spelling to play?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Absolutely not! That's the whole point. This game is about
+                pronunciation, not spelling. If you can say it confidently, you're
+                golden.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Do we have to use the Chaos cards?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                No. Chaos cards are optional, and the game works perfectly without
+                them. Add them if your group loves a bit of strategic backstabbing.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Can we make up our own rules?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Please do! Home-brewing is what we're all about. Send yours in
+                through the <a href="#house-rules">house rules</a> section and we
+                might share it with other players.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Can my kids play this?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                It depends on your kids! The game requires creative thinking about
+                phonetics and pronunciation. Players need to be comfortable
+                'breaking spelling rules' (like using KS to make an X sound) and
+                defending their choices with confidence. Younger players who are
+                still learning standard spelling might find this confusing rather
+                than fun. That said, if you have a particularly clever 8 year old
+                who loves wordplay, they might enjoy it!
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              How long does a game take?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Usually 30-45 minutes, but it depends on how much you argue over
+                pronunciations (which is half the fun).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+              Is this like other word games?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Not really! Most word games test vocabulary or spelling. Say What
+                Now?! is all about confidence, bluffing, and pronunciation. Think
+                party game meets word game.
+              </p>
+            </div>
           </div>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Do we have to use the Chaos cards?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              No. Chaos cards are optional, and the game works perfectly without
-              them. Add them if your group loves a bit of strategic backstabbing.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Can we make up our own rules?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Please do! Home-brewing is what we're all about. Send yours in
-              through the <a href="#house-rules">house rules</a> section and we
-              might share it with other players.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Can my kids play this?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              It depends on your kids! The game requires creative thinking about
-              phonetics and pronunciation. Players need to be comfortable
-              'breaking spelling rules' (like using KS to make an X sound) and
-              defending their choices with confidence. Younger players who are
-              still learning standard spelling might find this confusing rather
-              than fun. That said, if you have a particularly clever 8 year old
-              who loves wordplay, they might enjoy it!
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            How long does a game take?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Usually 30-45 minutes, but it depends on how much you argue over
-              pronunciations (which is half the fun).
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-            Is this like other word games?
-            <span class="faq-icon">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Not really! Most word games test vocabulary or spelling. Say What
-              Now?! is all about confidence, bluffing, and pronunciation. Think
-              party game meets word game.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </main>
 
     <footer>
       <div class="footer-content">
         <div class="social-links">
           <a href="https://www.instagram.com/casateagames/" target="_blank" rel="noopener" class="social-link">Instagram</a>
           <a href="https://www.tiktok.com/@casateagames" target="_blank" rel="noopener" class="social-link">TikTok</a>
-          <!-- href="#contact" (not "#") stops script.js's smooth-scroll handler throwing an error -->
-          <a href="#contact" onclick="openContactModal(event)" class="social-link contact-link">Contact us</a>
+          <a href="#contact" onclick="openContactModal(event)" class="social-link">Contact us</a>
         </div>
         <p class="footer-tagline">
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
-        <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        <p class="footer-copy">
+          © 2025–<span data-year>2026</span> Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
         </p>
-        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+        <p class="footer-company">
           Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
           Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
-          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+          Email: <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
         </p>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem">
-          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
-          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
+        <p class="footer-links">
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy policy</a>
         </p>
       </div>
     </footer>
 
-    <!-- Contact Modal (unchanged) -->
+    <!-- Contact Modal -->
     <div class="contact-modal" id="contactModal">
       <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
-      <div class="contact-modal-content">
+      <div
+        class="contact-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contactTitle"
+      >
         <button
+          type="button"
           class="contact-modal-close"
           onclick="closeContactModal()"
           aria-label="Close contact form"
-        >
-          ×
-        </button>
+        >×</button>
 
         <div class="contact-modal-header">
-          <h2>Get in Touch!</h2>
+          <h2 id="contactTitle">Get in Touch!</h2>
           <p>
             Have a question? Want to playtest? Just want to say hi? We'd love to
             hear from you!
@@ -499,7 +510,7 @@
           onsubmit="handleContactSubmit(event)"
         >
           <input type="hidden" name="form-name" value="contact" />
-          <p style="display: none">
+          <p hidden>
             <label>
               Don't fill this out if you're human: <input name="bot-field" />
             </label>
@@ -511,7 +522,8 @@
               type="text"
               id="contact-name"
               name="name"
-              placeholder="Matt or Abby (or Larry?)"
+              placeholder="Larry is that you?"
+              autocomplete="name"
               required
             />
           </div>
@@ -523,6 +535,7 @@
               id="contact-email"
               name="email"
               placeholder="you@example.com"
+              autocomplete="email"
               required
             />
           </div>
@@ -550,8 +563,9 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Send Message</button>
-          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; text-align: center">
-            We'll use your details to reply to you. See our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a>.
+          <p class="form-error" role="alert"></p>
+          <p class="form-note">
+            We'll use your details to reply to you. See our <a class="link-inherit" href="privacy.html">privacy policy</a>.
           </p>
         </form>
 
@@ -561,7 +575,7 @@
             Thanks for reaching out! We'll get back to you soon (probably with
             Larry's approval).
           </p>
-          <button class="btn btn-secondary" onclick="closeContactModal()">
+          <button type="button" class="btn btn-secondary" onclick="closeContactModal()">
             Close
           </button>
         </div>

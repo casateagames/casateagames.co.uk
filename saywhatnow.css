@@ -1,40 +1,20 @@
 /* ==========================================================
-   SAY WHAT NOW?! RULES PAGE - additions
+   RULES, SHOP, LEGAL AND THANK-YOU PAGES
    Load AFTER style.css. Uses the variables defined there
    (--teal, --peach, --coral, --cream, --ink, --shadow).
    ========================================================== */
 
 :root {
-  --nav-h: 68px; /* saywhatnow.js sets the real value */
-  --coral-deep: #d94545; /* white text passes contrast on this */
-  --chip-yellow: #f4c542;
-  --chip-blue: #2f73c0;
-  --chip-red: #d1432e;
-  --chip-green: #2e8b57;
+  --nav-h: 68px; /* saywhatnow.js sets the real value on pages that load it */
 }
 
-.rules-page [hidden],
-.rules-page .is-hidden {
-  display: none !important;
-}
-
-/* Visible keyboard focus everywhere on this page */
-.rules-page a:focus-visible,
-.rules-page button:focus-visible,
-.rules-page input:focus-visible,
-.rules-page select:focus-visible,
-.rules-page textarea:focus-visible,
-.rules-page summary:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: 3px;
-}
-
-/* Anchored sections land below the sticky nav + jump bar */
-.rules-page section[id] {
+/* Anchored sections and targets land below the sticky nav + jump bar.
+   Not limited to <section>: #how-to-play is a span and #house-rule-form is a div. */
+.rules-page [id] {
   scroll-margin-top: calc(var(--nav-h) + 64px);
 }
 
-/* Sections on this page manage their own spacing */
+/* Sections on these pages manage their own spacing */
 .rules-page section + section {
   margin-top: 0;
 }
@@ -102,238 +82,13 @@
   color: white;
 }
 
-/* ---------- Score chips (used in quick start + step 5) ---------- */
-
-.score-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.score-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
-  border-radius: 50px;
-  background: white;
-  border: 2px solid var(--ink);
-  font-weight: 900;
-  font-size: 0.95rem;
-}
-
-.score-chip i {
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-style: normal;
-  color: white;
-  font-size: 0.95rem;
-}
-
-.chip-yellow i { background: var(--chip-yellow); color: var(--ink); }
-.chip-blue i { background: var(--chip-blue); }
-.chip-red i { background: var(--chip-red); }
-.chip-green i { background: var(--chip-green); }
-
-/* ---------- How to play (existing classes + extras) ---------- */
-
-.rules-page .how-to-play {
-  padding: 4.5rem 2rem;
-}
-
-.rules-page .play-step .step-content {
-  flex: 1;
-}
-
-.step-content .score-legend {
-  justify-content: flex-start;
-  margin-top: 1rem;
-}
-
-.step-media {
-  flex: 0 0 240px;
-}
-
-.step-media video,
-.step-media img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  background: #eee;
-}
-
-/* ---------- Example round ---------- */
-
-.example {
-  padding: 4.5rem 2rem;
-  background: var(--cream);
-}
-
-.example-inner {
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.example h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.example .section-intro {
-  margin-bottom: 2rem;
-}
-
-.example-stages {
-  list-style: none;
-  display: grid;
-  gap: 1.25rem;
-  padding: 0;
-}
-
-.stage {
-  background: white;
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 24px var(--shadow);
-  border-left: 6px solid var(--teal);
-}
-
-.stage h3 {
-  font-size: 1.25rem;
-  font-weight: 900;
-  margin-bottom: 0.4rem;
-}
-
-.stage p {
-  line-height: 1.6;
-  opacity: 0.85;
-}
-
-.stage-sum {
-  display: inline-block;
-  margin: 0.75rem 0 0.25rem;
-  padding: 0.5rem 1rem;
-  background: var(--cream);
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: 1.15rem;
-}
-
-.say-what {
-  display: inline-block;
-  margin: 0.75rem 0 0.25rem;
-  padding: 0.5rem 1.1rem;
-  background: var(--coral-deep);
-  color: white;
-  font-weight: 900;
-  font-size: 1.15rem;
-  border-radius: 20px 20px 20px 4px;
-}
-
-/* Stepper: everything is visible unless JS turns stepping on */
-.example-stepper.is-stepping .stage:not(.is-shown) {
-  display: none;
-}
-
-.example-stepper.is-stepping .stage.is-current {
-  border-left-color: var(--coral-deep);
-  animation: stage-in 0.35s ease-out;
-}
-
-@keyframes stage-in {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.example-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-}
-
-.example-progress {
-  font-weight: 700;
-  opacity: 0.75;
-  min-width: 6.5rem;
-  text-align: center;
-}
+/* ---------- Small shared bits ---------- */
 
 .btn-small {
   padding: 0.7rem 1.4rem;
   font-size: 1rem;
 }
 
-.btn[disabled] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ---------- Downloads (hidden until PDFs exist) ---------- */
-
-.downloads {
-  padding: 3.5rem 2rem;
-  background: white;
-}
-
-.downloads-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.downloads h2 {
-  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-}
-
-.download-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
-}
-
-.download-card {
-  display: block;
-  text-decoration: none;
-  color: var(--ink);
-  background: var(--cream);
-  border: 3px solid var(--teal);
-  border-radius: 18px;
-  padding: 1.25rem;
-  text-align: left;
-}
-
-.download-card:hover {
-  background: rgba(83, 199, 198, 0.12);
-}
-
-.download-card strong {
-  display: block;
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
-}
-
-.download-card span {
-  opacity: 0.75;
-  font-size: 0.95rem;
-}
-
-/* ---------- Chaos + box + FAQ spacing (existing look) ---------- */
-
-.rules-page .chaos-cards,
 .rules-page .whats-in-box,
 .rules-page .game-faq {
   padding-top: 4.5rem;
@@ -388,7 +143,7 @@
   border-radius: 18px;
   padding: 1.25rem 1.5rem;
   box-shadow: 0 8px 24px var(--shadow);
-  border-left: 6px solid var(--coral-deep);
+  border-left: 6px solid var(--coral);
 }
 
 .rule-card.is-featured {
@@ -444,7 +199,7 @@
 }
 
 .rules-empty a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 900;
 }
 
@@ -484,13 +239,13 @@
   height: 1.3rem;
   flex: 0 0 auto;
   margin-top: 0.15rem;
-  accent-color: var(--coral-deep);
+  accent-color: var(--coral);
 }
 
 .rule-form-status {
   margin-top: 1rem;
   font-weight: 700;
-  color: var(--coral-deep);
+  color: var(--coral);
 }
 
 .rule-success {
@@ -512,7 +267,7 @@
   opacity: 0.85;
 }
 
-/* ---------- Buy panel ---------- */
+/* ---------- Bottom buy panel (shop page) ---------- */
 
 .buy {
   padding: 4.5rem 2rem;
@@ -625,36 +380,16 @@
     margin: 0 auto;
   }
 
-  .example,
   .house-rules,
   .buy,
-  .downloads,
-  .rules-page .how-to-play,
-  .rules-page .chaos-cards,
   .rules-page .whats-in-box,
   .rules-page .game-faq {
     padding: 3.25rem 1.25rem;
   }
 
-  .step-media {
-    flex-basis: auto;
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .step-content .score-legend {
-    justify-content: center;
-  }
-
   .rule-form,
   .buy-inner {
     padding: 1.5rem 1.25rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .example-stepper.is-stepping .stage.is-current {
-    animation: none;
   }
 }
 
@@ -672,100 +407,11 @@
 }
 
 .rules-note a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 900;
-}
-
-.rules-page .how-to-play .section-intro {
-  margin-bottom: 1.5rem;
-}
-
-/* ---------- Example round photos ---------- */
-
-.stage-photo {
-  margin: 1rem 0;
-}
-
-.stage-photo img {
-  display: block;
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px var(--shadow);
-}
-
-/* ---------- What's in the box: one row of four ---------- */
-
-.rules-page .whats-in-box h2 {
-  margin-bottom: 2.5rem;
-}
-
-.rules-page .box-section {
-  margin-bottom: 0;
-}
-
-.rules-page .box-grid {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 0;
-}
-
-@media (max-width: 968px) {
-  .rules-page .box-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 560px) {
-  .rules-page .box-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---------- Footer links (text instead of emoji icons) ---------- */
-
-.rules-page .social-links {
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.rules-page .social-link {
-  font-size: 1.05rem;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.rules-page .social-link:hover {
-  transform: none;
-  color: var(--peach);
-}
-
-.rules-page .contact-link::after {
-  display: none;
 }
 
 /* ---------- Shop page ---------- */
-
-.shop-price {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
-
-.shop-price strong {
-  font-size: clamp(2.4rem, 5vw, 3.2rem);
-  font-weight: 900;
-  line-height: 1;
-}
-
-.shop-price span {
-  font-weight: 700;
-  opacity: 0.8;
-}
 
 .shop-note {
   margin-top: 1rem;
@@ -773,17 +419,11 @@
   opacity: 0.8;
 }
 
-.rules-page .game-pitch {
-  padding: 4.5rem 2rem;
+.shop-note a {
+  color: var(--coral);
+  font-weight: 700;
+  text-decoration: underline;
 }
-
-@media (max-width: 768px) {
-  .rules-page .game-pitch {
-    padding: 3.25rem 1.25rem;
-  }
-}
-
-/* ---------- Shop: product page ---------- */
 
 .product {
   padding: 1.25rem 2rem 4rem;
@@ -839,6 +479,7 @@
   margin-top: 1rem;
 }
 
+/* With only the box-art thumbnail there is nothing to switch between */
 .gallery-thumbs:has(.gallery-thumb:only-child) {
   display: none;
 }
@@ -863,7 +504,7 @@
 }
 
 .gallery-thumb.is-active {
-  border-color: var(--coral-deep);
+  border-color: var(--coral);
 }
 
 .buy-box {
@@ -957,6 +598,12 @@
   background: var(--teal);
 }
 
+.buy-assure a {
+  color: var(--coral);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 .buy-box .shop-note {
   margin-top: 1rem;
 }
@@ -990,7 +637,7 @@
 }
 
 .about-game-text a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 900;
 }
 
@@ -1061,14 +708,26 @@
   margin-bottom: 0.75rem;
 }
 
+.delivery-info h3 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin: 1.5rem 0 0.4rem;
+}
+
 .delivery-info p {
   margin-bottom: 0.85rem;
   line-height: 1.7;
 }
 
 .delivery-info a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 900;
+}
+
+/* Buttons inside the delivery section keep white text (the link colour rule above would override it) */
+.delivery-info a.btn-primary {
+  color: white;
+  text-decoration: none;
 }
 
 /* Testimonials, more games (shop page) */
@@ -1147,6 +806,7 @@
     bottom: 0;
     z-index: 950;
     padding: 0.75rem 1rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
     background: white;
     border-top: 3px solid var(--teal);
     box-shadow: 0 -6px 20px var(--shadow);
@@ -1178,21 +838,17 @@
   }
 }
 
-/* Delivery and returns headings, buy box link */
-
-.delivery-info h3 {
-  font-size: 1.15rem;
-  font-weight: 900;
-  margin: 1.5rem 0 0.4rem;
-}
-
-.buy-assure a {
-  color: var(--coral-deep);
-  font-weight: 700;
-  text-decoration: underline;
-}
-
 /* Cancellation form */
+
+.cancel-steps {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.4rem;
+}
+
+.cancel-steps li {
+  margin-bottom: 0.6rem;
+  line-height: 1.7;
+}
 
 .cancel-form {
   margin: 1rem 0;
@@ -1212,24 +868,8 @@
   line-height: 1.6;
 }
 
-.cancel-steps {
-  margin: 0.5rem 0 1rem;
-  padding-left: 1.4rem;
-}
-
-.cancel-steps li {
-  margin-bottom: 0.6rem;
-  line-height: 1.7;
-}
-
 .cancel-form .btn {
   margin-top: 1rem;
-}
-
-/* Buttons inside the delivery section keep white text (the link colour rule was overriding it) */
-.delivery-info a.btn-primary {
-  color: white;
-  text-decoration: none;
 }
 
 /* ---------- Legal pages ---------- */
@@ -1282,7 +922,7 @@
 }
 
 .legal a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 700;
 }
 
@@ -1318,12 +958,6 @@
   font-weight: 900;
 }
 
-.shop-note a {
-  color: var(--coral-deep);
-  font-weight: 700;
-  text-decoration: underline;
-}
-
 @media (max-width: 768px) {
   .legal {
     padding: 2rem 1.25rem 3rem;
@@ -1353,9 +987,12 @@
   margin-bottom: 2rem;
 }
 
-.picture-guide .section-intro a,
+.picture-guide .rules-note {
+  margin-bottom: 2rem;
+}
+
 .guide-download a {
-  color: var(--coral-deep);
+  color: var(--coral);
   font-weight: 900;
 }
 
@@ -1372,6 +1009,15 @@
   box-shadow: 0 12px 34px var(--shadow);
 }
 
+.guide-page video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 34px var(--shadow);
+  background: white;
+}
+
 .guide-download {
   text-align: center;
   margin-top: 1.75rem;
@@ -1383,20 +1029,7 @@
   }
 }
 
-.guide-page video {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 12px 34px var(--shadow);
-  background: white;
-}
-
 /* ---------- Rules as text (collapsed) ---------- */
-
-.picture-guide .rules-note {
-  margin-bottom: 2rem;
-}
 
 .text-rules {
   margin-top: 2rem;

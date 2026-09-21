@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,70 +8,56 @@
       name="description"
       content="Casa Tea Games makes indie table-top games with heart. Say What Now?!, the word-party game where pronunciation beats spelling, is available now."
     />
-    <link rel="icon" href="assets/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
-      rel="stylesheet"
+    <link rel="canonical" href="https://casateagames.co.uk/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Casa Tea Games" />
+    <meta property="og:url" content="https://casateagames.co.uk/" />
+    <meta property="og:title" content="Casa Tea Games • Indie Board Games with Heart" />
+    <meta
+      property="og:description"
+      content="Indie table-top games with heart. Say What Now?!, the word-party game where pronunciation beats spelling, is available now."
     />
-    <style>
-      /* Small overrides for the text-only (no emoji) look */
-      .game-card.featured::before {
-        content: "Featured";
-      }
-
-      .game-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem 1.5rem;
-      }
-
-      .perk {
-        background: white;
-        border-radius: 15px;
-        padding: 1.25rem 1rem;
-        box-shadow: 0 5px 15px var(--shadow);
-      }
-
-      .social-link {
-        font-size: 1.05rem;
-        font-weight: 700;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-      }
-
-      .social-link:hover {
-        transform: none;
-        color: var(--peach);
-      }
-
-      .social-links {
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-
-      .contact-link::after {
-        display: none;
-      }
-    </style>
+    <meta
+      property="og:image"
+      content="https://casateagames.co.uk/assets/games/saywhatnowmain.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/fonts/nunito-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Sections only start hidden (for the scroll-in effect) when JS is running -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
   <body id="top">
-    <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <nav aria-label="Main">
       <div class="nav-content">
         <a href="#top" class="logo">
           <img src="assets/logo.png" alt="Casa Tea Games" />
           Casa Tea Games<span class="tm">&reg;</span>
         </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          onclick="toggleMenu()"
+          aria-label="Menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >☰</button>
         <div class="nav-links" id="navLinks">
           <a href="#games">Games</a>
           <a href="shop.html">Shop</a>
           <a href="#about">About</a>
-          <!-- Events nav link hidden until next convention
-          <a href="#conventions">Events</a>
-          -->
+          <!-- Add an Events link here (and a section with id="conventions") before the next convention -->
           <a href="#updates">Updates</a>
           <a href="#faq">FAQ</a>
           <a href="#join">Join Us</a>
@@ -79,470 +65,474 @@
       </div>
     </nav>
 
-    <section class="hero" id="hero">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>
-            We make <span class="highlight">table-top games</span>
-            (turns out people like them)
-          </h1>
-          <p class="hero-subtext">
-            Two humans, one dog, zero corporate overlords. Just indie games with
-            personality, built for your next game night.
+    <main id="main">
+      <section class="hero" id="hero">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>
+              We make <span class="highlight">table-top games</span>
+              (turns out people like them)
+            </h1>
+            <p class="hero-subtext">
+              Two humans, one dog, zero corporate overlords. Just indie games with
+              personality, built for your next game night.
+            </p>
+            <div class="cta-buttons">
+              <a href="shop.html" class="btn btn-primary">Shop Say What Now?!</a>
+              <a href="#games" class="btn btn-secondary">See Our Games</a>
+            </div>
+            <div class="quick-stats">
+              <div class="stat">
+                <span class="stat-number" data-target="3">3</span>
+                <span class="stat-text">Games Brewing</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-target="2">2</span>
+                <span class="stat-text">Humans (+ Larry)</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-target="100" data-suffix="%">100%</span>
+                <span class="stat-text">Home-Brewable</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="game-preview">
+              <img src="assets/games/saywhatnowmain.png" alt="Say What Now?!" />
+            </div>
+
+            <a class="preview-tag" href="shop.html">Available now</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="games section-animate" id="games">
+        <div class="section-header">
+          <h2>Our Games</h2>
+          <p>No massive catalog. Just games we'd actually want to play.</p>
+        </div>
+        <div class="games-grid">
+          <div class="game-card featured">
+            <img
+              src="assets/games/saywhatnowmain.png"
+              alt="Say What Now?!"
+              class="game-image"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="game-content">
+              <a class="game-status status-live" href="shop.html">Available now</a>
+              <h3 class="game-title">Say What Now?!<span class="tm">&reg;</span></h3>
+              <div class="game-meta">
+                <span class="meta-item">3-6 players</span>
+                <span class="meta-item">30-45 mins</span>
+                <span class="meta-item">£20, UK delivery included</span>
+              </div>
+              <p class="game-desc">
+                A word-party game where pronunciation beats spelling. Confidence
+                is your secret weapon, and wild comebacks are expected.
+              </p>
+              <div class="game-links">
+                <a href="shop.html" class="game-link">Buy it now →</a>
+                <a href="say-what-now.html" class="game-link">How to play →</a>
+              </div>
+            </div>
+          </div>
+          <div class="game-card">
+            <img
+              src="assets/games/project2.png"
+              alt="Secret Project 2"
+              class="game-image"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="game-content">
+              <span class="game-status status-brewing">In Development</span>
+              <h3 class="game-title">Secret Project #2</h3>
+              <p class="game-desc">
+                We're cooking something up. Can't say much yet, but expect
+                strategic depth with room for creativity. House rules encouraged.
+              </p>
+              <a href="#join" class="game-link">Get early access →</a>
+            </div>
+          </div>
+          <div class="game-card">
+            <img
+              src="assets/games/project3.png"
+              alt="Secret Project 3"
+              class="game-image"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="game-content">
+              <span class="game-status status-brewing">Early Stages</span>
+              <h3 class="game-title">Secret Project #3</h3>
+              <p class="game-desc">
+                This one's still in the "scribbled on a napkin" phase. But we
+                promise it'll be worth the wait. Quick to learn, fun to master.
+              </p>
+              <a href="#join" class="game-link">Be the first to know →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonials section-animate">
+        <h2>What Playtesters Say</h2>
+        <div class="testimonial-container">
+          <div class="testimonial-grid" id="testimonialGrid">
+            <div class="testimonial">
+              <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
+              <p class="testimonial-author">- Friend, mid-playtest</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                Uncontrollable laughter at the word KW-OI-F.
+              </p>
+              <p class="testimonial-author">- The Art Team</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "If you give me a copy I can show all my friends to get sales."
+              </p>
+              <p class="testimonial-author">- Abby's mum</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "Such a fun game to play with friends. Really gets you thinking! 100% play recommendation."
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "I thought I would suck at this game. Still can't believe I won!"
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-quote">
+                "I can't wait to get my own copy of this for our family game nights"
+              </p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+          </div>
+          <div class="swipe-indicator">Swipe to see more</div>
+        </div>
+      </section>
+
+      <section class="story section-animate" id="about">
+        <div class="story-content">
+          <h2>Started over bottomless tapas</h2>
+          <p class="story-text">
+            We're Matt and Abby - two game-obsessed humans who spent years
+            tweaking rules at the dining table. One day at Las Iguanas (way too
+            much food, honestly), we decided: why not make our own games?
           </p>
-          <div class="cta-buttons">
-            <a href="shop.html" class="btn btn-primary">Shop Say What Now?!</a>
-            <a href="#games" class="btn btn-secondary">See Our Games</a>
+          <p class="story-text">
+            <strong>Casa Tea Games&reg;</strong> was born that afternoon.
+            <em>Casa</em> = home, <em>tea</em> = brew. A place where we test ideas
+            until they're actually fun. We make games that are easy to learn, fun
+            to play, and even better when you add your own house rules.
+          </p>
+          <div class="philosophy-quote">
+            <p class="quote-text">
+              "Playing board games and collecting board games are two separate
+              hobbies"
+            </p>
+            <p class="quote-attribution">
+              - Someone wise (probably Abby after buying another board game)
+            </p>
           </div>
-          <div class="quick-stats">
-            <div class="stat">
-              <span class="stat-number" data-target="3">3</span>
-              <span class="stat-text">Games Brewing</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number" data-target="2">2</span>
-              <span class="stat-text">Humans (+ Larry)</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number" data-target="100">100</span>
-              <span class="stat-text">Home-Brewable</span>
-            </div>
 
+          <div class="founders">
+            <div class="polaroid">
+              <img src="assets/team/matt.png" alt="Matt" loading="lazy" decoding="async" />
+              <div class="polaroid-caption">
+                <div class="polaroid-name">Matt</div>
+                <div class="polaroid-role">Rules Guy</div>
+                <div class="polaroid-bio">
+                  Brings out that secret rule when he's losing.
+                </div>
+              </div>
+            </div>
+            <div class="polaroid">
+              <img src="assets/team/abby.png" alt="Abby" loading="lazy" decoding="async" />
+              <div class="polaroid-caption">
+                <div class="polaroid-name">Abby</div>
+                <div class="polaroid-role">Chaotic Energy</div>
+                <div class="polaroid-bio">Consequences? Deal with 'em later.</div>
+              </div>
+            </div>
+            <div class="polaroid">
+              <img src="assets/team/larry.png" alt="Larry" loading="lazy" decoding="async" />
+              <div class="polaroid-caption">
+                <div class="polaroid-name">Larry</div>
+                <div class="polaroid-role">Chief Morale Officer</div>
+                <div class="polaroid-bio">
+                  Enjoys reorganising the board games on the bottom shelf.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="hero-visual">
-          <div class="game-preview">
-            <img src="assets/saywhatnowmain.png" alt="Say What Now?!" />
+      </section>
+
+      <!--
+        Timeline labels describe the milestone rather than "last week" / "two weeks ago",
+        so they don't go out of date. To use dates instead, put them in the t-label spans.
+      -->
+      <section class="updates section-animate" id="updates">
+        <div class="updates-content">
+          <h2>What We've Been Up To</h2>
+          <div
+            class="timeline-wrap"
+            tabindex="0"
+            role="region"
+            aria-label="Timeline of updates, newest first. Scroll sideways to read more."
+          >
+            <div class="timeline-track">
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot t-dot-active"></div>
+                  <span class="t-label">Now</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">Say What Now?! Is Ready to Buy</h3>
+                  <p class="t-body">It's here! You can now order Say What Now?! direct from us, with UK delivery included. We'll have copies at conventions too. If you backed us on Kickstarter, we'll be in touch with a thank-you.</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Going it alone</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">We're Funding It Ourselves!</h3>
+                  <p class="t-body">Big news: we decided to self-fund Say What Now?! and bring it directly to you. After months of playtesting and an incredible response at Airecon, we pressed forward on our own terms.</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Airecon</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">Airecon - We Did It!</h3>
+                  <p class="t-body">Absolute blast. So many games played, so many laughs, and yes - the biscuits went down very well. Huge thanks to everyone who found us at Yokocho Gamer's Alley and backed us on Kickstarter. You're all legends.</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Kickstarter</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">We're LIVE on Kickstarter!</h3>
+                  <p class="t-body">It's happening! Say What Now?! is officially live on Kickstarter. After months of playtesting, spreadsheets, and questionable pronunciation decisions - you can now back us. Go go go!</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Biscuits</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">200 Biscuits Have Entered the Chat</h3>
+                  <p class="t-body">Our biscuit delivery arrived and we are behaving and not eating them! Sealed packets going out with every pledge at Airecon - because nothing seals a board game deal like a biscuit.</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Merch</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">T-shirts, Leaflets & a Digital Glow-Up</h3>
+                  <p class="t-body">The merch is in - t-shirts and leaflets ready for Airecon. We've also given the digital version of Say What Now?! a full restyle. Looking very good, even if we do say so ourselves.</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Launch prep</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">Launch Prep is WILD</h3>
+                  <p class="t-body">Turns out bringing a board game to market involves way more spreadsheets than we thought. Our playtesters keep asking when they can buy it. Good sign?</p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
+                  <span class="t-label">Playtesting</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">Larry's Playtest Feedback</h3>
+                  <p class="t-body">Barked twice, tried to eat a pen, knocked a vowel card off the table. Somehow this helped us fix a timing issue. We don't question his methods anymore.</p>
+                </div>
+              </div>
+
+            </div>
           </div>
-
-          <a class="preview-tag" href="shop.html">Available now</a>
+          <p class="timeline-hint" id="timelineHint">Swipe to see more</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="games section-animate" id="games">
-      <div class="section-header">
-        <h2>Our Games</h2>
-        <p>No massive catalog. Just games we'd actually want to play.</p>
-      </div>
-      <div class="games-grid">
-        <div class="game-card featured">
-          <img
-            src="assets/saywhatnowmain.png"
-            alt="Say What Now?!"
-            class="game-image"
+      <section class="faq section-animate" id="faq">
+        <h2>Questions? We've Got Answers</h2>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            How can I buy Say What Now?!
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Straight from us, no middleman. Head to <a href="shop.html">our shop</a> and check out securely with Stripe. UK delivery is included in the price, and we'll have copies at conventions too.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            Can I playtest your games?
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Absolutely! Sign up for our playtest list and we'll send you invites
+              when we need fresh perspectives. We value honest feedback and there
+              might be some goodies involved.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            What makes your games different?
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              We design for actual humans, not game theory. Quick to learn, fun to
+              replay, and built to be modified. House rules aren't bugs - they're
+              features!
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            Will you ship internationally?
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              For now we deliver to UK addresses only. Join our mailing list below and we'll let you know if that changes.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            Can I suggest a house rule?
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              PLEASE DO! We love seeing how people adapt our games. Send yours in
+              through the <a href="say-what-now.html#house-rules">house rules section</a>
+              on the Say What Now?! page, or share it on Instagram or TikTok. The
+              best ones might become official variants!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="signup section-animate" id="join">
+        <h2>Join the Inner Circle</h2>
+        <p class="signup-subtext">
+          Get playtest invites, behind-the-scenes updates, and news on new games and events.
+          No spam. Just game night goodness.
+        </p>
+
+        <form
+          class="signup-form"
+          id="newsletterForm"
+          name="newsletter"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="newsletter" />
+          <p hidden>
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+          </p>
+          <label class="sr-only" for="newsletter-email">Email address</label>
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            placeholder="your.email@example.com"
+            autocomplete="email"
+            required
           />
-          <div class="game-content">
-            <a class="game-status status-live" href="shop.html">Available now</a>
-            <h3 class="game-title">Say What Now?!<span class="tm">&reg;</span></h3>
-            <div class="game-meta">
-              <span class="meta-item">3-6 players</span>
-              <span class="meta-item">30-45 mins</span>
-              <span class="meta-item">£20, UK delivery included</span>
-            </div>
-            <p class="game-desc">
-              A word-party game where pronunciation beats spelling. Confidence
-              is your secret weapon, and wild comebacks are expected.
-            </p>
-            <div class="game-links">
-              <a href="shop.html" class="game-link">Buy it now →</a>
-              <a href="say-what-now.html" class="game-link">How to play →</a>
-            </div>
-          </div>
-        </div>
-        <div class="game-card">
-          <img
-            src="assets/project2.png"
-            alt="Secret Project 2"
-            class="game-image"
-          />
-          <div class="game-content">
-            <span class="game-status status-brewing">In Development</span>
-            <h3 class="game-title">Secret Project #2</h3>
-            <p class="game-desc">
-              We're cooking something up. Can't say much yet, but expect
-              strategic depth with room for creativity. House rules encouraged.
-            </p>
-            <a href="#join" class="game-link">Get early access →</a>
-          </div>
-        </div>
-        <div class="game-card">
-          <img
-            src="assets/project3.png"
-            alt="Secret Project 3"
-            class="game-image"
-          />
-          <div class="game-content">
-            <span class="game-status status-brewing">Early Stages</span>
-            <h3 class="game-title">Secret Project #3</h3>
-            <p class="game-desc">
-              This one's still in the "scribbled on a napkin" phase. But we
-              promise it'll be worth the wait. Quick to learn, fun to master.
-            </p>
-            <a href="#join" class="game-link">Be the first to know →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials section-animate">
-      <h2>What Playtesters Say</h2>
-      <div class="testimonial-container">
-        <div class="testimonial-grid" id="testimonialGrid">
-          <div class="testimonial">
-            <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
-            <p class="testimonial-author">- Friend, mid-playtest</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              Uncontrollable laughter at the word KW-OI-F.
-            </p>
-            <p class="testimonial-author">- The Art Team</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "If you give me a copy I can show all my friends to get sales."
-            </p>
-            <p class="testimonial-author">- Abby's mum</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "Such a fun game to play with friends. Really gets you thinking! 100% play recommendation."
-            </p>
-            <p class="testimonial-author">- Playtester</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "I thought I would suck at this game. Still can't believe I won!"
-            </p>
-            <p class="testimonial-author">- Playtester</p>
-          </div>
-          <div class="testimonial">
-            <p class="testimonial-quote">
-              "I can't wait to get my own copy of this for our family game nights"
-            </p>
-            <p class="testimonial-author">- Playtester</p>
-          </div>
-        </div>
-        <div class="swipe-indicator">Swipe to see more</div>
-      </div>
-    </section>
-
-    <section class="story section-animate" id="about">
-      <div class="story-content">
-        <h2>Started over bottomless tapas</h2>
-        <p class="story-text">
-          We're Matt and Abby - two game-obsessed humans who spent years
-          tweaking rules at the dining table. One day at Las Iguanas (way too
-          much food, honestly), we decided: why not make our own games?
+          <button type="submit" class="btn btn-primary">Count Me In!</button>
+          <p class="form-note">
+            By joining, you agree that we can email you news about our games and events. You can unsubscribe at any time. See our <a class="link-inherit" href="privacy.html">privacy policy</a>.
+          </p>
+          <p class="form-error" role="alert"></p>
+        </form>
+        <p class="signup-success" id="newsletterSuccess" role="status" hidden>
+          You're in! We'll be in touch with playtest invites and news.
         </p>
-        <p class="story-text">
-          <strong>Casa Tea Games&reg;</strong> was born that afternoon.
-          <em>Casa</em> = home, <em>tea</em> = brew. A place where we test ideas
-          until they're actually fun. We make games that are easy to learn, fun
-          to play, and even better when you add your own house rules.
-        </p>
-        <div class="philosophy-quote">
-          <p class="quote-text">
-            "Playing board games and collecting board games are two separate
-            hobbies"
-          </p>
-          <p class="quote-attribution">
-            - Someone wise (probably Abby after buying another board game)
-          </p>
-        </div>
 
-        <div class="founders">
-          <div class="polaroid">
-            <img src="assets/matt.png" alt="Matt" />
-            <div class="polaroid-caption">
-              <div class="polaroid-name">Matt</div>
-              <div class="polaroid-role">Rules Guy</div>
-              <div class="polaroid-bio">
-                Brings out that secret rule when he's losing.
-              </div>
-            </div>
+        <div class="perks">
+          <div class="perk">
+            <div class="perk-text">Early Playtest Access</div>
           </div>
-          <div class="polaroid">
-            <img src="assets/abby.png" alt="Abby" />
-            <div class="polaroid-caption">
-              <div class="polaroid-name">Abby</div>
-              <div class="polaroid-role">Chaotic Energy</div>
-              <div class="polaroid-bio">Consequences? Deal with 'em later.</div>
-            </div>
+          <div class="perk">
+            <div class="perk-text">Shape Future Games</div>
           </div>
-          <div class="polaroid">
-            <img src="assets/larry.png" alt="Larry" />
-            <div class="polaroid-caption">
-              <div class="polaroid-name">Larry</div>
-              <div class="polaroid-role">Chief Morale Officer</div>
-              <div class="polaroid-bio">
-                Enjoys reorganising the board games on the bottom shelf.
-              </div>
-            </div>
+          <div class="perk">
+            <div class="perk-text">First to Hear About New Games</div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="updates section-animate" id="updates">
-      <div class="updates-content">
-        <h2>What We've Been Up To</h2>
-        <div class="timeline-wrap">
-          <div class="timeline-track">
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot t-dot-active"></div>
-                <span class="t-label">Now</span>
-              </div>
-              <div class="t-card" data-label="Now">
-                <h3 class="t-title">Say What Now?! Is Ready to Buy</h3>
-                <p class="t-body">It's here! You can now order Say What Now?! direct from us, with UK delivery included. We'll have copies at conventions too. If you backed us on Kickstarter, we'll be in touch with a thank-you.</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Recently</span>
-              </div>
-              <div class="t-card" data-label="Recently">
-                <h3 class="t-title">We're Funding It Ourselves!</h3>
-                <p class="t-body">Big news: we decided to self-fund Say What Now?! and bring it directly to you. After months of playtesting and an incredible response at Airecon, we pressed forward on our own terms.</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Last week</span>
-              </div>
-              <div class="t-card" data-label="Last week">
-                <h3 class="t-title">Airecon - We Did It!</h3>
-                <p class="t-body">Absolute blast. So many games played, so many laughs, and yes - the biscuits went down very well. Huge thanks to everyone who found us at Yokocho Gamer's Alley and backed us on Kickstarter. You're all legends.</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Two weeks ago</span>
-              </div>
-              <div class="t-card" data-label="Two weeks ago">
-                <h3 class="t-title">We're LIVE on Kickstarter!</h3>
-                <p class="t-body">It's happening! Say What Now?! is officially live on Kickstarter. After months of playtesting, spreadsheets, and questionable pronunciation decisions - you can now back us. Go go go!</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Three weeks ago</span>
-              </div>
-              <div class="t-card" data-label="Three weeks ago">
-                <h3 class="t-title">200 Biscuits Have Entered the Chat</h3>
-                <p class="t-body">Our biscuit delivery arrived and we are behaving and not eating them! Sealed packets going out with every pledge at Airecon - because nothing seals a board game deal like a biscuit.</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Earlier</span>
-              </div>
-              <div class="t-card" data-label="Earlier">
-                <h3 class="t-title">T-shirts, Leaflets & a Digital Glow-Up</h3>
-                <p class="t-body">The merch is in - t-shirts and leaflets ready for Airecon. We've also given the digital version of Say What Now?! a full restyle. Looking very good, even if we do say so ourselves.</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Last month</span>
-              </div>
-              <div class="t-card" data-label="Last month">
-                <h3 class="t-title">Launch Prep is WILD</h3>
-                <p class="t-body">Turns out bringing a board game to market involves way more spreadsheets than we thought. Our playtesters keep asking when they can buy it. Good sign?</p>
-              </div>
-            </div>
-
-            <div class="t-item">
-              <div class="t-dot-wrap">
-                <div class="t-dot"></div>
-                <span class="t-label">Earlier</span>
-              </div>
-              <div class="t-card" data-label="Earlier">
-                <h3 class="t-title">Larry's Playtest Feedback</h3>
-                <p class="t-body">Barked twice, tried to eat a pen, knocked a vowel card off the table. Somehow this helped us fix a timing issue. We don't question his methods anymore.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <p class="timeline-hint">Swipe to see more</p>
-      </div>
-    </section>
-
-
-
-    <section class="faq section-animate" id="faq">
-      <h2>Questions? We've Got Answers</h2>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-          How can I buy Say What Now?!
-          <span class="faq-icon">▼</span>
-        </button>
-        <div class="faq-answer">
-          <p>
-            Straight from us, no middleman. Head to <a href="shop.html">our shop</a> and check out securely with Stripe. UK delivery is included in the price, and we'll have copies at conventions too.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-          Can I playtest your games?
-          <span class="faq-icon">▼</span>
-        </button>
-        <div class="faq-answer">
-          <p>
-            Absolutely! Sign up for our playtest list and we'll send you invites
-            when we need fresh perspectives. We value honest feedback and there
-            might be some goodies involved.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-          What makes your games different?
-          <span class="faq-icon">▼</span>
-        </button>
-        <div class="faq-answer">
-          <p>
-            We design for actual humans, not game theory. Quick to learn, fun to
-            replay, and built to be modified. House rules aren't bugs - they're
-            features!
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-          Will you ship internationally?
-          <span class="faq-icon">▼</span>
-        </button>
-        <div class="faq-answer">
-          <p>
-            For now we deliver to UK addresses only. Join our mailing list below and we'll let you know if that changes.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
-          Can I suggest a house rule?
-          <span class="faq-icon">▼</span>
-        </button>
-        <div class="faq-answer">
-          <p>
-            PLEASE DO! We love seeing how people adapt our games. Send yours in
-            through the <a href="say-what-now.html#house-rules">house rules section</a>
-            on the Say What Now?! page, or share it on Instagram or TikTok. The
-            best ones might become official variants!
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="signup section-animate" id="join">
-      <h2>Join the Inner Circle</h2>
-      <p class="signup-subtext">
-        Get playtest invites, behind-the-scenes updates, and news on new games and events.
-        No spam. Just game night goodness.
-      </p>
-
-      <form
-        class="signup-form"
-        name="newsletter"
-        method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-      >
-        <input type="hidden" name="form-name" value="newsletter" />
-        <p style="display: none">
-          <label>
-            Don't fill this out if you're human: <input name="bot-field" />
-          </label>
-        </p>
-        <input
-          type="email"
-          name="email"
-          placeholder="your.email@example.com"
-          required
-        />
-        <button type="submit" class="btn btn-primary">Count Me In!</button>
-        <p style="flex: 0 0 100%; font-size: 0.85rem; opacity: 0.7; text-align: center">
-          By joining, you agree that we can email you news about our games and events. You can unsubscribe at any time. See our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a>.
-        </p>
-      </form>
-
-      <div class="perks">
-        <div class="perk">
-          <div class="perk-text">Early Playtest Access</div>
-        </div>
-        <div class="perk">
-          <div class="perk-text">Shape Future Games</div>
-        </div>
-        <div class="perk">
-          <div class="perk-text">First to Hear About New Games</div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer>
       <div class="footer-content">
         <div class="social-links">
-          <a
-            href="https://www.instagram.com/casateagames/"
-            target="_blank"
-            rel="noopener"
-            class="social-link"
-            >Instagram</a
-          >
-          <a
-            href="https://www.tiktok.com/@casateagames"
-            target="_blank"
-            rel="noopener"
-            class="social-link"
-            >TikTok</a
-          >
-          <!-- href="#contact" (not "#") stops script.js's smooth-scroll handler throwing an error -->
-          <a
-            href="#contact"
-            onclick="openContactModal(event)"
-            class="social-link contact-link"
-            >Contact us</a
-          >
+          <a href="https://www.instagram.com/casateagames/" target="_blank" rel="noopener" class="social-link">Instagram</a>
+          <a href="https://www.tiktok.com/@casateagames" target="_blank" rel="noopener" class="social-link">TikTok</a>
+          <a href="#contact" onclick="openContactModal(event)" class="social-link">Contact us</a>
         </div>
         <p class="footer-tagline">
           Making games with heart (and room for house rules) since that tapas
           lunch
         </p>
-        <p style="opacity: 0.6; margin-top: 1rem">
-          © 2025 Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
+        <p class="footer-copy">
+          © 2025–<span data-year>2026</span> Casa Tea Games Ltd. All rights reserved. Casa Tea Games&reg; and Say What Now?!&reg; are registered trade marks of Casa Tea Games Ltd.
         </p>
-        <p style="opacity: 0.6; margin-top: 0.75rem; font-size: 0.9rem">
+        <p class="footer-company">
           Casa Tea Games Ltd is registered in England and Wales, company number 16656002.
           Registered office: Unit A, 82 James Carter Road, Mildenhall, IP28 7DE, United Kingdom.
-          Email: <a href="mailto:casateagames@gmail.com" style="color: inherit; text-decoration: underline">casateagames@gmail.com</a>
+          Email: <a href="mailto:casateagames@gmail.com">casateagames@gmail.com</a>
         </p>
-        <p style="margin-top: 0.75rem; font-size: 0.9rem">
-          <a href="terms.html" style="color: inherit; text-decoration: underline; margin-right: 1.25rem">Terms and conditions</a>
-          <a href="privacy.html" style="color: inherit; text-decoration: underline">Privacy policy</a>
+        <p class="footer-links">
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy policy</a>
         </p>
       </div>
     </footer>
@@ -550,17 +540,21 @@
     <!-- Contact Modal -->
     <div class="contact-modal" id="contactModal">
       <div class="contact-modal-overlay" onclick="closeContactModal()"></div>
-      <div class="contact-modal-content">
+      <div
+        class="contact-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contactTitle"
+      >
         <button
+          type="button"
           class="contact-modal-close"
           onclick="closeContactModal()"
           aria-label="Close contact form"
-        >
-          ×
-        </button>
+        >×</button>
 
         <div class="contact-modal-header">
-          <h2>Get in Touch!</h2>
+          <h2 id="contactTitle">Get in Touch!</h2>
           <p>
             Have a question? Want to playtest? Just want to say hi? We'd love to
             hear from you!
@@ -576,7 +570,7 @@
           onsubmit="handleContactSubmit(event)"
         >
           <input type="hidden" name="form-name" value="contact" />
-          <p style="display: none">
+          <p hidden>
             <label>
               Don't fill this out if you're human: <input name="bot-field" />
             </label>
@@ -589,6 +583,7 @@
               id="contact-name"
               name="name"
               placeholder="Larry is that you?"
+              autocomplete="name"
               required
             />
           </div>
@@ -600,6 +595,7 @@
               id="contact-email"
               name="email"
               placeholder="you@example.com"
+              autocomplete="email"
               required
             />
           </div>
@@ -627,8 +623,9 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Send Message</button>
-          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; text-align: center">
-            We'll use your details to reply to you. See our <a href="privacy.html" style="color: inherit; text-decoration: underline">privacy policy</a>.
+          <p class="form-error" role="alert"></p>
+          <p class="form-note">
+            We'll use your details to reply to you. See our <a class="link-inherit" href="privacy.html">privacy policy</a>.
           </p>
         </form>
 
@@ -638,7 +635,7 @@
             Thanks for reaching out! We'll get back to you soon (probably with
             Larry's approval).
           </p>
-          <button class="btn btn-secondary" onclick="closeContactModal()">
+          <button type="button" class="btn btn-secondary" onclick="closeContactModal()">
             Close
           </button>
         </div>
@@ -646,14 +643,13 @@
     </div>
 
     <!-- Progress Dots Navigation -->
-    <div class="progress-dots" id="progressDots">
-      <div class="progress-dot" data-section="hero" title="Top"></div>
-      <div class="progress-dot" data-section="games" title="Games"></div>
-      <div class="progress-dot" data-section="about" title="About"></div>
-      <div class="progress-dot" data-section="conventions" title="Events"></div>
-      <div class="progress-dot" data-section="updates" title="Updates"></div>
-      <div class="progress-dot" data-section="faq" title="FAQ"></div>
-      <div class="progress-dot" data-section="join" title="Join"></div>
+    <div class="progress-dots" id="progressDots" role="group" aria-label="Jump to a section">
+      <button type="button" class="progress-dot" data-section="hero" title="Top" aria-label="Top"></button>
+      <button type="button" class="progress-dot" data-section="games" title="Games" aria-label="Games"></button>
+      <button type="button" class="progress-dot" data-section="about" title="About" aria-label="About"></button>
+      <button type="button" class="progress-dot" data-section="updates" title="Updates" aria-label="Updates"></button>
+      <button type="button" class="progress-dot" data-section="faq" title="FAQ" aria-label="FAQ"></button>
+      <button type="button" class="progress-dot" data-section="join" title="Join" aria-label="Join"></button>
     </div>
 
     <script src="script.js"></script>
