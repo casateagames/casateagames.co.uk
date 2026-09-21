@@ -1,0 +1,11 @@
+# Applies to every page and file
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000
+
+# Images, fonts, videos and the PDF: browsers may reuse them for 1 day
+/assets/*
+  Cache-Control: public, max-age=86400
