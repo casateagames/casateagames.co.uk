@@ -1043,6 +1043,7 @@
   border-radius: 16px;
   padding: 1rem 1.25rem;
   box-shadow: 0 6px 18px var(--shadow);
+  margin-bottom: 1.5rem;
 }
 
 .text-rules summary {
