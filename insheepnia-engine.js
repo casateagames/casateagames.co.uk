@@ -11,12 +11,13 @@
     s1: { name: "1 Sheep", type: "sheep", val: 1, img: "one-sheep", text: "Counts as 1 sheep." },
     s2: { name: "2 Sheep", type: "sheep", val: 2, img: "two-sheep", text: "Counts as 2 sheep." },
     s3: { name: "3 Sheep", type: "sheep", val: 3, img: "three-sheep", text: "Counts as 3 sheep." },
-    black: { name: "Black Sheep", type: "sheep", val: -1, img: "black-sheep", target: "other",
-      text: "Counts as -1 sheep. Play it into another player's hand. It's stuck there until it's sheared or stolen." },
+    black: { name: "Black Sheep", type: "sheep", val: 0, bedVal: -1, img: "black-sheep", target: "other",
+      text: "Play it into another player's bed, where it counts as -1 sheep for them. Shear or Earplugs clear it." },
     wolf: { name: "Wolf", type: "power", img: "wolf", target: "other", text: "Take one random card from another player's hand." },
     milk: { name: "Warm Milk", type: "power", img: "warm-milk", react: true,
       text: "Play any time to block a card that affects you. You'll be asked automatically." },
-    shear: { name: "Shear", type: "power", img: "shear", choose: "ownCard", text: "Discard one card from your own hand." },
+    shear: { name: "Shear", type: "power", img: "shear", choose: "ownCard",
+      text: "Discard one card from your own hand, or a Black Sheep from your bed." },
     lullaby: { name: "Lullaby", type: "power", img: "lullaby", text: "Draw 2 cards." },
     snore: { name: "Snore", type: "power", img: "snore", text: "The next player skips their turn." },
     owl: { name: "Night Owl", type: "power", img: "night-owl", target: "other", text: "Secretly look at another player's bed card." },
@@ -141,6 +142,7 @@
 
   function current(state) { return state.order[state.turn]; }
 
+  /** Sheep in a hand. Black Sheep only count once they're in a bed. */
   function sheepCount(hand) {
     return hand.reduce(function (sum, c) {
       var d = CARDS[c.k];
@@ -148,19 +150,36 @@
     }, 0);
   }
 
-  function needOf(state, pid) {
+  /** Black Sheep in a player's bed (each one is -1 sheep). */
+  function blacksInBed(state, pid) {
+    return state.players[pid].mods.filter(function (m) { return m.k === "black"; }).length;
+  }
+
+  /** Sheep a player has: their hand, minus Black Sheep in their bed. */
+  function haveOf(state, pid) {
+    return sheepCount(state.players[pid].hand) - blacksInBed(state, pid);
+  }
+
+  /** Public changes to a player's target: everything except their secret bed number. */
+  function needParts(state, pid) {
     var p = state.players[pid];
-    var n = p.bed;
+    var parts = [];
     var plugged = p.mods.some(function (m) { return m.k === "earplugs"; });
-    p.mods.forEach(function (m) { if (CARDS[m.k].delta) n += CARDS[m.k].delta; });
+    p.mods.forEach(function (m) { if (CARDS[m.k].delta) parts.push({ k: m.k, delta: CARDS[m.k].delta }); });
     if (!plugged) {
       state.order.forEach(function (qid) {
         if (qid === pid) return;
         state.players[qid].mods.forEach(function (m) {
-          if (m.k === "dog" && (m.immune || []).indexOf(pid) === -1) n += 1;
+          if (m.k === "dog" && (m.immune || []).indexOf(pid) === -1) parts.push({ k: "dog", delta: 1, from: qid });
         });
       });
     }
+    return parts;
+  }
+
+  function needOf(state, pid) {
+    var n = state.players[pid].bed;
+    needParts(state, pid).forEach(function (x) { n += x.delta; });
     return Math.max(1, n);
   }
 
@@ -286,7 +305,7 @@
     }
 
     if (action.type === "announce") {
-      var have = sheepCount(p.hand);
+      var have = haveOf(state, pid);
       var needN = needOf(state, pid);
       if (have === needN) {
         state.winner = pid;
@@ -315,7 +334,6 @@
       var card = p.hand[idx];
       var d = CARDS[card.k];
       if (d.type === "sheep" && card.k !== "black") { out.error = "Sheep cards stay in your hand. Draw, play a power card, or announce."; return out; }
-      if (card.k === "black" && card.stuck) { out.error = "This Black Sheep is stuck with you. Shear it to get rid of it."; return out; }
       if (d.react) { out.error = "Warm Milk is played automatically when a card is played on you."; return out; }
 
       var target = action.target;
@@ -326,7 +344,10 @@
       }
       // Validate choices before anything moves.
       if (d.choose === "ownCard") {
-        if (action.choice === card.id || findIndex(p.hand, action.choice) === -1) { out.error = "Choose a card from your hand to shear."; return out; }
+        var inBed = p.mods.some(function (m) { return m.id === action.choice && m.k === "black"; });
+        if (action.choice === card.id || (findIndex(p.hand, action.choice) === -1 && !inBed)) {
+          out.error = "Choose a card from your hand, or a Black Sheep in your bed, to shear."; return out;
+        }
       }
       if (d.choose === "discard") {
         if (findIndex(state.discard, action.choice) === -1) { out.error = "Choose a card from the discard pile."; return out; }
@@ -360,7 +381,7 @@
   function describePlay(state, pid, card, target) {
     var n = nameOf(state, pid);
     var d = CARDS[card.k];
-    if (card.k === "black") return n + " slipped a Black Sheep into " + nameOf(state, target) + "'s hand.";
+    if (card.k === "black") return n + " put a Black Sheep in " + nameOf(state, target) + "'s bed.";
     if (d.target === "other") return n + " played " + d.name + " on " + nameOf(state, target) + ".";
     if (d.target === "any") return n + " played " + d.name + (target === pid ? " in their own bed." : " in " + nameOf(state, target) + "'s bed.");
     if (card.k === "snore") return n + " played Snore. " + nameOf(state, nextPlayer(state, pid)) + " is next.";
@@ -388,7 +409,7 @@
     switch (card.k) {
       case "black":
         if (blocked(target)) toDiscard(state, card);
-        else { card.stuck = true; state.players[target].hand.push(card); }
+        else { card.from = actor; state.players[target].mods.push(card); }
         break;
       case "wolf":
         toDiscard(state, card);
@@ -432,10 +453,14 @@
       case "shear":
         toDiscard(state, card);
         var si = findIndex(a.hand, pend.choice);
+        var bi = findIndex(a.mods, pend.choice);
         if (si !== -1) {
           var sheared = a.hand.splice(si, 1)[0];
           toDiscard(state, sheared);
           addLog(state, a.name + " sheared off " + (CARDS[sheared.k].type === "sheep" ? "a " + CARDS[sheared.k].name : "a card") + ".");
+        } else if (bi !== -1 && a.mods[bi].k === "black") {
+          toDiscard(state, a.mods.splice(bi, 1)[0]);
+          addLog(state, a.name + " sheared the Black Sheep out of their bed.");
         }
         break;
       case "snack":
@@ -613,7 +638,10 @@
           hand: showAll ? p.hand.map(publicCard) : null,
           bed: showAll ? p.bed : null,
           need: showAll ? needOf(state, q) : null,
-          have: showAll ? sheepCount(p.hand) : null,
+          have: showAll ? haveOf(state, q) : null,
+          handSheep: showAll ? sheepCount(p.hand) : null,
+          needParts: needParts(state, q),
+          blacks: blacksInBed(state, q),
           mods: p.mods.map(modView),
           skip: p.skip,
         };
@@ -644,7 +672,7 @@
   var api = {
     CARDS: CARDS, COUNTS: COUNTS, HAND_LIMIT: HAND_LIMIT,
     buildDeck: buildDeck, createGame: createGame, act: act, tick: tick, view: view,
-    needOf: needOf, sheepCount: sheepCount, skipCurrent: skipCurrent, current: current,
+    needOf: needOf, sheepCount: sheepCount, haveOf: haveOf, needParts: needParts, skipCurrent: skipCurrent, current: current,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.InsheepniaEngine = api;

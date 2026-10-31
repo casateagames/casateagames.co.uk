@@ -28,7 +28,8 @@
         --panel-line: rgba(255, 255, 255, 0.16);
         --pink: #f27fa0;
         --danger: #ff8a80;
-        --card-w: 92px;
+        --card-w: 140px;
+        --bed-w: 64px;
         --font: "Nunito", "Trebuchet MS", system-ui, sans-serif;
         color-scheme: dark;
       }
@@ -222,7 +223,7 @@
 
       .seats {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         gap: 10px;
       }
 
@@ -309,10 +310,10 @@
         background: rgba(11, 22, 58, 0.5);
       }
       .pile { display: grid; gap: 4px; justify-items: center; font-size: 0.8rem; font-weight: 800; color: var(--muted); }
-      .pile .back { width: 64px; margin: 0; border-width: 2px; }
-      .pile .card { width: 64px; }
+      .pile .back { width: 92px; margin: 0; border-width: 2px; }
+      .pile .card { width: 92px; }
       .pile .empty {
-        width: 64px;
+        width: 92px;
         aspect-ratio: 63 / 88;
         border-radius: 8px;
         border: 2px dashed var(--panel-line);
@@ -345,11 +346,50 @@
 
       .me { display: grid; gap: 10px; }
       .me-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-      .me-head .bedcard { width: 64px; flex: 0 0 auto; }
-      .tally { display: grid; gap: 2px; min-width: 0; }
-      .tally strong { font-size: 1.25rem; font-weight: 1000; }
-      .tally span { color: var(--muted); font-weight: 700; font-size: 0.92rem; }
-      .tally .exact { color: #6fe08a; }
+      .me-head .bedcard { width: 96px; flex: 0 0 auto; }
+      .tally { display: flex; gap: 12px; flex-wrap: wrap; min-width: 0; }
+      .score {
+        display: grid;
+        gap: 2px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        background: var(--panel);
+        border: 1px solid var(--panel-line);
+        min-width: 150px;
+      }
+      .score .lbl { font-size: 0.78rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+      .score .big { font-size: 2.4rem; font-weight: 1000; line-height: 1; color: var(--star); font-variant-numeric: tabular-nums; }
+      .score .sum { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+      .score.need .big { color: var(--cyan); }
+      .score.match { border-color: #6fe08a; }
+      .score.match .big { color: #6fe08a; }
+
+      /* Cards sitting in a bed */
+      .bedrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; }
+      .bedslot {
+        appearance: none;
+        border: 0;
+        padding: 0;
+        background: none;
+        color: inherit;
+        width: var(--bed-w);
+        display: grid;
+        gap: 2px;
+        justify-items: center;
+        text-align: center;
+        font-size: 0.68rem;
+        font-weight: 800;
+        line-height: 1.15;
+      }
+      .bedslot .card, .bedslot .card-fallback { width: 100%; border-radius: 6px; font-size: 0.5rem; padding: 2px; }
+      .bedslot.pickable { cursor: pointer; }
+      .bedslot.pickable .card, .bedslot.pickable .card-fallback { box-shadow: 0 0 0 3px var(--cyan); }
+      .me .bedrow { --bed-w: 84px; }
+      .exact { color: #6fe08a; }
+      .needchip { background: var(--cyan); }
+      .preview { width: 170px; flex: 0 0 auto; }
+      .actionrow { display: flex; gap: 14px; align-items: flex-start; }
+      .actionmain { display: grid; gap: 10px; min-width: 0; flex: 1 1 auto; }
 
       .hand {
         display: flex;
@@ -488,7 +528,11 @@
       .countdown { font-variant-numeric: tabular-nums; color: var(--cyan); font-weight: 900; }
 
       @media (max-width: 640px) {
-        :root { --card-w: 78px; }
+        :root { --card-w: 104px; --bed-w: 52px; }
+        .preview { width: 96px; }
+        .score .big { font-size: 2rem; }
+        .score { min-width: 0; flex: 1 1 120px; }
+        .me-head .bedcard { width: 72px; }
         .middle { grid-template-columns: minmax(0, 1fr); }
         .piles { justify-content: center; }
         .seats { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
@@ -911,7 +955,6 @@
         function unplayableReason(c) {
           var d = CARDS[c.k];
           if (d.type === "sheep" && c.k !== "black") return "Sheep cards stay in your hand. They're what you're counting.";
-          if (c.k === "black" && c.stuck) return "This Black Sheep is stuck with you. Shear it to get rid of it.";
           if (d.react) return "Warm Milk is used automatically: you'll be asked when a card is played on you.";
           return "";
         }
@@ -1034,7 +1077,7 @@
             '<ul class="people">' + people + "</ul>" +
             (L.isHost
               ? '<label class="toggle"><input type="checkbox" id="faToggle"' + (L.falseAlarm ? " checked" : "") + ' /><span><strong>False alarm penalty</strong><br><span class="note">If you announce with the wrong number, everyone takes a random card from you. Turn off for younger players.</span></span></label>' +
-                '<label class="toggle"><input type="checkbox" id="helperToggle"' + (L.helper ? " checked" : "") + ' /><span><strong>Count sheep for players</strong><br><span class="note">Shows each player how many sheep they have and need. Turn off to count in your heads.</span></span></label>' +
+                '<label class="toggle"><input type="checkbox" id="helperToggle"' + (L.helper ? " checked" : "") + ' /><span><strong>Count sheep for players</strong><br><span class="note">Shows each player how many sheep they have. Everyone always sees how many they need.</span></span></label>' +
                 '<button class="btn" id="startBtn" type="button"' + (enough ? "" : " disabled") + ">Start the game</button>" +
                 (enough ? "" : '<p class="note">You need at least 2 players.</p>')
               : '<p class="note">Waiting for the host to start the game…</p>') +
@@ -1050,15 +1093,26 @@
           }
         }
 
-        function modChips(mods, ownerId) {
+        function bedRow(mods, pickKind) {
           return mods.map(function (m) {
             var d = CARDS[m.k];
-            var extra = "";
-            if (m.k === "dog" && m.immune && m.immune.length) extra = " (not " + m.immune.map(nameOf).map(esc).join(", ") + ")";
-            void ownerId;
-            return '<span class="mod" title="' + esc(d.text) + '"><img src="' + CARD_PATH + d.img + '.png" alt="" data-icon="1" />' +
-              esc(d.name) + extra + "</span>";
+            var label = d.name;
+            if (m.k === "black") label = "Black Sheep (−1 sheep)";
+            else if (d.delta) label = d.name + " (" + (d.delta > 0 ? "+" : "−") + Math.abs(d.delta) + " needed)";
+            else if (m.k === "dog") label = "Dog (+1 for everyone else" + (m.immune && m.immune.length ? ", not " + m.immune.map(nameOf).join(", ") : "") + ")";
+            else if (m.k === "earplugs") label = "Earplugs (blocks the dog)";
+            var pick = pickKind && m.k === pickKind;
+            return '<button type="button" class="bedslot' + (pick ? " pickable" : "") + '"' + (pick ? ' data-bed-pick="' + m.id + '"' : " disabled") +
+              ' title="' + esc(d.text) + '">' + cardImg(m.k) + "<span>" + esc(label) + "</span></button>";
           }).join("");
+        }
+
+        function needChip(pl) {
+          var net = pl.needParts.reduce(function (n, x) { return n + x.delta; }, 0);
+          var bits = [];
+          if (net) bits.push("Needs " + (net > 0 ? "+" : "−") + Math.abs(net));
+          if (pl.blacks) bits.push("−" + pl.blacks + " sheep");
+          return bits.length ? '<span class="seat-top"><span class="badge needchip">' + esc(bits.join(" · ")) + "</span></span>" : "";
         }
 
         function renderGame(root) {
@@ -1081,7 +1135,8 @@
               '<span class="seat-top"><span class="dot' + (online ? "" : " off") + '"></span><span class="seat-name">' + esc(pl.name) + "</span>" +
               (turn ? '<span class="badge">Turn</span>' : "") + (pl.skip ? '<span class="badge pink">Snoring</span>' : "") + "</span>" +
               '<span class="seat-line"><span class="backs">' + backs + "</span>" + pl.handCount + " card" + (pl.handCount === 1 ? "" : "s") + "</span>" +
-              (pl.mods.length ? '<span class="mods">' + modChips(pl.mods, pl.id) + "</span>" : '<span class="note" style="font-size:0.8rem">Nothing in their bed</span>') +
+              needChip(pl) +
+              (pl.mods.length ? '<span class="bedrow">' + bedRow(pl.mods, null) + "</span>" : '<span class="note" style="font-size:0.8rem">Nothing in their bed</span>') +
               "</button>";
           }).join("");
 
@@ -1105,14 +1160,21 @@
             if (app.multi.indexOf(c.id) !== -1) cls += " marked";
             if (app.mode === "shear" && c.id === app.sel) cls += " dim";
             return '<button type="button" class="' + cls + '" data-card-id="' + c.id + '" aria-pressed="' + (app.sel === c.id || app.multi.indexOf(c.id) !== -1) + '">' +
-              (c.stuck ? '<span class="stuck-tag">Stuck</span>' : "") + cardImg(c.k) + "</button>";
+              cardImg(c.k) + "</button>";
           }).join("");
 
           var helper = L.helper;
-          var tally = helper
-            ? "<strong>" + me.have + " sheep" + (me.have === me.need ? ' <span class="exact">exactly right!</span>' : "") + "</strong>" +
-              "<span>You need " + me.need + (me.need !== me.bed ? " (bed " + me.bed + " plus your bed cards and any dogs)" : "") + "</span>"
-            : "<strong>Your bed card: " + me.bed + "</strong><span>Count carefully…</span>";
+          var sum = "Bed card " + me.bed + me.needParts.map(function (x) {
+            return (x.delta < 0 ? " − " : " + ") + esc(CARDS[x.k].name) + (x.from ? " (" + esc(nameOf(x.from)) + ")" : "") + " " + Math.abs(x.delta);
+          }).join("");
+          var match = helper && me.have === me.need;
+          var tally = '<div class="score need' + (match ? " match" : "") + '"><span class="lbl">Sheep needed</span><span class="big">' + me.need + "</span>" +
+            '<span class="sum">' + sum + "</span></div>";
+          if (helper) {
+            tally += '<div class="score have' + (match ? " match" : "") + '"><span class="lbl">You have</span><span class="big">' + me.have + "</span>" +
+              '<span class="sum">' + (match ? '<span class="exact">Exactly right! Announce!</span>' :
+                me.handSheep + " in your hand" + (me.blacks ? " − " + me.blacks + " Black Sheep in your bed" : "")) + "</span></div>";
+          }
 
           root.innerHTML = topbar() +
             '<div class="game">' +
@@ -1124,8 +1186,8 @@
             '<ul class="log" id="log">' + log + "</ul></div>" +
             "</section>" +
             '<section class="me panel" aria-label="Your bed and hand">' +
-            '<div class="me-head">' + bedImg(me.bed) + '<div class="tally">' + tally + "</div>" +
-            (me.mods.length ? '<div class="mods">' + modChips(me.mods, me.id) + "</div>" : "") + "</div>" +
+            '<div class="me-head">' + bedImg(me.bed) + '<div class="tally">' + tally + "</div></div>" +
+            (me.mods.length ? '<div><p class="note" style="margin:0 0 6px">In your bed</p><div class="bedrow">' + bedRow(me.mods, app.mode === "shear" ? "black" : null) + "</div></div>" : "") +
             '<div class="hand" id="hand">' + (hand || '<p class="note">Your hand is empty. Draw a card!</p>') + "</div>" +
             '<div class="actionbar">' + actionBar(me, myTurn, p, marking) + "</div>" +
             "</section></div>";
@@ -1159,12 +1221,13 @@
           var c = selectedCard();
           var info;
           if (!myTurn) {
-            info = c ? "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) : "Tap a card to read it.";
-            return '<div class="info">' + info + "</div>" + tools;
+            info = c ? "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) : "Tap a card to see it bigger.";
+            var pv = c ? '<div class="preview">' + cardImg(c.k) + "</div>" : "";
+            return '<div class="actionrow">' + pv + '<div class="actionmain"><div class="info">' + info + "</div>" + tools + "</div></div>";
           }
           if (app.mode === "target") info = "<strong>Choose a player</strong> to play " + esc(CARDS[c.k].name) + " on.";
           else if (app.mode === "bottle") info = "<strong>Choose a bed</strong> for the Hot Water Bottle: yours or another player's.";
-          else if (app.mode === "shear") info = "<strong>Choose the card to shear</strong> from your hand.";
+          else if (app.mode === "shear") info = "<strong>Choose the card to shear</strong> from your hand" + (me.blacks ? ", or tap the Black Sheep in your bed." : ".");
           else if (c) {
             var why = unplayableReason(c);
             info = "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) + (why ? ' <span class="note">' + esc(why) + "</span>" : "");
@@ -1180,7 +1243,8 @@
               '<button class="btn cyan" id="playBtn" type="button"' + (canPlay ? "" : " disabled") + ">" + (c ? "Play " + esc(CARDS[c.k].name) : "Play a card") + "</button>" +
               '<button class="btn ghost" id="announceBtn" type="button">Announce</button>';
           }
-          return '<div class="info">' + info + '</div><div class="row">' + buttons + "</div>" + tools;
+          var preview = c ? '<div class="preview">' + cardImg(c.k) + "</div>" : "";
+          return '<div class="actionrow">' + preview + '<div class="actionmain"><div class="info">' + info + '</div><div class="row">' + buttons + "</div>" + tools + "</div></div>";
         }
 
         function wireGame(root, me, myTurn, p, marking) {
@@ -1204,6 +1268,16 @@
               if (app.mode) return;
               app.sel = app.sel === id ? null : id;
               render();
+            });
+          });
+
+          root.querySelectorAll("[data-bed-pick]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              if (app.mode !== "shear") return;
+              var card = app.sel;
+              var choice = Number(b.getAttribute("data-bed-pick"));
+              resetSelection();
+              app.send({ type: "play", card: card, choice: choice });
             });
           });
 
@@ -1232,7 +1306,7 @@
             if (d.target === "other") { app.mode = "target"; render(); return; }
             if (d.target === "any") { app.mode = "bottle"; render(); return; }
             if (d.choose === "ownCard") {
-              if ((me.hand || []).length < 2) { showToast("You need another card in your hand to shear.", true); return; }
+              if ((me.hand || []).length < 2 && !me.blacks) { showToast("There's nothing to shear.", true); return; }
               app.mode = "shear"; render(); return;
             }
             if (d.choose === "discard") {
@@ -1265,7 +1339,7 @@
               var hand = (pl.hand || []).map(function (c) { return cardImg(c.k); }).join("");
               return '<div class="result' + (pl.id === v.winner ? " win" : "") + '"><strong>' + esc(pl.name) +
                 (pl.id === v.winner ? " fell asleep!" : "") + "</strong>" +
-                '<span class="note">Bed ' + pl.bed + ", needed " + pl.need + ", had " + pl.have + " sheep</span>" +
+                '<span class="note">Bed ' + pl.bed + ", needed " + pl.need + ", had " + pl.have + " sheep" + (pl.blacks ? " (after " + pl.blacks + " Black Sheep)" : "") + "</span>" +
                 '<div class="mini-hand">' + hand + "</div></div>";
             }).join("");
             html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
