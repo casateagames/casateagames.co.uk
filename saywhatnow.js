@@ -97,6 +97,10 @@
     standard: "Standard game",
     chaos: "Chaos cards",
     either: "Either way",
+    // Insheepnia
+    any: "Any number of players",
+    two: "2 players",
+    big: "Big groups",
   };
 
   function ruleCard(rule) {
@@ -146,7 +150,9 @@
     // The "Loading" message is added here, not in the HTML, so visitors
     // without JS see the <noscript> message instead of a spinner that never ends.
     showInList(messageBox("Loading house rules..."));
-    fetch("/house-rules.json", { cache: "no-cache" })
+    // Each game page can point at its own rules file with data-rules-src
+    var rulesSrc = list.getAttribute("data-rules-src") || "/house-rules.json";
+    fetch(rulesSrc, { cache: "no-cache" })
       .then(function (res) {
         if (!res.ok) throw new Error("No rules file");
         return res.json();
