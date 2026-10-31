@@ -342,6 +342,16 @@
       } else if (d.target === "any") {
         if (!state.players[target]) target = pid;
       }
+      // A bed can't hold two of the same modifier.
+      if (d.type === "mod" && target && state.players[target] &&
+          state.players[target].mods.some(function (m) { return m.k === card.k; })) {
+        out.error = (target === pid ? "You already have " : nameOf(state, target) + " already has ") + d.name + " in their bed.";
+        if (target === pid) out.error = "You already have " + d.name + " in your bed.";
+        return out;
+      }
+      if (card.k === "earplugs" && action.choice === "block" && p.mods.some(function (m) { return m.k === "earplugs"; })) {
+        out.error = "You already have Earplugs in your bed."; return out;
+      }
       // Validate choices before anything moves.
       if (d.choose === "ownCard") {
         var inBed = p.mods.some(function (m) { return m.id === action.choice && m.k === "black"; });

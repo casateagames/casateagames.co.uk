@@ -28,8 +28,8 @@
         --panel-line: rgba(255, 255, 255, 0.16);
         --pink: #f27fa0;
         --danger: #ff8a80;
-        --card-w: 140px;
-        --bed-w: 64px;
+        --card-w: 165px;
+        --bed-w: 76px;
         --font: "Nunito", "Trebuchet MS", system-ui, sans-serif;
         color-scheme: dark;
       }
@@ -242,9 +242,13 @@
       }
 
       .seat.is-turn { border-color: var(--star); box-shadow: 0 0 0 3px rgba(255, 213, 74, 0.25); }
-      .seat.can-target { cursor: pointer; border-color: var(--cyan); border-style: dashed; }
-      .seat.can-target:hover { background: rgba(30, 200, 224, 0.18); }
-      .seat:disabled { opacity: 1; }
+      .seat.can-target { border-color: var(--cyan); border-style: dashed; }
+      .seat .btn { justify-self: start; }
+      .pile-btn { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--muted); }
+      .pile-btn:focus-visible, .bedslot:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+      .bedslot { cursor: zoom-in; }
+      .zoom-card { width: min(340px, 80vw); justify-self: center; }
+      .zoom-card .card, .zoom-card .card-fallback { border-radius: 16px; font-size: 1.1rem; padding: 18px; }
 
       .seat-top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; min-width: 0; }
       .seat-name { font-weight: 900; overflow-wrap: anywhere; min-width: 0; }
@@ -384,10 +388,10 @@
       .bedslot .card, .bedslot .card-fallback { width: 100%; border-radius: 6px; font-size: 0.5rem; padding: 2px; }
       .bedslot.pickable { cursor: pointer; }
       .bedslot.pickable .card, .bedslot.pickable .card-fallback { box-shadow: 0 0 0 3px var(--cyan); }
-      .me .bedrow { --bed-w: 84px; }
+      .me .bedrow { --bed-w: 96px; }
       .exact { color: #6fe08a; }
       .needchip { background: var(--cyan); }
-      .preview { width: 170px; flex: 0 0 auto; }
+      .preview { width: 230px; flex: 0 0 auto; cursor: zoom-in; appearance: none; border: 0; padding: 0; background: none; }
       .actionrow { display: flex; gap: 14px; align-items: flex-start; }
       .actionmain { display: grid; gap: 10px; min-width: 0; flex: 1 1 auto; }
 
@@ -528,8 +532,8 @@
       .countdown { font-variant-numeric: tabular-nums; color: var(--cyan); font-weight: 900; }
 
       @media (max-width: 640px) {
-        :root { --card-w: 104px; --bed-w: 52px; }
-        .preview { width: 96px; }
+        :root { --card-w: 120px; --bed-w: 64px; }
+        .preview { width: 120px; }
         .score .big { font-size: 2rem; }
         .score { min-width: 0; flex: 1 1 120px; }
         .me-head .bedcard { width: 72px; }
@@ -1102,8 +1106,9 @@
             else if (m.k === "dog") label = "Dog (+1 for everyone else" + (m.immune && m.immune.length ? ", not " + m.immune.map(nameOf).join(", ") : "") + ")";
             else if (m.k === "earplugs") label = "Earplugs (blocks the dog)";
             var pick = pickKind && m.k === pickKind;
-            return '<button type="button" class="bedslot' + (pick ? " pickable" : "") + '"' + (pick ? ' data-bed-pick="' + m.id + '"' : " disabled") +
-              ' title="' + esc(d.text) + '">' + cardImg(m.k) + "<span>" + esc(label) + "</span></button>";
+            return '<button type="button" class="bedslot' + (pick ? " pickable" : "") + '"' +
+              (pick ? ' data-bed-pick="' + m.id + '"' : ' data-zoom="' + m.k + '" aria-label="Look at ' + esc(d.name) + '"') +
+              ">" + cardImg(m.k) + "<span>" + esc(label) + "</span></button>";
           }).join("");
         }
 
@@ -1122,6 +1127,7 @@
           var myTurn = isMyTurn();
           var p = v.pending;
           var targeting = myTurn && (app.mode === "target" || app.mode === "bottle");
+          var sel = selectedCard();
           var handScroll = $(".hand") ? $(".hand").scrollLeft : 0;
 
           // Opponents
@@ -1130,14 +1136,19 @@
             var backs = "";
             for (var i = 0; i < Math.min(pl.handCount, 8); i++) backs += '<span class="back"></span>';
             var online = isConnected(pl.id);
-            return '<button type="button" class="seat' + (turn ? " is-turn" : "") + (targeting ? " can-target" : "") + '" data-seat="' + esc(pl.id) + '"' +
-              (targeting ? ' aria-label="Choose ' + esc(pl.name) + '"' : " disabled") + ">" +
+            var already = targeting && sel && CARDS[sel.k].type === "mod" && pl.mods.some(function (m) { return m.k === sel.k; });
+            var choose = targeting
+              ? (already
+                ? '<span class="note" style="font-size:0.85rem">Already has ' + esc(CARDS[sel.k].name) + "</span>"
+                : '<button type="button" class="btn small cyan" data-seat="' + esc(pl.id) + '">Choose ' + esc(pl.name) + "</button>")
+              : "";
+            return '<div class="seat' + (turn ? " is-turn" : "") + (targeting && !already ? " can-target" : "") + '">' +
               '<span class="seat-top"><span class="dot' + (online ? "" : " off") + '"></span><span class="seat-name">' + esc(pl.name) + "</span>" +
               (turn ? '<span class="badge">Turn</span>' : "") + (pl.skip ? '<span class="badge pink">Snoring</span>' : "") + "</span>" +
               '<span class="seat-line"><span class="backs">' + backs + "</span>" + pl.handCount + " card" + (pl.handCount === 1 ? "" : "s") + "</span>" +
               needChip(pl) +
               (pl.mods.length ? '<span class="bedrow">' + bedRow(pl.mods, null) + "</span>" : '<span class="note" style="font-size:0.8rem">Nothing in their bed</span>') +
-              "</button>";
+              choose + "</div>";
           }).join("");
 
           // Status line
@@ -1181,7 +1192,9 @@
             '<section class="seats" aria-label="Other players">' + seats + "</section>" +
             '<section class="middle">' +
             '<div class="piles"><div class="pile"><span class="back"></span>' + v.deck + " in deck</div>" +
-            '<div class="pile">' + (top ? cardImg(top.k) : '<span class="empty"></span>') + "Discard</div></div>" +
+            (top
+              ? '<button type="button" class="pile pile-btn" id="discardBtn" aria-label="Look through the discard pile">' + cardImg(top.k) + "Discard (" + v.discard.length + ")<span class=\"note\" style=\"font-size:0.75rem\">Tap to look</span></button>"
+              : '<div class="pile"><span class="empty"></span>Discard</div>') + "</div>" +
             '<div class="logbox"><div class="status' + (waiting ? " waiting" : "") + '">' + esc(status) + countdown + "</div>" +
             '<ul class="log" id="log">' + log + "</ul></div>" +
             "</section>" +
@@ -1222,7 +1235,7 @@
           var info;
           if (!myTurn) {
             info = c ? "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) : "Tap a card to see it bigger.";
-            var pv = c ? '<div class="preview">' + cardImg(c.k) + "</div>" : "";
+            var pv = c ? '<button type="button" class="preview" data-zoom="' + c.k + '" aria-label="See ' + esc(CARDS[c.k].name) + ' full size">' + cardImg(c.k) + "</button>" : "";
             return '<div class="actionrow">' + pv + '<div class="actionmain"><div class="info">' + info + "</div>" + tools + "</div></div>";
           }
           if (app.mode === "target") info = "<strong>Choose a player</strong> to play " + esc(CARDS[c.k].name) + " on.";
@@ -1235,7 +1248,8 @@
 
           var buttons;
           if (app.mode) {
-            buttons = (app.mode === "bottle" ? '<button class="btn cyan" id="bedSelf" type="button">My bed</button>' : "") +
+            var mineAlready = c && me.mods.some(function (m) { return m.k === c.k; });
+            buttons = (app.mode === "bottle" ? '<button class="btn cyan" id="bedSelf" type="button"' + (mineAlready ? " disabled" : "") + ">" + (mineAlready ? "You already have one" : "My bed") + "</button>" : "") +
               '<button class="btn ghost" id="cancelBtn" type="button">Cancel</button>';
           } else {
             var canPlay = c && !unplayableReason(c);
@@ -1243,7 +1257,7 @@
               '<button class="btn cyan" id="playBtn" type="button"' + (canPlay ? "" : " disabled") + ">" + (c ? "Play " + esc(CARDS[c.k].name) : "Play a card") + "</button>" +
               '<button class="btn ghost" id="announceBtn" type="button">Announce</button>';
           }
-          var preview = c ? '<div class="preview">' + cardImg(c.k) + "</div>" : "";
+          var preview = c ? '<button type="button" class="preview" data-zoom="' + c.k + '" aria-label="See ' + esc(CARDS[c.k].name) + ' full size">' + cardImg(c.k) + "</button>" : "";
           return '<div class="actionrow">' + preview + '<div class="actionmain"><div class="info">' + info + '</div><div class="row">' + buttons + "</div>" + tools + "</div></div>";
         }
 
@@ -1323,6 +1337,7 @@
             app.multi = [];
             app.send({ type: p.kind === "fire" ? "fireDiscard" : "discardDown", cards: cards });
           });
+          on("discardBtn", function () { app.overlay = "discard"; renderOverlay(); });
           on("skipBtn", function () { hostCommand("skip"); });
           on("lobbyBtn", function () { app.overlay = "endgame"; renderOverlay(); });
         }
@@ -1417,6 +1432,19 @@
             return;
           }
 
+          if (app.overlay === "discard") {
+            var all = v.discard.slice().reverse().map(function (c) {
+              return '<button type="button" class="card-btn" data-zoom="' + c.k + '">' + cardImg(c.k) + "</button>";
+            }).join("");
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Discard pile (' + v.discard.length + ")</h2><p class=\"note\">Newest first. Tap a card to see it full size.</p>" +
+              '<div class="pick-grid">' + all + "</div>" +
+              '<button class="btn ghost" id="dlgCancel" type="button">Close</button></div></div>';
+            o.innerHTML = html;
+            $("#dlgCancel").addEventListener("click", function () { app.overlay = null; o.innerHTML = ""; });
+            return;
+          }
+
           if (app.overlay === "announce" && isMyTurn()) {
             html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
               '<h2 id="dlgTitle">Announce you\'re asleep?</h2>' +
@@ -1443,6 +1471,26 @@
 
           o.innerHTML = "";
         }
+
+        // Tap any card in a bed, the preview or the discard pile to see it full size.
+        var zoomLayer = document.createElement("div");
+        document.body.appendChild(zoomLayer);
+        function openZoom(k) {
+          var d = CARDS[k];
+          if (!d) return;
+          zoomLayer.innerHTML = '<div class="overlay" style="z-index:70"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="zoomTitle">' +
+            '<div class="zoom-card">' + cardImg(k) + "</div>" +
+            '<h2 id="zoomTitle">' + esc(d.name) + "</h2><p style=\"margin:0;font-weight:700\">" + esc(d.text) + "</p>" +
+            '<button class="btn" id="zoomClose" type="button">Close</button></div></div>';
+          $("#zoomClose").addEventListener("click", function () { zoomLayer.innerHTML = ""; });
+          $("#zoomClose").focus();
+        }
+        document.addEventListener("click", function (e) {
+          var z = e.target.closest && e.target.closest("[data-zoom]");
+          if (z) { e.preventDefault(); openZoom(z.getAttribute("data-zoom")); return; }
+          if (e.target.classList && e.target.classList.contains("overlay") && zoomLayer.contains(e.target)) zoomLayer.innerHTML = "";
+        });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") zoomLayer.innerHTML = ""; });
 
         function tickCountdowns() {
           document.querySelectorAll("[data-until]").forEach(function (el) {
