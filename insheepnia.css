@@ -83,3 +83,163 @@
   margin-top: 0.4rem;
   line-height: 1.45;
 }
+
+
+/* ==========================================================
+   NIGHT-SKY THEME (only on <body class="insheepnia">)
+   Nav and footer keep the normal Casa Tea look.
+   ========================================================== */
+
+.insheepnia {
+  --night: #1b2f6b;
+  --night-deep: #12224f;
+  --sky-cyan: #1ec8e0;
+  --star: #ffd54a;
+  --moon: #fff4d6;
+}
+
+.insheepnia main {
+  background-color: var(--night);
+  /* scattered stars */
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, var(--star) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 140px 80px, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 90px 160px, #fff 50%, transparent 51%),
+    radial-gradient(2.5px 2.5px at 200px 120px, var(--star) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 240px 210px, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 40px 230px, var(--star) 50%, transparent 51%);
+  background-size: 260px 260px;
+  color: var(--moon);
+}
+
+/* Sections sit on the night sky instead of their own backgrounds */
+.insheepnia .rules-hero,
+.insheepnia .picture-guide,
+.insheepnia .whats-in-box,
+.insheepnia .house-rules,
+.insheepnia .game-faq {
+  background: transparent;
+}
+
+.insheepnia .whats-in-box,
+.insheepnia .game-faq {
+  background: rgba(18, 34, 79, 0.55);
+}
+
+/* Headings and intro text on the dark background */
+.insheepnia main h1,
+.insheepnia main h2,
+.insheepnia .card-group-title,
+.insheepnia .house-gallery h3,
+.insheepnia .house-form-wrap h3 {
+  color: #fff;
+}
+
+.insheepnia .rules-hero h1 {
+  color: var(--sky-cyan);
+  text-shadow: 3px 4px 0 var(--night-deep);
+}
+
+.insheepnia .game-tagline,
+.insheepnia .section-intro,
+.insheepnia .card-group-intro,
+.insheepnia .sheep-goal,
+.insheepnia .breadcrumb a {
+  color: var(--moon);
+  opacity: 1;
+}
+
+/* Quick info pills, like the box */
+.insheepnia .quick-info-item {
+  background: var(--star);
+  color: var(--night-deep);
+  border-color: var(--night-deep);
+}
+
+/* Buttons */
+.insheepnia main .btn-primary {
+  background: var(--star);
+  color: var(--night-deep);
+  border-color: var(--star);
+}
+
+.insheepnia main .btn-secondary {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Jump bar */
+.insheepnia .jump-bar {
+  background: var(--night-deep);
+  border-bottom-color: rgba(30, 200, 224, 0.45);
+}
+
+.insheepnia .jump-bar a {
+  background: var(--night);
+  border-color: var(--sky-cyan);
+  color: #fff;
+}
+
+.insheepnia .jump-bar a:hover {
+  background: rgba(30, 200, 224, 0.2);
+}
+
+.insheepnia .jump-bar a.is-active {
+  background: var(--star);
+  border-color: var(--star);
+  color: var(--night-deep);
+}
+
+/* White "cloud" panels keep dark text so they stay easy to read */
+.insheepnia .text-rules,
+.insheepnia .rules-note,
+.insheepnia .box-item,
+.insheepnia .faq-item,
+.insheepnia .rule-form,
+.insheepnia .rule-success,
+.insheepnia .rule-card,
+.insheepnia .rules-empty {
+  background: #fff;
+  color: var(--ink);
+}
+
+.insheepnia .rules-note {
+  border-left-color: var(--sky-cyan);
+}
+
+.insheepnia .rules-note a,
+.insheepnia .rules-empty a {
+  color: #0b7a8c;
+}
+
+.insheepnia .moon-table thead th {
+  background: var(--star);
+}
+
+.insheepnia .card-count {
+  background: var(--star);
+  color: var(--night-deep);
+}
+
+.insheepnia .rule-card {
+  border-left-color: var(--sky-cyan);
+}
+
+.insheepnia .rules-empty {
+  border-color: var(--sky-cyan);
+}
+
+.insheepnia .consent input {
+  accent-color: var(--night);
+}
+
+.insheepnia .game-hero-image {
+  background: transparent;
+  box-shadow: none;
+}
+
+.insheepnia .faq-question,
+.insheepnia .faq-answer {
+  color: var(--ink);
+}
