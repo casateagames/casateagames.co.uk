@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Play Insheepnia • Casa Tea Games</title>
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Play the Insheepnia prototype online with friends." />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <style>
+      @font-face {
+        font-family: "Nunito";
+        src: url("assets/fonts/nunito-latin-wght-normal.woff2") format("woff2");
+        font-weight: 200 1000;
+        font-display: swap;
+      }
+
+      /* Night table: the box's navy sky, cyan logo, star yellow */
+      :root {
+        --sky: #1b2f6b;
+        --sky-deep: #12224f;
+        --sky-ink: #0b163a;
+        --cyan: #1ec8e0;
+        --star: #ffd54a;
+        --moon: #fff4d6;
+        --muted: #b9c3e6;
+        --panel: rgba(255, 255, 255, 0.07);
+        --panel-line: rgba(255, 255, 255, 0.16);
+        --pink: #f27fa0;
+        --danger: #ff8a80;
+        --card-w: 92px;
+        --font: "Nunito", "Trebuchet MS", system-ui, sans-serif;
+        color-scheme: dark;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { min-height: 100%; }
+
+      body {
+        margin: 0;
+        font-family: var(--font);
+        color: var(--moon);
+        background-color: var(--sky);
+        background-image:
+          radial-gradient(2px 2px at 20px 30px, var(--star) 50%, transparent 51%),
+          radial-gradient(1.5px 1.5px at 140px 80px, #fff 50%, transparent 51%),
+          radial-gradient(2px 2px at 90px 160px, #fff 50%, transparent 51%),
+          radial-gradient(2.5px 2.5px at 200px 120px, var(--star) 50%, transparent 51%),
+          radial-gradient(1.5px 1.5px at 240px 210px, #fff 50%, transparent 51%);
+        background-size: 260px 260px;
+        line-height: 1.45;
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-block: 12px 32px;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+      }
+
+      a { color: var(--cyan); }
+
+      h1, h2, h3 { margin: 0; line-height: 1.1; text-wrap: balance; }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+
+      .logo {
+        font-weight: 1000;
+        font-size: 1.6rem;
+        letter-spacing: 0.02em;
+        color: var(--cyan);
+        text-shadow: 2px 3px 0 var(--sky-ink);
+      }
+
+      .logo span { color: var(--moon); }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--panel-line);
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+
+      .chip.code { font-variant-numeric: tabular-nums; letter-spacing: 0.15em; }
+
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: #6fe08a; flex: 0 0 auto; }
+      .dot.off { background: var(--danger); }
+
+      button { font: inherit; }
+
+      .btn {
+        appearance: none;
+        border: 2px solid var(--star);
+        background: var(--star);
+        color: var(--sky-ink);
+        font-weight: 900;
+        font-size: 1rem;
+        padding: 10px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        min-height: 44px;
+      }
+
+      .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+      .btn.ghost { background: transparent; color: var(--moon); border-color: var(--moon); }
+      .btn.cyan { background: var(--cyan); border-color: var(--cyan); }
+      .btn.small { padding: 6px 14px; min-height: 36px; font-size: 0.9rem; }
+      .btn:focus-visible, .card-btn:focus-visible, .seat:focus-visible, input:focus-visible {
+        outline: 3px solid var(--cyan);
+        outline-offset: 2px;
+      }
+
+      .panel {
+        background: rgba(11, 22, 58, 0.72);
+        border: 1px solid var(--panel-line);
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      /* ---------- Landing + lobby ---------- */
+
+      .landing {
+        max-width: 520px;
+        margin: 6vh auto 0;
+        display: grid;
+        gap: 18px;
+      }
+
+      .landing h1 {
+        font-size: clamp(2.6rem, 9vw, 4rem);
+        font-weight: 1000;
+        color: var(--cyan);
+        text-shadow: 3px 4px 0 var(--sky-ink);
+        text-align: center;
+      }
+
+      .landing h1 span { color: var(--moon); }
+
+      .tagline { text-align: center; font-weight: 800; color: var(--moon); margin: 6px 0 0; }
+
+      .field { display: grid; gap: 6px; }
+      .field label { font-weight: 800; font-size: 0.95rem; }
+
+      input[type="text"] {
+        font: inherit;
+        font-size: 1.05rem;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 2px solid var(--panel-line);
+        background: var(--sky-ink);
+        color: var(--moon);
+        min-height: 44px;
+        width: 100%;
+      }
+
+      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+      .row > input { flex: 1 1 140px; min-width: 0; }
+
+      .divider { text-align: center; color: var(--muted); font-weight: 800; font-size: 0.9rem; }
+
+      .note { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+      .error-text { color: var(--danger); font-weight: 800; margin: 0; }
+
+      .bigcode {
+        font-size: clamp(2.4rem, 10vw, 3.4rem);
+        font-weight: 1000;
+        letter-spacing: 0.2em;
+        color: var(--star);
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .sharebox {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .sharebox code {
+        flex: 1 1 200px;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        background: var(--sky-ink);
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+      }
+
+      .people { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+      .people li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: var(--panel);
+      }
+      .people .who { flex: 1 1 auto; font-weight: 800; overflow-wrap: anywhere; min-width: 0; }
+
+      .toggle { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+      .toggle input { width: 22px; height: 22px; accent-color: var(--star); margin-top: 1px; flex: 0 0 auto; }
+
+      /* ---------- Table ---------- */
+
+      .game { display: grid; gap: 12px; }
+
+      .seats {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 10px;
+      }
+
+      .seat {
+        appearance: none;
+        text-align: left;
+        color: inherit;
+        background: rgba(11, 22, 58, 0.72);
+        border: 2px solid var(--panel-line);
+        border-radius: 16px;
+        padding: 10px 12px;
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+        cursor: default;
+      }
+
+      .seat.is-turn { border-color: var(--star); box-shadow: 0 0 0 3px rgba(255, 213, 74, 0.25); }
+      .seat.can-target { cursor: pointer; border-color: var(--cyan); border-style: dashed; }
+      .seat.can-target:hover { background: rgba(30, 200, 224, 0.18); }
+      .seat:disabled { opacity: 1; }
+
+      .seat-top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; min-width: 0; }
+      .seat-name { font-weight: 900; overflow-wrap: anywhere; min-width: 0; }
+      .badge {
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--star);
+        color: var(--sky-ink);
+      }
+      .badge.pink { background: var(--pink); }
+      .badge.grey { background: var(--muted); }
+
+      .seat-line { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; color: var(--muted); font-weight: 700; }
+
+      .backs { display: flex; align-items: center; }
+      .back {
+        width: 22px;
+        aspect-ratio: 63 / 88;
+        border-radius: 4px;
+        background: radial-gradient(circle at 50% 40%, #3a4f8f 0 30%, transparent 31%), var(--sky-ink);
+        border: 1.5px solid var(--moon);
+        margin-left: -12px;
+      }
+      .back:first-child { margin-left: 0; }
+
+      .mods { display: flex; gap: 6px; flex-wrap: wrap; }
+      .mod {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 2px 8px 2px 2px;
+        border-radius: 999px;
+        background: rgba(168, 139, 224, 0.28);
+        border: 1px solid rgba(168, 139, 224, 0.6);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+      .mod img, .mod .mini-fallback {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: var(--sky-ink);
+      }
+
+      .middle {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .piles {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(11, 22, 58, 0.5);
+      }
+      .pile { display: grid; gap: 4px; justify-items: center; font-size: 0.8rem; font-weight: 800; color: var(--muted); }
+      .pile .back { width: 64px; margin: 0; border-width: 2px; }
+      .pile .card { width: 64px; }
+      .pile .empty {
+        width: 64px;
+        aspect-ratio: 63 / 88;
+        border-radius: 8px;
+        border: 2px dashed var(--panel-line);
+      }
+
+      .logbox {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 6px;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(11, 22, 58, 0.5);
+        min-width: 0;
+      }
+      .status { font-weight: 900; font-size: 1.1rem; color: var(--star); }
+      .status.waiting { color: var(--cyan); }
+      .log {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        max-height: 150px;
+        overflow-y: auto;
+        font-size: 0.92rem;
+        display: grid;
+        gap: 2px;
+        align-content: start;
+      }
+      .log li { color: var(--muted); }
+      .log li:last-child { color: var(--moon); font-weight: 700; }
+
+      .me { display: grid; gap: 10px; }
+      .me-head { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+      .me-head .bedcard { width: 64px; flex: 0 0 auto; }
+      .tally { display: grid; gap: 2px; min-width: 0; }
+      .tally strong { font-size: 1.25rem; font-weight: 1000; }
+      .tally span { color: var(--muted); font-weight: 700; font-size: 0.92rem; }
+      .tally .exact { color: #6fe08a; }
+
+      .hand {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 14px 4px 8px;
+        scroll-snap-type: x proximity;
+      }
+
+      .card-btn {
+        appearance: none;
+        border: 0;
+        padding: 0;
+        background: none;
+        flex: 0 0 auto;
+        width: var(--card-w);
+        cursor: pointer;
+        border-radius: 10px;
+        position: relative;
+        transition: transform 0.15s ease;
+        scroll-snap-align: start;
+        color: inherit;
+      }
+      .card-btn.selected { transform: translateY(-12px); }
+      .card-btn.selected .card { box-shadow: 0 0 0 4px var(--star); }
+      .card-btn.marked .card { box-shadow: 0 0 0 4px var(--danger); }
+      .card-btn.dim { opacity: 0.55; }
+      .stuck-tag {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--pink);
+        color: var(--sky-ink);
+        font-size: 0.68rem;
+        font-weight: 900;
+        padding: 1px 8px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .card {
+        width: 100%;
+        aspect-ratio: 63 / 88;
+        border-radius: 10px;
+        display: block;
+        object-fit: cover;
+        background: #fff;
+      }
+
+      .card-fallback {
+        width: 100%;
+        aspect-ratio: 63 / 88;
+        border-radius: 10px;
+        background: var(--moon);
+        color: var(--sky-ink);
+        padding: 8px 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-weight: 900;
+        font-size: 0.8rem;
+        line-height: 1.15;
+        gap: 4px;
+      }
+      .card-fallback.sheep { background: #fff; }
+      .card-fallback.power { background: #ffb37a; }
+      .card-fallback.mod { background: #d3bff5; }
+      .card-fallback.bed { background: #aecdff; }
+      .card-fallback small { font-weight: 700; font-size: 0.66rem; }
+
+      .actionbar {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(11, 22, 58, 0.72);
+        border: 1px solid var(--panel-line);
+      }
+      .info { font-weight: 700; min-height: 1.4em; }
+      .info strong { color: var(--star); }
+
+      /* ---------- Overlays ---------- */
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 10, 30, 0.72);
+        display: grid;
+        place-items: center;
+        padding: 16px;
+        z-index: 50;
+      }
+      .dialog {
+        width: min(520px, 100%);
+        max-height: 90vh;
+        overflow-y: auto;
+        background: var(--sky-deep);
+        border: 2px solid var(--cyan);
+        border-radius: 20px;
+        padding: 20px;
+        display: grid;
+        gap: 14px;
+      }
+      .dialog h2 { font-size: 1.4rem; font-weight: 1000; color: var(--star); }
+      .dialog .pick-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+        gap: 8px;
+      }
+      .dialog .pick-grid .card-btn { width: 100%; }
+
+      .results { display: grid; gap: 10px; }
+      .result { padding: 10px; border-radius: 12px; background: var(--panel); display: grid; gap: 6px; }
+      .result.win { border: 2px solid var(--star); }
+      .result .mini-hand { display: flex; gap: 4px; flex-wrap: wrap; }
+      .result .mini-hand .card, .result .mini-hand .card-fallback { width: 44px; border-radius: 5px; font-size: 0.5rem; padding: 2px; }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%);
+        background: var(--moon);
+        color: var(--sky-ink);
+        font-weight: 900;
+        padding: 12px 18px;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        z-index: 60;
+        max-width: calc(100% - 32px);
+      }
+      .toast.bad { background: var(--danger); }
+
+      .countdown { font-variant-numeric: tabular-nums; color: var(--cyan); font-weight: 900; }
+
+      @media (max-width: 640px) {
+        :root { --card-w: 78px; }
+        .middle { grid-template-columns: minmax(0, 1fr); }
+        .piles { justify-content: center; }
+        .seats { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card-btn { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="app" aria-live="polite"></div>
+    </div>
+    <div id="overlay"></div>
+    <div id="toast"></div>
+
+    <script src="assets/vendor/peerjs.min.js"></script>
+    <script src="insheepnia-engine.js"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        var E = window.InsheepniaEngine;
+        var CARDS = E.CARDS;
+        var PREFIX = "casatea-insheepnia-";
+        var CARD_PATH = "assets/insheepnia/cards/";
+        var params = new URLSearchParams(location.search);
+        var LOCAL = params.get("local") === "1";
+        var ALPHA = "ABCDEFGHJKMNPQRSTUVWXYZ";
+
+        var store = {
+          get: function (k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+          set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+          del: function (k) { try { localStorage.removeItem(k); } catch (e) {} },
+        };
+
+        function $(sel, el) { return (el || document).querySelector(sel); }
+        function esc(s) {
+          return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        }
+        function randCode() { var s = ""; for (var i = 0; i < 4; i++) s += ALPHA[Math.floor(Math.random() * ALPHA.length)]; return s; }
+        function randToken() { return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2); }
+        function cleanName(n) { n = String(n || "").replace(/\s+/g, " ").trim().slice(0, 20); return n || "Sleepy guest"; }
+        function cleanCode(c) { return String(c || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 4); }
+
+        // ----------------------------------------------------- app state
+
+        var app = {
+          role: null,          // "host" | "guest"
+          code: null,
+          status: "",          // connection status text
+          connected: false,
+          lobby: null,
+          view: null,
+          sel: null,           // selected card id
+          mode: null,          // "target" | "bottle" | "shear"
+          multi: [],           // cards marked for discarding
+          overlay: null,       // "snack" | "earplugs" | null
+          landingError: "",
+          send: null,
+        };
+
+        var saved = store.get("insheepnia-player") || {};
+
+        // ----------------------------------------------------- transports
+
+        function hostTransport(code, h) {
+          if (LOCAL) {
+            var ch = new BroadcastChannel(PREFIX + code);
+            ch.onmessage = function (e) {
+              var m = e.data;
+              if (!m || m.to !== "host") return;
+              if (m.bye) h.onLeave(m.from); else h.onMsg(m.from, m.msg);
+            };
+            setTimeout(h.onOpen, 0);
+            return { send: function (key, msg) { ch.postMessage({ to: key, from: "host", msg: msg }); }, close: function () { ch.close(); } };
+          }
+          var peer = new Peer(PREFIX + code, { debug: 1 });
+          var conns = {};
+          peer.on("open", function () { h.onOpen(); });
+          peer.on("connection", function (conn) {
+            conn.on("open", function () { conns[conn.peer] = conn; });
+            conn.on("data", function (d) { h.onMsg(conn.peer, d); });
+            conn.on("close", function () { if (conns[conn.peer] === conn) delete conns[conn.peer]; h.onLeave(conn.peer); });
+            conn.on("error", function () {});
+          });
+          peer.on("error", function (err) { h.onError(err); });
+          peer.on("disconnected", function () { try { if (!peer.destroyed) peer.reconnect(); } catch (e) {} });
+          return {
+            send: function (key, msg) { var c = conns[key]; if (c && c.open) c.send(msg); },
+            close: function () { peer.destroy(); },
+          };
+        }
+
+        function guestTransport(code, h) {
+          if (LOCAL) {
+            var me = "c" + randToken().slice(0, 8);
+            var ch = new BroadcastChannel(PREFIX + code);
+            ch.onmessage = function (e) { var m = e.data; if (m && m.to === me) h.onMsg(m.msg); };
+            setTimeout(h.onOpen, 0);
+            window.addEventListener("pagehide", function () { ch.postMessage({ to: "host", from: me, bye: true }); });
+            return { send: function (msg) { ch.postMessage({ to: "host", from: me, msg: msg }); }, close: function () { ch.close(); } };
+          }
+          var peer = new Peer({ debug: 1 });
+          var conn = null;
+          peer.on("open", function () {
+            conn = peer.connect(PREFIX + code, { reliable: true });
+            conn.on("open", function () { h.onOpen(); });
+            conn.on("data", function (d) { h.onMsg(d); });
+            conn.on("close", function () { h.onClose(); });
+            conn.on("error", function () {});
+          });
+          peer.on("error", function (err) { h.onError(err); });
+          return {
+            send: function (msg) { if (conn && conn.open) conn.send(msg); },
+            close: function () { peer.destroy(); },
+          };
+        }
+
+        function friendlyError(err) {
+          var t = err && err.type;
+          if (t === "peer-unavailable") return "We couldn't find a game with that code. Check the code, and make sure the host still has the game open.";
+          if (t === "browser-incompatible") return "This browser can't play online. Try Chrome, Edge, Firefox or Safari.";
+          return "We couldn't reach the game server. Check your internet connection and try again.";
+        }
+
+        // ----------------------------------------------------- host
+
+        var host = null;
+
+        function startHosting(name, resume) {
+          var code = resume ? resume.code : randCode();
+          host = {
+            code: code,
+            seats: resume ? resume.seats.map(function (s) { return Object.assign({}, s, { key: null, connected: !!s.isHost }); }) : [],
+            state: resume ? resume.state : null,
+            falseAlarm: resume ? resume.falseAlarm !== false : true,
+            helper: resume ? resume.helper !== false : true,
+            nextPid: resume ? resume.nextPid : 1,
+            transport: null,
+            tries: 0,
+          };
+          if (!resume) {
+            host.seats.push({ pid: "p" + host.nextPid++, token: randToken(), name: cleanName(name), key: null, connected: true, isHost: true });
+          }
+          var mine = host.seats.filter(function (s) { return s.isHost; })[0];
+          app.role = "host";
+          app.code = code;
+          app.status = "Opening your room…";
+          app.myPid = mine.pid;
+          app.send = function (action) { hostAction(mine.pid, action); };
+          render();
+          openHostTransport();
+          setInterval(function () {
+            if (host.state && E.tick(host.state, Date.now())) broadcast();
+          }, 1000);
+        }
+
+        function openHostTransport() {
+          host.transport = hostTransport(host.code, {
+            onOpen: function () {
+              app.connected = true;
+              app.status = "";
+              history.replaceState(null, "", "?room=" + host.code + (LOCAL ? "&local=1" : ""));
+              broadcast();
+            },
+            onMsg: hostMessage,
+            onLeave: function (key) {
+              host.seats.forEach(function (s) { if (s.key === key) { s.connected = false; s.key = null; } });
+              broadcast();
+            },
+            onError: function (err) {
+              if (err && err.type === "unavailable-id") {
+                host.transport.close();
+                if (host.state || host.tries > 0) {
+                  // Resuming: the old connection may still be closing. Try again shortly.
+                  host.tries++;
+                  if (host.tries > 12) { app.status = "Couldn't reopen room " + host.code + ". Start a new game."; render(); return; }
+                  app.status = "Reopening room " + host.code + "…";
+                  render();
+                  setTimeout(openHostTransport, 5000);
+                } else {
+                  host.code = randCode();
+                  app.code = host.code;
+                  openHostTransport();
+                }
+                return;
+              }
+              if (err && err.type === "peer-unavailable") return; // a guest left mid-connect
+              app.status = friendlyError(err);
+              app.connected = false;
+              render();
+            },
+          });
+        }
+
+        function seatBy(pid) { return host.seats.filter(function (s) { return s.pid === pid; })[0]; }
+
+        function hostMessage(key, msg) {
+          if (!msg || typeof msg !== "object") return;
+          if (msg.t === "join") {
+            var token = typeof msg.token === "string" ? msg.token.slice(0, 64) : "";
+            var seat = token ? host.seats.filter(function (s) { return s.token === token && !s.isHost; })[0] : null;
+            if (!seat) {
+              if (host.state) { host.transport.send(key, { t: "error", text: "This game has already started. Ask the host to go back to the lobby so you can join." }); return; }
+              if (host.seats.length >= 8) { host.transport.send(key, { t: "error", text: "This room is full. Insheepnia is for up to 8 players." }); return; }
+              seat = { pid: "p" + host.nextPid++, token: token || randToken(), name: cleanName(msg.name), key: key, connected: true };
+              host.seats.push(seat);
+            } else {
+              seat.key = key;
+              seat.connected = true;
+              if (!host.state) seat.name = cleanName(msg.name);
+            }
+            broadcast();
+            return;
+          }
+          var who = host.seats.filter(function (s) { return s.key === key; })[0];
+          if (!who) return;
+          if (msg.t === "act" && msg.action && typeof msg.action === "object") hostAction(who.pid, msg.action);
+        }
+
+        function hostAction(pid, action) {
+          if (!host.state) return;
+          var res = E.act(host.state, pid, action, Date.now());
+          if (!res.ok) { sendTo(pid, { t: "error", text: res.error }); return; }
+          res.privates.forEach(function (p) { sendTo(p.to, { t: "private", text: p.text }); });
+          broadcast();
+        }
+
+        function hostCommand(cmd, arg) {
+          if (cmd === "start" || cmd === "again") {
+            var ps = host.seats.map(function (s) { return { id: s.pid, name: s.name }; });
+            if (ps.length < 2) return;
+            host.state = E.createGame(ps, { falseAlarm: host.falseAlarm, now: Date.now() });
+          } else if (cmd === "lobby") {
+            host.state = null;
+          } else if (cmd === "falseAlarm") {
+            host.falseAlarm = !!arg;
+          } else if (cmd === "helper") {
+            host.helper = !!arg;
+          } else if (cmd === "remove") {
+            if (host.state) return;
+            host.seats = host.seats.filter(function (s) { return s.pid !== arg || s.isHost; });
+          } else if (cmd === "skip") {
+            if (!host.state || !E.skipCurrent(host.state, Date.now())) return;
+          }
+          broadcast();
+        }
+
+        function sendTo(pid, msg) {
+          var s = seatBy(pid);
+          if (!s) return;
+          if (s.isHost) receive(msg);
+          else if (s.key) host.transport.send(s.key, msg);
+        }
+
+        function payloadFor(s) {
+          var roster = host.seats.map(function (x) { return { pid: x.pid, name: x.name, connected: x.connected, isHost: !!x.isHost }; });
+          var base = { code: host.code, you: s.pid, token: s.token, roster: roster, isHost: !!s.isHost,
+            falseAlarm: host.falseAlarm, helper: host.helper };
+          if (!host.state) return Object.assign({ t: "lobby" }, base);
+          var v = E.view(host.state, s.pid);
+          if (v.pending) { v.pending.msLeft = Math.max(0, v.pending.deadline - Date.now()); delete v.pending.deadline; }
+          return Object.assign({ t: "view", view: v }, base);
+        }
+
+        function broadcast() {
+          store.set("insheepnia-host", {
+            code: host.code, nextPid: host.nextPid, falseAlarm: host.falseAlarm, helper: host.helper, state: host.state,
+            seats: host.seats.map(function (s) { return { pid: s.pid, token: s.token, name: s.name, isHost: !!s.isHost }; }),
+            savedAt: Date.now(),
+          });
+          host.seats.forEach(function (s) { sendTo(s.pid, payloadFor(s)); });
+        }
+
+        // ----------------------------------------------------- guest
+
+        var guest = null;
+
+        function joinGame(name, code) {
+          code = cleanCode(code);
+          if (code.length !== 4) { app.landingError = "Room codes are 4 letters."; render(); return; }
+          // The seat token lives per tab, so a refresh rejoins the same seat
+          // but two tabs in one browser are two different players.
+          var token = null;
+          try { token = sessionStorage.getItem("insheepnia-token-" + code); } catch (e) {}
+          if (!token) {
+            token = randToken();
+            try { sessionStorage.setItem("insheepnia-token-" + code, token); } catch (e) {}
+          }
+          saved = { name: cleanName(name) };
+          store.set("insheepnia-player", saved);
+          app.role = "guest";
+          app.code = code;
+          app.status = "Joining room " + code + "…";
+          app.connected = false;
+          app.send = function (action) { if (guest) guest.send({ t: "act", action: action }); };
+          render();
+          if (guest) guest.close();
+          guest = guestTransport(code, {
+            onOpen: function () {
+              app.connected = true;
+              app.status = "";
+              guest.send({ t: "join", name: saved.name, token: token });
+              history.replaceState(null, "", "?room=" + code + (LOCAL ? "&local=1" : ""));
+              render();
+            },
+            onMsg: receive,
+            onClose: function () {
+              app.connected = false;
+              app.status = "Lost connection to the host.";
+              render();
+            },
+            onError: function (err) {
+              app.connected = false;
+              app.status = friendlyError(err);
+              render();
+            },
+          });
+        }
+
+        function receive(msg) {
+          if (!msg || typeof msg !== "object") return;
+          if (msg.t === "lobby" || msg.t === "view") {
+            var wasGame = !!app.view;
+            app.lobby = msg;
+            app.myPid = msg.you;
+            if (msg.t === "view") {
+              var v = msg.view;
+              if (v.pending) v.pending.until = Date.now() + (v.pending.msLeft || 0);
+              // A new game started: clear selections.
+              if (!app.view || app.view.log.length > v.log.length) resetSelection();
+              app.view = v;
+              keepSelectionValid();
+            } else {
+              app.view = null;
+              if (wasGame) resetSelection();
+            }
+            render();
+          } else if (msg.t === "error") {
+            if (!app.lobby) { app.status = msg.text; render(); }
+            else showToast(msg.text, true);
+          } else if (msg.t === "private") {
+            showToast(msg.text, false, 7000);
+          }
+        }
+
+        // ----------------------------------------------------- helpers
+
+        function cardImg(k, cls) {
+          var d = CARDS[k];
+          return '<img class="card ' + (cls || "") + '" src="' + CARD_PATH + d.img + '.png" alt="' + esc(d.name) +
+            '" data-card="' + k + '" loading="lazy" decoding="async" />';
+        }
+        function bedImg(n) {
+          return '<img class="card bedcard" src="' + CARD_PATH + "bed-" + n + '.png" alt="Bed card: ' + n + '" data-bed="' + n + '" />';
+        }
+        function fallbackFor(img) {
+          var div = document.createElement("div");
+          if (img.dataset.bed) {
+            div.className = "card-fallback bed bedcard";
+            div.innerHTML = "Bed<br><span style=\"font-size:1.6rem\">" + esc(img.dataset.bed) + "</span>";
+          } else {
+            var d = CARDS[img.dataset.card];
+            if (!d) return;
+            div.className = "card-fallback " + d.type;
+            if (img.closest(".pile")) div.style.width = "64px";
+            div.innerHTML = esc(d.name) + "<small>" + esc(d.text) + "</small>";
+          }
+          img.replaceWith(div);
+        }
+        // Missing card art falls back to a plain text card.
+        document.addEventListener("error", function (e) {
+          var t = e.target;
+          if (t && t.tagName === "IMG" && t.dataset.icon) { t.style.display = "none"; return; }
+          if (t && t.tagName === "IMG" && (t.dataset.card || t.dataset.bed)) fallbackFor(t);
+        }, true);
+
+        function nameOf(pid) {
+          var r = (app.lobby && app.lobby.roster) || [];
+          for (var i = 0; i < r.length; i++) if (r[i].pid === pid) return r[i].name;
+          var vp = app.view && app.view.players.filter(function (p) { return p.id === pid; })[0];
+          return vp ? vp.name : "Someone";
+        }
+        function isConnected(pid) {
+          var r = (app.lobby && app.lobby.roster) || [];
+          for (var i = 0; i < r.length; i++) if (r[i].pid === pid) return r[i].connected;
+          return true;
+        }
+
+        function resetSelection() { app.sel = null; app.mode = null; app.multi = []; app.overlay = null; }
+
+        function keepSelectionValid() {
+          var me = myPlayer();
+          if (!me || !me.hand) { resetSelection(); return; }
+          var ids = me.hand.map(function (c) { return c.id; });
+          if (app.sel && ids.indexOf(app.sel) === -1) { app.sel = null; app.mode = null; app.overlay = null; }
+          app.multi = app.multi.filter(function (id) { return ids.indexOf(id) !== -1; });
+          var p = app.view.pending;
+          if (!(p && p.youDecide && (p.kind === "fire" || p.kind === "discardDown"))) app.multi = [];
+          if (!isMyTurn()) { app.mode = null; app.overlay = null; }
+        }
+
+        function myPlayer() {
+          if (!app.view) return null;
+          return app.view.players.filter(function (p) { return p.id === app.view.you; })[0];
+        }
+        function isMyTurn() {
+          var v = app.view;
+          return !!v && v.current === v.you && !v.pending && !v.winner;
+        }
+        function selectedCard() {
+          var me = myPlayer();
+          if (!me || !me.hand || !app.sel) return null;
+          return me.hand.filter(function (c) { return c.id === app.sel; })[0] || null;
+        }
+        function unplayableReason(c) {
+          var d = CARDS[c.k];
+          if (d.type === "sheep" && c.k !== "black") return "Sheep cards stay in your hand. They're what you're counting.";
+          if (c.k === "black" && c.stuck) return "This Black Sheep is stuck with you. Shear it to get rid of it.";
+          if (d.react) return "Warm Milk is used automatically: you'll be asked when a card is played on you.";
+          return "";
+        }
+
+        var toastTimer = null;
+        function showToast(text, bad, ms) {
+          var t = $("#toast");
+          t.innerHTML = '<div class="toast' + (bad ? " bad" : "") + '" role="status">' + esc(text) + "</div>";
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(function () { t.innerHTML = ""; }, ms || 4500);
+        }
+
+        function copyText(text, btn) {
+          var done = function () { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy link"; }, 2000); };
+          try {
+            navigator.clipboard.writeText(text).then(done, function () { selectCode(); });
+          } catch (e) { selectCode(); }
+        }
+        function selectCode() {
+          var el = $("#shareLink");
+          if (!el) return;
+          var r = document.createRange();
+          r.selectNodeContents(el);
+          var s = window.getSelection();
+          s.removeAllRanges();
+          s.addRange(r);
+        }
+
+        function shareUrl() {
+          return location.origin + location.pathname + "?room=" + app.code + (LOCAL ? "&local=1" : "");
+        }
+
+        // ----------------------------------------------------- render
+
+        function render() {
+          var root = $("#app");
+          if (!app.role) renderLanding(root);
+          else if (app.view) renderGame(root);
+          else if (app.lobby) renderLobby(root);
+          else renderConnecting(root);
+          renderOverlay();
+        }
+
+        function topbar() {
+          var dot = app.connected ? '<span class="dot"></span>' : '<span class="dot off"></span>';
+          return '<header class="topbar"><div class="logo">IN<span>SHEEP</span>NIA</div><div class="row">' +
+            (app.code ? '<span class="chip code">' + dot + "Room " + esc(app.code) + "</span>" : "") +
+            '<a class="chip" href="insheepnia.html" target="_blank" rel="noopener">Rules</a></div></header>';
+        }
+
+        function renderLanding(root) {
+          var roomParam = cleanCode(params.get("room"));
+          var hostSave = store.get("insheepnia-host");
+          var canResume = hostSave && hostSave.state && Date.now() - (hostSave.savedAt || 0) < 6 * 3600 * 1000;
+          root.innerHTML =
+            '<div class="landing">' +
+            "<div><h1>IN<span>SHEEP</span>NIA</h1><p class=\"tagline\">Count your sheep. Steal theirs. Fall asleep first.</p></div>" +
+            '<div class="panel" style="display:grid;gap:14px">' +
+            '<div class="field"><label for="nameInput">Your name</label>' +
+            '<input type="text" id="nameInput" maxlength="20" autocomplete="nickname" placeholder="e.g. Abby" value="' + esc(saved.name || "") + '" /></div>' +
+            (roomParam
+              ? '<button class="btn" id="joinBtn" type="button">Join room ' + esc(roomParam) + "</button>" +
+                '<p class="note">Or <button class="btn ghost small" id="createBtn" type="button">start your own game</button></p>'
+              : '<button class="btn" id="createBtn" type="button">Start a new game</button>' +
+                '<div class="divider">or join a friend\'s game</div>' +
+                '<div class="row"><input type="text" id="codeInput" maxlength="4" placeholder="Room code" autocomplete="off" style="text-transform:uppercase" />' +
+                '<button class="btn cyan" id="joinBtn" type="button">Join</button></div>') +
+            (app.landingError ? '<p class="error-text" role="alert">' + esc(app.landingError) + "</p>" : "") +
+            (canResume ? '<button class="btn ghost small" id="resumeBtn" type="button">Reopen your game in room ' + esc(hostSave.code) + "</button>" : "") +
+            "</div>" +
+            '<p class="note" style="text-align:center">2 to 8 players. Everyone plays on their own phone or computer. ' +
+            'New to the game? <a href="insheepnia.html" target="_blank" rel="noopener">Read the rules</a>.</p>' +
+            "</div>";
+          var nameVal = function () { return cleanName($("#nameInput").value); };
+          $("#createBtn").addEventListener("click", function () {
+            saved.name = nameVal();
+            store.set("insheepnia-player", saved);
+            startHosting(saved.name);
+          });
+          $("#joinBtn").addEventListener("click", function () {
+            joinGame(nameVal(), roomParam || ($("#codeInput") && $("#codeInput").value));
+          });
+          if ($("#codeInput")) {
+            $("#codeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") $("#joinBtn").click(); });
+          }
+          if (canResume) $("#resumeBtn").addEventListener("click", function () { startHosting(null, hostSave); });
+        }
+
+        function renderConnecting(root) {
+          root.innerHTML = topbar() +
+            '<div class="landing"><div class="panel" style="display:grid;gap:12px;text-align:center">' +
+            '<p style="font-weight:900;font-size:1.2rem;margin:0">' + esc(app.status || "Connecting…") + "</p>" +
+            (app.role === "guest" && !app.connected
+              ? '<div class="row" style="justify-content:center"><button class="btn" id="retryBtn" type="button">Try again</button>' +
+                '<button class="btn ghost" id="homeBtn" type="button">Back</button></div>'
+              : "") +
+            "</div></div>";
+          if ($("#retryBtn")) $("#retryBtn").addEventListener("click", function () { joinGame(saved.name, app.code); });
+          if ($("#homeBtn")) $("#homeBtn").addEventListener("click", function () { location.href = location.pathname + (LOCAL ? "?local=1" : ""); });
+        }
+
+        function renderLobby(root) {
+          var L = app.lobby;
+          var people = L.roster.map(function (r) {
+            var you = r.pid === L.you;
+            return "<li><span class=\"dot" + (r.connected ? "" : " off") + "\"></span><span class=\"who\">" + esc(r.name) +
+              (you ? " (you)" : "") + "</span>" + (r.isHost ? '<span class="badge">Host</span>' : "") +
+              (L.isHost && !r.isHost && !r.connected ? '<button class="btn ghost small" data-remove="' + esc(r.pid) + '" type="button">Remove</button>' : "") +
+              "</li>";
+          }).join("");
+          var enough = L.roster.length >= 2;
+          root.innerHTML = topbar() +
+            '<div class="landing" style="margin-top:2vh">' +
+            '<div class="panel" style="display:grid;gap:14px">' +
+            '<p class="note" style="text-align:center;margin:0">Room code</p><div class="bigcode">' + esc(L.code) + "</div>" +
+            '<div class="sharebox"><code id="shareLink">' + esc(shareUrl()) + '</code><button class="btn small cyan" id="copyBtn" type="button">Copy link</button></div>' +
+            '<p class="note">Send this link to your friends, or tell them the code.</p>' +
+            "</div>" +
+            '<div class="panel" style="display:grid;gap:12px"><h2 style="font-size:1.2rem">In bed (' + L.roster.length + " of 8)</h2>" +
+            '<ul class="people">' + people + "</ul>" +
+            (L.isHost
+              ? '<label class="toggle"><input type="checkbox" id="faToggle"' + (L.falseAlarm ? " checked" : "") + ' /><span><strong>False alarm penalty</strong><br><span class="note">If you announce with the wrong number, everyone takes a random card from you. Turn off for younger players.</span></span></label>' +
+                '<label class="toggle"><input type="checkbox" id="helperToggle"' + (L.helper ? " checked" : "") + ' /><span><strong>Count sheep for players</strong><br><span class="note">Shows each player how many sheep they have and need. Turn off to count in your heads.</span></span></label>' +
+                '<button class="btn" id="startBtn" type="button"' + (enough ? "" : " disabled") + ">Start the game</button>" +
+                (enough ? "" : '<p class="note">You need at least 2 players.</p>')
+              : '<p class="note">Waiting for the host to start the game…</p>') +
+            "</div></div>";
+          $("#copyBtn").addEventListener("click", function (e) { copyText(shareUrl(), e.currentTarget); });
+          if (L.isHost) {
+            $("#faToggle").addEventListener("change", function (e) { hostCommand("falseAlarm", e.target.checked); });
+            $("#helperToggle").addEventListener("change", function (e) { hostCommand("helper", e.target.checked); });
+            $("#startBtn").addEventListener("click", function () { hostCommand("start"); });
+            root.querySelectorAll("[data-remove]").forEach(function (b) {
+              b.addEventListener("click", function () { hostCommand("remove", b.getAttribute("data-remove")); });
+            });
+          }
+        }
+
+        function modChips(mods, ownerId) {
+          return mods.map(function (m) {
+            var d = CARDS[m.k];
+            var extra = "";
+            if (m.k === "dog" && m.immune && m.immune.length) extra = " (not " + m.immune.map(nameOf).map(esc).join(", ") + ")";
+            void ownerId;
+            return '<span class="mod" title="' + esc(d.text) + '"><img src="' + CARD_PATH + d.img + '.png" alt="" data-icon="1" />' +
+              esc(d.name) + extra + "</span>";
+          }).join("");
+        }
+
+        function renderGame(root) {
+          var v = app.view;
+          var L = app.lobby;
+          var me = myPlayer();
+          var myTurn = isMyTurn();
+          var p = v.pending;
+          var targeting = myTurn && (app.mode === "target" || app.mode === "bottle");
+          var handScroll = $(".hand") ? $(".hand").scrollLeft : 0;
+
+          // Opponents
+          var seats = v.players.filter(function (pl) { return pl.id !== v.you; }).map(function (pl) {
+            var turn = v.current === pl.id && !v.winner;
+            var backs = "";
+            for (var i = 0; i < Math.min(pl.handCount, 8); i++) backs += '<span class="back"></span>';
+            var online = isConnected(pl.id);
+            return '<button type="button" class="seat' + (turn ? " is-turn" : "") + (targeting ? " can-target" : "") + '" data-seat="' + esc(pl.id) + '"' +
+              (targeting ? ' aria-label="Choose ' + esc(pl.name) + '"' : " disabled") + ">" +
+              '<span class="seat-top"><span class="dot' + (online ? "" : " off") + '"></span><span class="seat-name">' + esc(pl.name) + "</span>" +
+              (turn ? '<span class="badge">Turn</span>' : "") + (pl.skip ? '<span class="badge pink">Snoring</span>' : "") + "</span>" +
+              '<span class="seat-line"><span class="backs">' + backs + "</span>" + pl.handCount + " card" + (pl.handCount === 1 ? "" : "s") + "</span>" +
+              (pl.mods.length ? '<span class="mods">' + modChips(pl.mods, pl.id) + "</span>" : '<span class="note" style="font-size:0.8rem">Nothing in their bed</span>') +
+              "</button>";
+          }).join("");
+
+          // Status line
+          var status, waiting = false;
+          if (v.winner) status = nameOf(v.winner) + " fell asleep!";
+          else if (p && p.youDecide) status = p.kind === "milk" ? "Quick, decide!" : "Choose cards to discard";
+          else if (p) { status = p.kind === "discardDown" ? nameOf(p.who) + " is discarding down to 7" : "Waiting for other players…"; waiting = true; }
+          else if (myTurn) status = "Your turn";
+          else status = nameOf(v.current) + "'s turn";
+          var countdown = p && p.until ? ' <span class="countdown" data-until="' + p.until + '"></span>' : "";
+
+          var top = v.discard.length ? v.discard[v.discard.length - 1] : null;
+          var log = v.log.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("");
+
+          // My hand
+          var marking = p && p.youDecide && (p.kind === "fire" || p.kind === "discardDown");
+          var hand = (me.hand || []).map(function (c) {
+            var cls = "card-btn";
+            if (app.sel === c.id) cls += " selected";
+            if (app.multi.indexOf(c.id) !== -1) cls += " marked";
+            if (app.mode === "shear" && c.id === app.sel) cls += " dim";
+            return '<button type="button" class="' + cls + '" data-card-id="' + c.id + '" aria-pressed="' + (app.sel === c.id || app.multi.indexOf(c.id) !== -1) + '">' +
+              (c.stuck ? '<span class="stuck-tag">Stuck</span>' : "") + cardImg(c.k) + "</button>";
+          }).join("");
+
+          var helper = L.helper;
+          var tally = helper
+            ? "<strong>" + me.have + " sheep" + (me.have === me.need ? ' <span class="exact">exactly right!</span>' : "") + "</strong>" +
+              "<span>You need " + me.need + (me.need !== me.bed ? " (bed " + me.bed + " plus your bed cards and any dogs)" : "") + "</span>"
+            : "<strong>Your bed card: " + me.bed + "</strong><span>Count carefully…</span>";
+
+          root.innerHTML = topbar() +
+            '<div class="game">' +
+            '<section class="seats" aria-label="Other players">' + seats + "</section>" +
+            '<section class="middle">' +
+            '<div class="piles"><div class="pile"><span class="back"></span>' + v.deck + " in deck</div>" +
+            '<div class="pile">' + (top ? cardImg(top.k) : '<span class="empty"></span>') + "Discard</div></div>" +
+            '<div class="logbox"><div class="status' + (waiting ? " waiting" : "") + '">' + esc(status) + countdown + "</div>" +
+            '<ul class="log" id="log">' + log + "</ul></div>" +
+            "</section>" +
+            '<section class="me panel" aria-label="Your bed and hand">' +
+            '<div class="me-head">' + bedImg(me.bed) + '<div class="tally">' + tally + "</div>" +
+            (me.mods.length ? '<div class="mods">' + modChips(me.mods, me.id) + "</div>" : "") + "</div>" +
+            '<div class="hand" id="hand">' + (hand || '<p class="note">Your hand is empty. Draw a card!</p>') + "</div>" +
+            '<div class="actionbar">' + actionBar(me, myTurn, p, marking) + "</div>" +
+            "</section></div>";
+
+          $("#log").scrollTop = $("#log").scrollHeight;
+          $("#hand").scrollLeft = handScroll;
+          wireGame(root, me, myTurn, p, marking);
+          tickCountdowns();
+        }
+
+        function actionBar(me, myTurn, p, marking) {
+          var L = app.lobby;
+          var hostTools = "";
+          if (L.isHost && !app.view.winner) {
+            var cur = app.view.current;
+            if (cur !== app.view.you && !isConnected(cur) && (!p || p.kind === "discardDown")) {
+              hostTools = '<button class="btn ghost small" id="skipBtn" type="button">Skip ' + esc(nameOf(cur)) + "'s turn</button>";
+            }
+            hostTools += '<button class="btn ghost small" id="lobbyBtn" type="button">End game</button>';
+          }
+          var tools = hostTools ? '<div class="row">' + hostTools + "</div>" : "";
+
+          if (marking) {
+            var n = p.mustDiscard;
+            var why = p.kind === "fire" ? "Fire Alarm! Choose " + n + " card" + (n === 1 ? "" : "s") + " to discard (you keep 3)."
+              : "You have more than 7 cards. Choose " + n + " to discard.";
+            return '<div class="info"><strong>' + esc(why) + "</strong> " + app.multi.length + " of " + n + " chosen.</div>" +
+              '<div class="row"><button class="btn" id="confirmDiscard" type="button"' + (app.multi.length === n ? "" : " disabled") + ">Discard</button></div>" + tools;
+          }
+
+          var c = selectedCard();
+          var info;
+          if (!myTurn) {
+            info = c ? "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) : "Tap a card to read it.";
+            return '<div class="info">' + info + "</div>" + tools;
+          }
+          if (app.mode === "target") info = "<strong>Choose a player</strong> to play " + esc(CARDS[c.k].name) + " on.";
+          else if (app.mode === "bottle") info = "<strong>Choose a bed</strong> for the Hot Water Bottle: yours or another player's.";
+          else if (app.mode === "shear") info = "<strong>Choose the card to shear</strong> from your hand.";
+          else if (c) {
+            var why = unplayableReason(c);
+            info = "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) + (why ? ' <span class="note">' + esc(why) + "</span>" : "");
+          } else info = "Your turn: <strong>draw</strong> a card, <strong>play</strong> a power or modifier card, or <strong>announce</strong> your victory.";
+
+          var buttons;
+          if (app.mode) {
+            buttons = (app.mode === "bottle" ? '<button class="btn cyan" id="bedSelf" type="button">My bed</button>' : "") +
+              '<button class="btn ghost" id="cancelBtn" type="button">Cancel</button>';
+          } else {
+            var canPlay = c && !unplayableReason(c);
+            buttons = '<button class="btn" id="drawBtn" type="button">Draw</button>' +
+              '<button class="btn cyan" id="playBtn" type="button"' + (canPlay ? "" : " disabled") + ">" + (c ? "Play " + esc(CARDS[c.k].name) : "Play a card") + "</button>" +
+              '<button class="btn ghost" id="announceBtn" type="button">Announce</button>';
+          }
+          return '<div class="info">' + info + '</div><div class="row">' + buttons + "</div>" + tools;
+        }
+
+        function wireGame(root, me, myTurn, p, marking) {
+          root.querySelectorAll("[data-card-id]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var id = Number(b.getAttribute("data-card-id"));
+              if (marking) {
+                var i = app.multi.indexOf(id);
+                if (i === -1) { if (app.multi.length < p.mustDiscard) app.multi.push(id); }
+                else app.multi.splice(i, 1);
+                render();
+                return;
+              }
+              if (app.mode === "shear") {
+                if (id === app.sel) return;
+                var card = app.sel;
+                resetSelection();
+                app.send({ type: "play", card: card, choice: id });
+                return;
+              }
+              if (app.mode) return;
+              app.sel = app.sel === id ? null : id;
+              render();
+            });
+          });
+
+          root.querySelectorAll("[data-seat]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              if (!(app.mode === "target" || app.mode === "bottle")) return;
+              var card = app.sel;
+              var target = b.getAttribute("data-seat");
+              resetSelection();
+              app.send({ type: "play", card: card, target: target });
+            });
+          });
+
+          var on = function (id, fn) { var el = $("#" + id); if (el) el.addEventListener("click", fn); };
+          on("drawBtn", function () { resetSelection(); app.send({ type: "draw" }); });
+          on("announceBtn", function () {
+            app.overlay = "announce";
+            renderOverlay();
+          });
+          on("cancelBtn", function () { app.mode = null; app.overlay = null; render(); });
+          on("bedSelf", function () { var card = app.sel; resetSelection(); app.send({ type: "play", card: card, target: app.view.you }); });
+          on("playBtn", function () {
+            var c = selectedCard();
+            if (!c) return;
+            var d = CARDS[c.k];
+            if (d.target === "other") { app.mode = "target"; render(); return; }
+            if (d.target === "any") { app.mode = "bottle"; render(); return; }
+            if (d.choose === "ownCard") {
+              if ((me.hand || []).length < 2) { showToast("You need another card in your hand to shear.", true); return; }
+              app.mode = "shear"; render(); return;
+            }
+            if (d.choose === "discard") {
+              if (!app.view.discard.length) { showToast("The discard pile is empty.", true); return; }
+              app.overlay = "snack"; renderOverlay(); return;
+            }
+            if (d.choose === "earplugs") { app.overlay = "earplugs"; renderOverlay(); return; }
+            var card = app.sel;
+            resetSelection();
+            app.send({ type: "play", card: card });
+          });
+          on("confirmDiscard", function () {
+            var cards = app.multi.slice();
+            app.multi = [];
+            app.send({ type: p.kind === "fire" ? "fireDiscard" : "discardDown", cards: cards });
+          });
+          on("skipBtn", function () { hostCommand("skip"); });
+          on("lobbyBtn", function () { app.overlay = "endgame"; renderOverlay(); });
+        }
+
+        function renderOverlay() {
+          var o = $("#overlay");
+          var v = app.view;
+          if (!v) { o.innerHTML = ""; return; }
+          var p = v.pending;
+          var html = "";
+
+          if (v.winner) {
+            var res = v.players.map(function (pl) {
+              var hand = (pl.hand || []).map(function (c) { return cardImg(c.k); }).join("");
+              return '<div class="result' + (pl.id === v.winner ? " win" : "") + '"><strong>' + esc(pl.name) +
+                (pl.id === v.winner ? " fell asleep!" : "") + "</strong>" +
+                '<span class="note">Bed ' + pl.bed + ", needed " + pl.need + ", had " + pl.have + " sheep</span>" +
+                '<div class="mini-hand">' + hand + "</div></div>";
+            }).join("");
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Sweet dreams, ' + esc(nameOf(v.winner)) + "!</h2>" +
+              '<div class="results">' + res + "</div>" +
+              (app.lobby.isHost
+                ? '<div class="row"><button class="btn" id="againBtn" type="button">Play again</button><button class="btn ghost" id="toLobbyBtn" type="button">Back to lobby</button></div>'
+                : '<p class="note">Waiting for the host to start another game.</p>') +
+              "</div></div>";
+            o.innerHTML = html;
+            if ($("#againBtn")) $("#againBtn").addEventListener("click", function () { hostCommand("again"); });
+            if ($("#toLobbyBtn")) $("#toLobbyBtn").addEventListener("click", function () { hostCommand("lobby"); });
+            return;
+          }
+
+          if (p && p.kind === "milk" && p.youDecide) {
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Block it with Warm Milk?</h2>' +
+              '<div class="row" style="align-items:flex-start;flex-wrap:nowrap"><div style="width:90px;flex:0 0 auto">' + cardImg(p.card.k) + "</div>" +
+              '<p style="margin:0;font-weight:800">' + esc(p.text) + '<br><span class="note">' + esc(CARDS[p.card.k].text) + "</span></p></div>" +
+              '<p class="note">You have Warm Milk. Blocking uses it up. <span class="countdown" data-until="' + p.until + '"></span></p>' +
+              '<div class="row"><button class="btn" id="blockYes" type="button">Block it</button><button class="btn ghost" id="blockNo" type="button">Let it happen</button></div>' +
+              "</div></div>";
+            o.innerHTML = html;
+            $("#blockYes").addEventListener("click", function () { app.send({ type: "respond", block: true }); o.innerHTML = ""; });
+            $("#blockNo").addEventListener("click", function () { app.send({ type: "respond", block: false }); o.innerHTML = ""; });
+            tickCountdowns();
+            return;
+          }
+
+          if (app.overlay === "snack" && isMyTurn()) {
+            var picks = v.discard.slice().reverse().map(function (c) {
+              return '<button type="button" class="card-btn" data-snack="' + c.id + '">' + cardImg(c.k) + "</button>";
+            }).join("");
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Midnight Snack</h2><p class="note">Take any one card from the discard pile. Newest first.</p>' +
+              '<div class="pick-grid">' + picks + "</div>" +
+              '<button class="btn ghost" id="dlgCancel" type="button">Cancel</button></div></div>';
+            o.innerHTML = html;
+            o.querySelectorAll("[data-snack]").forEach(function (b) {
+              b.addEventListener("click", function () {
+                var card = app.sel;
+                var choice = Number(b.getAttribute("data-snack"));
+                resetSelection();
+                o.innerHTML = "";
+                app.send({ type: "play", card: card, choice: choice });
+              });
+            });
+            $("#dlgCancel").addEventListener("click", function () { app.overlay = null; render(); });
+            return;
+          }
+
+          if (app.overlay === "earplugs" && isMyTurn()) {
+            var me = myPlayer();
+            var opts = me.mods.map(function (m) {
+              return '<button type="button" class="btn ghost" data-plug="' + m.id + '">Clear ' + esc(CARDS[m.k].name) + " from my bed</button>";
+            }).join("");
+            var dogOut = v.players.some(function (pl) { return pl.id !== v.you && pl.mods.some(function (m) { return m.k === "dog"; }); });
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Earplugs</h2><p class="note">Earplugs only ever help you.</p>' +
+              '<div style="display:grid;gap:8px">' + opts +
+              '<button type="button" class="btn cyan" data-plug="block">Keep them in my bed to block out the dog' + (dogOut ? "" : " (no dog yet)") + "</button></div>" +
+              '<button class="btn ghost" id="dlgCancel" type="button">Cancel</button></div></div>';
+            o.innerHTML = html;
+            o.querySelectorAll("[data-plug]").forEach(function (b) {
+              b.addEventListener("click", function () {
+                var card = app.sel;
+                var raw = b.getAttribute("data-plug");
+                resetSelection();
+                o.innerHTML = "";
+                app.send({ type: "play", card: card, choice: raw === "block" ? "block" : Number(raw) });
+              });
+            });
+            $("#dlgCancel").addEventListener("click", function () { app.overlay = null; render(); });
+            return;
+          }
+
+          if (app.overlay === "announce" && isMyTurn()) {
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">Announce you\'re asleep?</h2>' +
+              "<p>Everyone will see your hand and bed card. If your sheep don't match exactly, it's a false alarm" +
+              (v.falseAlarm ? " and everyone takes a random card from you." : ".") + "</p>" +
+              '<div class="row"><button class="btn" id="annYes" type="button">Announce</button><button class="btn ghost" id="dlgCancel" type="button">Not yet</button></div>' +
+              "</div></div>";
+            o.innerHTML = html;
+            $("#annYes").addEventListener("click", function () { resetSelection(); o.innerHTML = ""; app.send({ type: "announce" }); });
+            $("#dlgCancel").addEventListener("click", function () { app.overlay = null; o.innerHTML = ""; });
+            return;
+          }
+
+          if (app.overlay === "endgame" && app.lobby.isHost) {
+            html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
+              '<h2 id="dlgTitle">End this game?</h2><p>Everyone goes back to the lobby. Nobody wins this one.</p>' +
+              '<div class="row"><button class="btn" id="endYes" type="button">End game</button><button class="btn ghost" id="dlgCancel" type="button">Keep playing</button></div>' +
+              "</div></div>";
+            o.innerHTML = html;
+            $("#endYes").addEventListener("click", function () { app.overlay = null; o.innerHTML = ""; hostCommand("lobby"); });
+            $("#dlgCancel").addEventListener("click", function () { app.overlay = null; o.innerHTML = ""; });
+            return;
+          }
+
+          o.innerHTML = "";
+        }
+
+        function tickCountdowns() {
+          document.querySelectorAll("[data-until]").forEach(function (el) {
+            var left = Math.max(0, Math.ceil((Number(el.getAttribute("data-until")) - Date.now()) / 1000));
+            el.textContent = left + "s";
+          });
+        }
+        setInterval(tickCountdowns, 500);
+
+        render();
+      })();
+    </script>
+  </body>
+</html>
