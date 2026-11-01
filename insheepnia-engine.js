@@ -12,12 +12,12 @@
     s2: { name: "2 Sheep", type: "sheep", val: 2, img: "two-sheep", text: "Counts as 2 sheep." },
     s3: { name: "3 Sheep", type: "sheep", val: 3, img: "three-sheep", text: "Counts as 3 sheep." },
     black: { name: "Black Sheep", type: "sheep", val: 0, bedVal: -1, img: "black-sheep", target: "other",
-      text: "Play it into another player's bed, where it counts as -1 sheep for them. Shear or Earplugs clear it." },
+      text: "Keep this card. You can't give it away. It counts as -1 sheep in your hand. Get rid of it with Shear, when someone steals it, or when you have to discard." },
     wolf: { name: "Wolf", type: "power", img: "wolf", target: "other", text: "Take one random card from another player's hand." },
     milk: { name: "Warm Milk", type: "power", img: "warm-milk", react: true,
       text: "Play any time to block a card that affects you. You'll be asked automatically." },
     shear: { name: "Shear", type: "power", img: "shear", choose: "ownCard",
-      text: "Discard one card from your own hand, or a Black Sheep from your bed." },
+      text: "Discard one card from your own hand (great for a Black Sheep)." },
     lullaby: { name: "Lullaby", type: "power", img: "lullaby", text: "Draw 2 cards." },
     snore: { name: "Snore", type: "power", img: "snore", text: "The next player skips their turn." },
     owl: { name: "Night Owl", type: "power", img: "night-owl", target: "other", text: "Secretly look at another player's bed card." },
@@ -41,9 +41,9 @@
 
   var COUNTS = {
     s1: 22, s2: 20, s3: 16, black: 4,
-    wolf: 5, milk: 4, shear: 4, lullaby: 3, snore: 3, owl: 3,
+    wolf: 5, milk: 4, shear: 4, lullaby: 3, snore: 3, owl: 2,
     sleepwalker: 2, nightmare: 2, firealarm: 2, duvethog: 2, snack: 2,
-    espresso: 3, insomnia: 2, dog: 1, bottle: 2, earplugs: 2,
+    espresso: 3, insomnia: 2, dog: 1, bottle: 2, earplugs: 3,
   };
 
   var BEDS = [8, 8, 9, 9, 10, 10, 11, 11];
@@ -107,6 +107,12 @@
       pending: null,
       winner: null,
       falseAlarm: opts.falseAlarm !== false,
+      // House rules: can a bed hold two of the same modifier / more than one Black Sheep?
+      stack: { mods: !!opts.stackMods, black: !!opts.stackBlack },
+      // Black Sheep rule. "keep" (current): whoever draws it keeps it, -1 in hand, can't be played,
+      // goes via Shear, being stolen, or a forced discard. Older test rules: "hand", "handLocked",
+      // "drawn" (keep, never discardable), "bedShear", "bedBoth".
+      blackMode: opts.blackMode || "keep",
       round: 1,
       seed: opts.seed,
       rngState: Math.floor(rng() * 4294967296),
@@ -142,7 +148,7 @@
 
   function current(state) { return state.order[state.turn]; }
 
-  /** Sheep in a hand. Black Sheep only count once they're in a bed. */
+  /** Sheep in a hand, not counting Black Sheep (haveOf takes those off). */
   function sheepCount(hand) {
     return hand.reduce(function (sum, c) {
       var d = CARDS[c.k];
@@ -155,9 +161,13 @@
     return state.players[pid].mods.filter(function (m) { return m.k === "black"; }).length;
   }
 
-  /** Sheep a player has: their hand, minus Black Sheep in their bed. */
+  /** Sheep a player has: their hand, minus any Black Sheep. */
   function haveOf(state, pid) {
-    return sheepCount(state.players[pid].hand) - blacksInBed(state, pid);
+    var hand = state.players[pid].hand;
+    if (state.blackMode === "hand" || state.blackMode === "handLocked" || state.blackMode === "drawn" || state.blackMode === "keep") {
+      return sheepCount(hand) - hand.filter(function (c) { return c.k === "black"; }).length;
+    }
+    return sheepCount(hand) - blacksInBed(state, pid);
   }
 
   /** Public changes to a player's target: everything except their secret bed number. */
@@ -268,7 +278,7 @@
 
     if (action.type === "fireDiscard") {
       if (!pend || pend.kind !== "fire" || pend.waitingOn.indexOf(pid) === -1) { out.error = "Nothing to discard."; return out; }
-      var need = p.hand.length - 3;
+      var need = Math.min(p.hand.length - 3, p.hand.filter(function (c) { return !locked(state, c); }).length);
       var ids = action.cards || [];
       if (ids.length !== need) { out.error = "Choose " + need + " card" + (need === 1 ? "" : "s") + " to discard."; return out; }
       if (!discardIds(state, pid, ids)) { out.error = "Those cards aren't in your hand."; return out; }
@@ -281,7 +291,7 @@
 
     if (action.type === "discardDown") {
       if (!pend || pend.kind !== "discardDown" || pend.who !== pid) { out.error = "Nothing to discard."; return out; }
-      var n = p.hand.length - HAND_LIMIT;
+      var n = Math.min(p.hand.length - HAND_LIMIT, p.hand.filter(function (c) { return !locked(state, c); }).length);
       var dids = action.cards || [];
       if (dids.length !== n) { out.error = "Choose " + n + " card" + (n === 1 ? "" : "s") + " to discard."; return out; }
       if (!discardIds(state, pid, dids)) { out.error = "Those cards aren't in your hand."; return out; }
@@ -343,7 +353,11 @@
         if (!state.players[target]) target = pid;
       }
       // A bed can't hold two of the same modifier.
-      if (d.type === "mod" && target && state.players[target] &&
+      var stack = state.stack || { mods: false, black: false };
+      if (card.k === "black" && (state.blackMode === "keep" || state.blackMode === "drawn")) { out.error = "Unlucky! You have to keep the Black Sheep. Shear it to get rid of it."; return out; }
+      if (card.k === "black" && card.stuck) { out.error = "This Black Sheep is stuck with you. Shear it to get rid of it."; return out; }
+      var stacks = card.k === "black" ? (state.blackMode === "hand" || state.blackMode === "handLocked" || stack.black) : (d.type === "mod" ? stack.mods : true);
+      if (!stacks && target && state.players[target] &&
           state.players[target].mods.some(function (m) { return m.k === card.k; })) {
         out.error = (target === pid ? "You already have " : nameOf(state, target) + " already has ") + d.name + " in their bed.";
         if (target === pid) out.error = "You already have " + d.name + " in your bed.";
@@ -361,6 +375,10 @@
       }
       if (d.choose === "discard") {
         if (findIndex(state.discard, action.choice) === -1) { out.error = "Choose a card from the discard pile."; return out; }
+      }
+      if (d.choose === "earplugs" && state.blackMode === "bedShear" &&
+          p.mods.some(function (m) { return m.id === action.choice && m.k === "black"; })) {
+        out.error = "Only Shear can clear a Black Sheep."; return out;
       }
       if (d.choose === "earplugs") {
         if (action.choice !== "block" && findIndex(p.mods, action.choice) === -1) { out.error = "Choose a card in your bed, or block the dog."; return out; }
@@ -398,11 +416,22 @@
     return n + " played " + d.name + ".";
   }
 
+  // Can't be discarded (hand limit, Fire Alarm).
+  function locked(state, c) {
+    if (c.k !== "black") return false;
+    return state.blackMode === "drawn" || (state.blackMode === "handLocked" && c.stuck);
+  }
+  // Can't be passed by Nightmare.
+  function passLocked(state, c) { return state.blackMode === "handLocked" && c.k === "black" && c.stuck; }
+
   function discardIds(state, pid, ids) {
     var hand = state.players[pid].hand;
     var uniq = ids.filter(function (v, i) { return ids.indexOf(v) === i; });
     if (uniq.length !== ids.length) return false;
-    for (var i = 0; i < ids.length; i++) if (findIndex(hand, ids[i]) === -1) return false;
+    for (var i = 0; i < ids.length; i++) {
+      var at = findIndex(hand, ids[i]);
+      if (at === -1 || locked(state, hand[at])) return false;
+    }
     ids.forEach(function (id) { toDiscard(state, hand.splice(findIndex(hand, id), 1)[0]); });
     return true;
   }
@@ -419,6 +448,7 @@
     switch (card.k) {
       case "black":
         if (blocked(target)) toDiscard(state, card);
+        else if (state.blackMode === "hand" || state.blackMode === "handLocked") { card.stuck = true; state.players[target].hand.push(card); }
         else { card.from = actor; state.players[target].mods.push(card); }
         break;
       case "wolf":
@@ -486,7 +516,13 @@
         toDiscard(state, card);
         var ring = state.order.filter(function (q) { return !blocked(q); });
         if (ring.length >= 2) {
-          var passed = ring.map(function (q) { return takeRandom(state, q, rng); });
+          var passed = ring.map(function (q) {
+            var h = state.players[q].hand;
+            var free = h.filter(function (c) { return !passLocked(state, c); });
+            if (!free.length) return null;
+            var c = free[Math.floor(rng() * free.length)];
+            return h.splice(h.indexOf(c), 1)[0];
+          });
           ring.forEach(function (q, i) {
             var c = passed[i];
             if (c) state.players[ring[(i + 1) % ring.length]].hand.push(c);
@@ -578,9 +614,12 @@
   }
 
   function autoDiscard(state, pid, n, rng) {
+    var hand = state.players[pid].hand;
     for (var i = 0; i < n; i++) {
-      var c = takeRandom(state, pid, rng);
-      if (c) toDiscard(state, c);
+      var free = hand.filter(function (c) { return !locked(state, c); });
+      if (!free.length) return;
+      var c = free[Math.floor(rng() * free.length)];
+      toDiscard(state, hand.splice(hand.indexOf(c), 1)[0]);
     }
   }
 
@@ -650,6 +689,7 @@
           need: showAll ? needOf(state, q) : null,
           have: showAll ? haveOf(state, q) : null,
           handSheep: showAll ? sheepCount(p.hand) : null,
+          handBlacks: showAll ? p.hand.filter(function (c) { return c.k === "black"; }).length : null,
           needParts: needParts(state, q),
           blacks: blacksInBed(state, q),
           mods: p.mods.map(modView),

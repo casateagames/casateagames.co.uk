@@ -958,7 +958,8 @@
         }
         function unplayableReason(c) {
           var d = CARDS[c.k];
-          if (d.type === "sheep" && c.k !== "black") return "Sheep cards stay in your hand. They're what you're counting.";
+          if (c.k === "black") return "Unlucky! You have to keep the Black Sheep. Shear it, or lose it when someone steals it or you have to discard.";
+          if (d.type === "sheep") return "Sheep cards stay in your hand. They're what you're counting.";
           if (d.react) return "Warm Milk is used automatically: you'll be asked when a card is played on you.";
           return "";
         }
@@ -1136,7 +1137,7 @@
             var backs = "";
             for (var i = 0; i < Math.min(pl.handCount, 8); i++) backs += '<span class="back"></span>';
             var online = isConnected(pl.id);
-            var already = targeting && sel && CARDS[sel.k].type === "mod" && pl.mods.some(function (m) { return m.k === sel.k; });
+            var already = targeting && sel && (CARDS[sel.k].type === "mod" || sel.k === "black") && pl.mods.some(function (m) { return m.k === sel.k; });
             var choose = targeting
               ? (already
                 ? '<span class="note" style="font-size:0.85rem">Already has ' + esc(CARDS[sel.k].name) + "</span>"
@@ -1184,7 +1185,7 @@
           if (helper) {
             tally += '<div class="score have' + (match ? " match" : "") + '"><span class="lbl">You have</span><span class="big">' + me.have + "</span>" +
               '<span class="sum">' + (match ? '<span class="exact">Exactly right! Announce!</span>' :
-                me.handSheep + " in your hand" + (me.blacks ? " − " + me.blacks + " Black Sheep in your bed" : "")) + "</span></div>";
+                me.handSheep + " in your hand" + (me.handBlacks ? " − " + me.handBlacks + " Black Sheep" : "") + (me.blacks ? " − " + me.blacks + " Black Sheep in your bed" : "")) + "</span></div>";
           }
 
           root.innerHTML = topbar() +
@@ -1354,7 +1355,7 @@
               var hand = (pl.hand || []).map(function (c) { return cardImg(c.k); }).join("");
               return '<div class="result' + (pl.id === v.winner ? " win" : "") + '"><strong>' + esc(pl.name) +
                 (pl.id === v.winner ? " fell asleep!" : "") + "</strong>" +
-                '<span class="note">Bed ' + pl.bed + ", needed " + pl.need + ", had " + pl.have + " sheep" + (pl.blacks ? " (after " + pl.blacks + " Black Sheep)" : "") + "</span>" +
+                '<span class="note">Bed ' + pl.bed + ", needed " + pl.need + ", had " + pl.have + " sheep" + ((pl.blacks || 0) + (pl.handBlacks || 0) ? " (after " + ((pl.blacks || 0) + (pl.handBlacks || 0)) + " Black Sheep)" : "") + "</span>" +
                 '<div class="mini-hand">' + hand + "</div></div>";
             }).join("");
             html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +

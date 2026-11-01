@@ -188,13 +188,25 @@
             <h3 id="counting">Counting your sheep</h3>
             <ul>
               <li>
-                Only sheep cards count. Black Sheep count as &minus;1. Power and
+                Only the 1, 2 and 3 Sheep cards in your hand count. Power and
                 modifier cards count as nothing.
               </li>
               <li>
-                Modifier cards stay face up in a player's <strong>bed</strong>
+                <strong>Black Sheep are unlucky.</strong> If you draw one, you
+                have to keep it. You can't give it away. It counts as &minus;1
+                sheep in your hand. Get rid of it with Shear, when someone
+                steals it, or when you have to discard (going over 7 cards or a
+                Fire Alarm).
+              </li>
+              <li>
+                Modifier cards also stay face up in a player's <strong>bed</strong>
                 (in front of them). Your sheep needed is your bed number, plus
-                or minus everything in your bed. It can never go below 1.
+                or minus every modifier in your bed. It can never go below 1.
+              </li>
+              <li>
+                <strong>Nothing stacks.</strong> A bed can only hold one of each
+                card: one Insomnia, one Double Espresso and so
+                on. You can't play a card into a bed that already has one.
               </li>
               <li>
                 Too many sheep? You're not out, you just can't fall asleep yet.
@@ -238,7 +250,7 @@
           </p>
 
           <h3 class="card-group-title" id="sheep-cards">Sheep cards <span class="card-count">62</span></h3>
-          <p class="card-group-intro">The sheep you’re counting. Only these count towards your total.</p>
+          <p class="card-group-intro">The sheep you’re counting. The 1, 2 and 3 Sheep count in your hand. A Black Sheep in your hand takes one away.</p>
           <div class="box-grid">
             <div class="box-item box-item-core">
               <div class="box-card-image">
@@ -298,11 +310,11 @@
                 Black Sheep
                 <span class="card-count">4</span>
               </h3>
-              <p class="card-rule">Counts as −1 sheep. On your turn, play it into another player’s hand. It’s stuck there until it’s sheared or stolen.</p>
+              <p class="card-rule">Keep this card. You can’t give it away. It counts as −1 sheep in your hand. Get rid of it with Shear, when someone steals it, or when you have to discard.</p>
             </div>
           </div>
 
-          <h3 class="card-group-title" id="power-cards">Power cards <span class="card-count">32</span></h3>
+          <h3 class="card-group-title" id="power-cards">Power cards <span class="card-count">31</span></h3>
           <p class="card-group-intro">Play one on your turn (Warm Milk can be played any time). Power cards don’t count as sheep.</p>
           <div class="box-grid">
             <div class="box-item box-item-core">
@@ -348,7 +360,7 @@
                 Shear
                 <span class="card-count">4</span>
               </h3>
-              <p class="card-rule">Discard one card from your own hand.</p>
+              <p class="card-rule">Discard one card from your own hand. The best way to get rid of a Black Sheep.</p>
             </div>
             <div class="box-item box-item-core">
               <div class="box-card-image">
@@ -391,7 +403,7 @@
               </div>
               <h3>
                 Night Owl
-                <span class="card-count">3</span>
+                <span class="card-count">2</span>
               </h3>
               <p class="card-rule">Secretly look at another player’s bed card.</p>
             </div>
@@ -472,8 +484,8 @@
             </div>
           </div>
 
-          <h3 class="card-group-title" id="modifier-cards">Modifier cards <span class="card-count">10</span></h3>
-          <p class="card-group-intro">These stay face up in a player’s bed and change how many sheep they need, until that player clears them with Earplugs.</p>
+          <h3 class="card-group-title" id="modifier-cards">Modifier cards <span class="card-count">11</span></h3>
+          <p class="card-group-intro">These stay face up in a player’s bed and change how many sheep they need, until that player clears them with Earplugs. A bed can only hold one of each.</p>
           <div class="box-grid">
             <div class="box-item box-item-core">
               <div class="box-card-image">
@@ -546,9 +558,9 @@
               </div>
               <h3>
                 Earplugs
-                <span class="card-count">2</span>
+                <span class="card-count">3</span>
               </h3>
-              <p class="card-rule">Only works for you. Discard one modifier card from your bed, or keep this in your bed to block out the Neighbour’s Dog.</p>
+              <p class="card-rule">Only works for you. Discard one card from your bed, or keep this in your bed to block out the Neighbour’s Dog.</p>
             </div>
           </div>
 
@@ -772,7 +784,7 @@
             </button>
             <div class="faq-answer">
               <p>
-                You can't fall asleep yet, but you're not out. Shear some off, discard when you go over 7 cards, or hope someone slips you a Black Sheep. The other players can also push your number up with a modifier, which might accidentally help you.
+                You can't fall asleep yet, but you're not out. Shear some off, discard when you go over 7 cards, or hope you draw a Black Sheep (for once, a lucky one!). The other players can also push your number up with a modifier, which might accidentally help you.
               </p>
             </div>
           </div>
@@ -801,12 +813,29 @@
               onclick="toggleFAQ(this)"
               aria-expanded="false"
             >
-              Can I pass a Black Sheep on to someone else?
+              What happens when I get a Black Sheep?
               <span class="faq-icon" aria-hidden="true">▼</span>
             </button>
             <div class="faq-answer">
               <p>
-                No. Once a Black Sheep is played into your hand, it's stuck there. You can only get rid of it with Shear, by discarding it when you're over the 7-card hand limit, or by someone stealing it.
+                Unlucky! You have to keep it, and you can't give it away. While it's in your hand it counts as &minus;1 sheep, so if you've got 9 sheep and a Black Sheep, you've really got 8. There are three ways out: play Shear on it, have someone steal it (Wolf, Duvet Hog, Sleepwalker or Nightmare can all move it to another hand), or discard it when you have to (going over 7 cards or a Fire Alarm). If it's stolen, the new owner is stuck with it instead. And sometimes it's handy: if you've got one sheep too many, a Black Sheep fixes it.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              onclick="toggleFAQ(this)"
+              aria-expanded="false"
+            >
+              Can someone have two of the same card in their bed?
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                No. Nothing stacks: a bed can only hold one of each card. Someone can have Insomnia and a Double Espresso at the same time, but never two Insomnias or two Double Espressos. We tested it, and stacking just let one unlucky player get buried without making the game any better.
               </p>
             </div>
           </div>
