@@ -24,6 +24,25 @@
   line-height: 1.65;
 }
 
+.sym {
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentColor;
+  vertical-align: -0.2em;
+}
+
+.sym-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin: 0.5rem 0;
+  font-weight: 700;
+}
+
+.sym-key > span {
+  white-space: nowrap;
+}
+
 .moon-table {
   width: 100%;
   border-collapse: collapse;
