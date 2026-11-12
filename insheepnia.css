@@ -312,3 +312,36 @@
 .insheepnia .official-intro {
   color: #fff;
 }
+
+/* Cheat sheet link on the night sky */
+.insheepnia .guide-download {
+  color: var(--moon);
+}
+
+.insheepnia .guide-download a {
+  color: var(--star);
+}
+
+/* Launch sign-up box, after the FAQ */
+.launch-signup {
+  padding: 3rem 1.25rem 4rem;
+}
+
+.launch-signup-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--night-deep, #12224f);
+  border: 2px solid var(--sky-cyan, #1ec8e0);
+  border-radius: 24px;
+  padding: 2rem 1.5rem;
+}
+
+.launch-signup-inner h2 {
+  margin: 0 0 0.75rem;
+}
+
+.launch-signup-inner p {
+  margin: 0 0 1.5rem;
+  line-height: 1.55;
+}
