@@ -1,4 +1,4 @@
-// Password-protects the online Insheepnia playtest.
+// Password-protects the online InSheepnia playtest.
 // The password lives in a Netlify environment variable called PLAY_PASSWORD,
 // so it's never written in this file or in your GitHub repo.
 // Visitors see the browser's sign-in box: any username works, the password must match.
@@ -20,10 +20,10 @@ export default async (request) => {
     }
   }
 
-  return new Response("You need the password to play the Insheepnia playtest.", {
+  return new Response("You need the password to play the InSheepnia playtest.", {
     status: 401,
     headers: {
-      "WWW-Authenticate": 'Basic realm="Insheepnia playtest", charset="UTF-8"',
+      "WWW-Authenticate": 'Basic realm="InSheepnia playtest", charset="UTF-8"',
       "Cache-Control": "no-store",
     },
   });

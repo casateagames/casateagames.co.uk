@@ -97,7 +97,7 @@
     standard: "Standard game",
     chaos: "Chaos cards",
     either: "Either way",
-    // Insheepnia
+    // InSheepnia
     any: "Any number of players",
     two: "2 players",
     big: "Big groups",

@@ -159,6 +159,10 @@
   text-shadow: 3px 4px 0 var(--night-deep);
 }
 
+.insheepnia .rules-hero h1 .title-sheep {
+  color: #fff;
+}
+
 .insheepnia .game-tagline,
 .insheepnia .section-intro,
 .insheepnia .card-group-intro,

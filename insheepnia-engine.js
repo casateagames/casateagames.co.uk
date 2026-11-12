@@ -93,7 +93,7 @@
 
   function createGame(players, opts) {
     opts = opts || {};
-    if (players.length < 2 || players.length > 8) throw new Error("Insheepnia needs 2 to 8 players.");
+    if (players.length < 2 || players.length > 8) throw new Error("InSheepnia needs 2 to 8 players.");
     var rng = makeRng(opts.seed);
     var beds = shuffle(BEDS.slice(), rng);
     var order = shuffle(players.map(function (p) { return p.id; }), rng);

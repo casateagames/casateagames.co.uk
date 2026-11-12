@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Play Insheepnia • Casa Tea Games</title>
+    <title>Play InSheepnia • Casa Tea Games</title>
     <meta name="robots" content="noindex" />
-    <meta name="description" content="Play the Insheepnia prototype online with friends." />
+    <meta name="description" content="Play the InSheepnia prototype online with friends." />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <style>
       @font-face {
@@ -745,7 +745,7 @@
             var seat = token ? host.seats.filter(function (s) { return s.token === token && !s.isHost; })[0] : null;
             if (!seat) {
               if (host.state) { host.transport.send(key, { t: "error", text: "This game has already started. Ask the host to go back to the lobby so you can join." }); return; }
-              if (host.seats.length >= 8) { host.transport.send(key, { t: "error", text: "This room is full. Insheepnia is for up to 8 players." }); return; }
+              if (host.seats.length >= 8) { host.transport.send(key, { t: "error", text: "This room is full. InSheepnia is for up to 8 players." }); return; }
               seat = { pid: "p" + host.nextPid++, token: token || randToken(), name: cleanName(msg.name), key: key, connected: true };
               host.seats.push(seat);
             } else {
