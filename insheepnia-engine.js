@@ -421,6 +421,9 @@
     if (c.k !== "black") return false;
     return state.blackMode === "drawn" || (state.blackMode === "handLocked" && c.stuck);
   }
+  function freeCount(state, hand) {
+    return hand.filter(function (c) { return !locked(state, c); }).length;
+  }
   // Can't be passed by Nightmare.
   function passLocked(state, c) { return state.blackMode === "handLocked" && c.k === "black" && c.stuck; }
 
@@ -676,6 +679,8 @@
       log: state.log.slice(-40),
       winner: state.winner,
       falseAlarm: state.falseAlarm,
+      stackMods: !!(state.stack && state.stack.mods),
+      noEscape: state.blackMode === "drawn",
       handLimit: HAND_LIMIT,
       players: state.order.map(function (q) {
         var p = state.players[q];
@@ -707,12 +712,12 @@
         pv.waiting = pend.waitingOn.length > 0;
       } else if (pend.kind === "fire") {
         pv.youDecide = pend.waitingOn.indexOf(pid) !== -1;
-        pv.mustDiscard = pv.youDecide ? me.hand.length - 3 : 0;
+        pv.mustDiscard = pv.youDecide ? Math.min(me.hand.length - 3, freeCount(state, me.hand)) : 0;
         pv.waiting = true;
       } else if (pend.kind === "discardDown") {
         pv.who = pend.who;
         pv.youDecide = pend.who === pid;
-        pv.mustDiscard = pv.youDecide ? me.hand.length - HAND_LIMIT : 0;
+        pv.mustDiscard = pv.youDecide ? Math.min(me.hand.length - HAND_LIMIT, freeCount(state, me.hand)) : 0;
       }
       v.pending = pv;
     }

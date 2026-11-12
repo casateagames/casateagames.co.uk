@@ -707,6 +707,8 @@
             state: resume ? resume.state : null,
             falseAlarm: resume ? resume.falseAlarm !== false : true,
             helper: resume ? resume.helper !== false : true,
+            restless: resume ? !!resume.restless : false,
+            noEscape: resume ? !!resume.noEscape : false,
             nextPid: resume ? resume.nextPid : 1,
             transport: null,
             tries: 0,
@@ -802,13 +804,18 @@
           if (cmd === "start" || cmd === "again") {
             var ps = host.seats.map(function (s) { return { id: s.pid, name: s.name }; });
             if (ps.length < 2) return;
-            host.state = E.createGame(ps, { falseAlarm: host.falseAlarm, now: Date.now() });
+            host.state = E.createGame(ps, { falseAlarm: host.falseAlarm, stackMods: host.restless,
+              blackMode: host.noEscape ? "drawn" : "keep", now: Date.now() });
           } else if (cmd === "lobby") {
             host.state = null;
           } else if (cmd === "falseAlarm") {
             host.falseAlarm = !!arg;
           } else if (cmd === "helper") {
             host.helper = !!arg;
+          } else if (cmd === "restless") {
+            host.restless = !!arg;
+          } else if (cmd === "noEscape") {
+            host.noEscape = !!arg;
           } else if (cmd === "remove") {
             if (host.state) return;
             host.seats = host.seats.filter(function (s) { return s.pid !== arg || s.isHost; });
@@ -828,7 +835,7 @@
         function payloadFor(s) {
           var roster = host.seats.map(function (x) { return { pid: x.pid, name: x.name, connected: x.connected, isHost: !!x.isHost }; });
           var base = { code: host.code, you: s.pid, token: s.token, roster: roster, isHost: !!s.isHost,
-            falseAlarm: host.falseAlarm, helper: host.helper };
+            falseAlarm: host.falseAlarm, helper: host.helper, restless: host.restless, noEscape: host.noEscape };
           if (!host.state) return Object.assign({ t: "lobby" }, base);
           var v = E.view(host.state, s.pid);
           if (v.pending) { v.pending.msLeft = Math.max(0, v.pending.deadline - Date.now()); delete v.pending.deadline; }
@@ -837,7 +844,7 @@
 
         function broadcast() {
           store.set("insheepnia-host", {
-            code: host.code, nextPid: host.nextPid, falseAlarm: host.falseAlarm, helper: host.helper, state: host.state,
+            code: host.code, nextPid: host.nextPid, falseAlarm: host.falseAlarm, helper: host.helper, restless: host.restless, noEscape: host.noEscape, state: host.state,
             seats: host.seats.map(function (s) { return { pid: s.pid, token: s.token, name: s.name, isHost: !!s.isHost }; }),
             savedAt: Date.now(),
           });
@@ -1112,14 +1119,20 @@
             (L.isHost
               ? '<label class="toggle"><input type="checkbox" id="faToggle"' + (L.falseAlarm ? " checked" : "") + ' /><span><strong>False alarm penalty</strong><br><span class="note">If you announce with the wrong number, everyone takes a random card from you. Turn off for younger players.</span></span></label>' +
                 '<label class="toggle"><input type="checkbox" id="helperToggle"' + (L.helper ? " checked" : "") + ' /><span><strong>Count sheep for players</strong><br><span class="note">Shows each player how many sheep they have. Everyone always sees how many they need.</span></span></label>' +
+                '<p class="note" style="margin:4px 0 0"><strong>House rules</strong> (optional)</p>' +
+                '<label class="toggle"><input type="checkbox" id="restlessToggle"' + (L.restless ? " checked" : "") + ' /><span><strong>Restless Night</strong><br><span class="note">Modifiers stack, so a bed can hold two Insomnias. Best with 3+ players.</span></span></label>' +
+                '<label class="toggle"><input type="checkbox" id="noEscapeToggle"' + (L.noEscape ? " checked" : "") + ' /><span><strong>No Escape</strong><br><span class="note">Black Sheep can only be sheared or stolen, never discarded. Harder!</span></span></label>' +
                 '<button class="btn" id="startBtn" type="button"' + (enough ? "" : " disabled") + ">Start the game</button>" +
                 (enough ? "" : '<p class="note">You need at least 2 players.</p>')
-              : '<p class="note">Waiting for the host to start the game…</p>') +
+              : ((L.restless || L.noEscape) ? '<p class="note"><strong>House rules on:</strong> ' + [L.restless ? "Restless Night (modifiers stack)" : "", L.noEscape ? "No Escape (Black Sheep can't be discarded)" : ""].filter(Boolean).join(", ") + "</p>" : "") +
+                '<p class="note">Waiting for the host to start the game…</p>') +
             "</div></div>";
           $("#copyBtn").addEventListener("click", function (e) { copyText(shareUrl(), e.currentTarget); });
           if (L.isHost) {
             $("#faToggle").addEventListener("change", function (e) { hostCommand("falseAlarm", e.target.checked); });
             $("#helperToggle").addEventListener("change", function (e) { hostCommand("helper", e.target.checked); });
+            $("#restlessToggle").addEventListener("change", function (e) { hostCommand("restless", e.target.checked); });
+            $("#noEscapeToggle").addEventListener("change", function (e) { hostCommand("noEscape", e.target.checked); });
             $("#startBtn").addEventListener("click", function () { hostCommand("start"); });
             root.querySelectorAll("[data-remove]").forEach(function (b) {
               b.addEventListener("click", function () { hostCommand("remove", b.getAttribute("data-remove")); });
@@ -1166,7 +1179,7 @@
             var backs = "";
             for (var i = 0; i < Math.min(pl.handCount, 8); i++) backs += '<span class="back"></span>';
             var online = isConnected(pl.id);
-            var already = targeting && sel && (CARDS[sel.k].type === "mod" || sel.k === "black") && pl.mods.some(function (m) { return m.k === sel.k; });
+            var already = targeting && sel && !v.stackMods && (CARDS[sel.k].type === "mod" || sel.k === "black") && pl.mods.some(function (m) { return m.k === sel.k; });
             var choose = targeting
               ? (already
                 ? '<span class="note" style="font-size:0.85rem">Already has ' + esc(CARDS[sel.k].name) + "</span>"
@@ -1278,7 +1291,7 @@
 
           var buttons;
           if (app.mode) {
-            var mineAlready = c && me.mods.some(function (m) { return m.k === c.k; });
+            var mineAlready = c && !app.view.stackMods && me.mods.some(function (m) { return m.k === c.k; });
             buttons = (app.mode === "bottle" ? '<button class="btn cyan" id="bedSelf" type="button"' + (mineAlready ? " disabled" : "") + ">" + (mineAlready ? "You already have one" : "My bed") + "</button>" : "") +
               '<button class="btn ghost" id="cancelBtn" type="button">Cancel</button>';
           } else {
@@ -1297,6 +1310,8 @@
               var id = Number(b.getAttribute("data-card-id"));
               if (marking) {
                 var i = app.multi.indexOf(id);
+                var mc = (me.hand || []).filter(function (x) { return x.id === id; })[0];
+                if (i === -1 && mc && mc.k === "black" && app.view.noEscape) { showToast("No Escape: the Black Sheep can't be discarded. Only Shear or a thief can get rid of it.", true); return; }
                 if (i === -1) { if (app.multi.length < p.mustDiscard) app.multi.push(id); }
                 else app.multi.splice(i, 1);
                 render();
@@ -1547,9 +1562,9 @@
             "<li><strong>Warm Milk</strong> isn't played on your turn. When a card is played that affects you, you'll be asked if you want to block it. It only protects you.</li></ul>" +
             '<h3 id="r-count">Counting your sheep</h3>' +
             "<ul><li>Only 1, 2 and 3 Sheep in your hand count. Power and modifier cards count as nothing.</li>" +
-            "<li>A <strong>Black Sheep</strong> counts as −1. You have to keep it: get rid of it with Shear, when someone steals it, or when you have to discard.</li>" +
+            "<li>A <strong>Black Sheep</strong> counts as −1. You have to keep it: get rid of it with Shear" + (app.view && app.view.noEscape ? " or when someone steals it. <strong>No Escape is on:</strong> you can't discard it." : ", when someone steals it, or when you have to discard.") + "</li>" +
             "<li><strong>Sheep needed</strong> = your bed card, plus or minus the modifiers in your bed. It can't go below 1.</li>" +
-            "<li><strong>Nothing stacks:</strong> a bed holds only one of each card.</li>" +
+            (app.view && app.view.stackMods ? "<li><strong>Restless Night is on:</strong> modifiers stack, so a bed can hold two of the same card.</li>" : "<li><strong>Nothing stacks:</strong> a bed holds only one of each card.</li>") +
             "<li>Too many sheep? You're not out. Shear some off or discard down.</li></ul>" +
             '<h3 id="r-win">Winning</h3>' +
             "<ul><li><strong>Exactly right:</strong> you fall asleep and win.</li>" +

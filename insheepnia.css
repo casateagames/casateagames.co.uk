@@ -266,3 +266,49 @@
 .insheepnia .faq-answer {
   color: var(--ink);
 }
+
+/* Our own house rules, above the player-submitted ones */
+.official-rules {
+  margin: 0 0 2rem;
+}
+
+.official-intro {
+  margin: 0.25rem 0 1rem;
+}
+
+.official-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.insheepnia .official-rule {
+  background: #fff;
+  color: var(--ink, #12224f);
+  border-radius: 16px;
+  border-left: 6px solid var(--sky-cyan, #1ec8e0);
+  padding: 1.1rem 1.25rem;
+}
+
+.insheepnia .official-rule h4 {
+  color: var(--night, #1b2f6b);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.official-rule p {
+  margin: 0.4rem 0 0;
+  line-height: 1.5;
+}
+
+.official-rule .official-tag {
+  font-weight: 700;
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-top: 0.15rem;
+}
+
+.insheepnia .official-rules h3,
+.insheepnia .official-intro {
+  color: #fff;
+}
