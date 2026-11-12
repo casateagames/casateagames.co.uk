@@ -508,6 +508,35 @@
       .dialog .pick-grid .card-btn { width: 100%; }
 
       .results { display: grid; gap: 10px; }
+
+      /* ---------- Rules panel ---------- */
+      button.chip { color: inherit; font-family: inherit; cursor: pointer; }
+      button.chip:hover { border-color: var(--cyan); }
+      .rules-dialog { width: min(680px, 100%); padding-top: 0; gap: 10px; line-height: 1.45; }
+      .rules-head {
+        position: sticky; top: 0; z-index: 1;
+        display: flex; justify-content: space-between; align-items: center; gap: 10px;
+        background: var(--sky-deep); padding: 16px 0 10px; border-bottom: 1px solid var(--panel-line);
+      }
+      .rules-jump { display: flex; flex-wrap: wrap; gap: 6px; }
+      .rules-dialog h3 { color: var(--cyan); font-size: 1.1rem; font-weight: 1000; margin: 8px 0 0; scroll-margin-top: 80px; }
+      .rules-dialog h4 { color: var(--star); font-size: 0.95rem; font-weight: 900; margin: 6px 0 0; }
+      .rules-dialog p { margin: 0; }
+      .rules-dialog ul, .rules-dialog ol { margin: 0; padding-left: 1.3em; display: grid; gap: 5px; }
+      .rules-dialog strong { color: var(--star); }
+      .rules-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+      .rules-table th, .rules-table td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--panel-line); }
+      .rules-table th { color: var(--star); }
+      .rule-cards { display: grid; gap: 6px; }
+      .rule-card {
+        display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; text-align: left; width: 100%;
+        background: var(--panel); border: 1px solid var(--panel-line); border-radius: 12px;
+        padding: 8px 12px; color: inherit; font: inherit; cursor: pointer;
+      }
+      .rule-card:hover { border-color: var(--cyan); }
+      .rule-card b { font-weight: 900; }
+      .rule-card .n { color: var(--star); font-weight: 900; }
+      .rule-card span:last-child { grid-column: 1 / -1; font-size: 0.9rem; opacity: 0.9; }
       .result { padding: 10px; border-radius: 12px; background: var(--panel); display: grid; gap: 6px; }
       .result.win { border: 2px solid var(--star); }
       .result .mini-hand { display: flex; gap: 4px; flex-wrap: wrap; }
@@ -1007,7 +1036,7 @@
           var dot = app.connected ? '<span class="dot"></span>' : '<span class="dot off"></span>';
           return '<header class="topbar"><div class="logo">IN<span>SHEEP</span>NIA</div><div class="row">' +
             (app.code ? '<span class="chip code">' + dot + "Room " + esc(app.code) + "</span>" : "") +
-            '<a class="chip" href="insheepnia.html" target="_blank" rel="noopener">Rules</a></div></header>';
+            '<button class="chip" type="button" data-rules>How to play</button></div></header>';
         }
 
         function renderLanding(root) {
@@ -1031,7 +1060,7 @@
             (canResume ? '<button class="btn ghost small" id="resumeBtn" type="button">Reopen your game in room ' + esc(hostSave.code) + "</button>" : "") +
             "</div>" +
             '<p class="note" style="text-align:center">2 to 8 players. Everyone plays on their own phone or computer. ' +
-            'New to the game? <a href="insheepnia.html" target="_blank" rel="noopener">Read the rules</a>.</p>' +
+            'New to the game? <button class="btn ghost small" type="button" data-rules>How to play</button></p>' +
             "</div>";
           var nameVal = function () { return cleanName($("#nameInput").value); };
           $("#createBtn").addEventListener("click", function () {
@@ -1491,7 +1520,71 @@
           if (z) { e.preventDefault(); openZoom(z.getAttribute("data-zoom")); return; }
           if (e.target.classList && e.target.classList.contains("overlay") && zoomLayer.contains(e.target)) zoomLayer.innerHTML = "";
         });
-        document.addEventListener("keydown", function (e) { if (e.key === "Escape") zoomLayer.innerHTML = ""; });
+        // How to play: opens over the game without leaving it.
+        var rulesLayer = document.createElement("div");
+        document.body.appendChild(rulesLayer);
+        var rulesOpener = null;
+        function ruleCards(keys) {
+          return '<div class="rule-cards">' + keys.map(function (k) {
+            var d = CARDS[k];
+            return '<button class="rule-card" type="button" data-zoom="' + k + '"><b>' + esc(d.name) + '</b><span class="n">×' + (E.COUNTS[k] || 0) + "</span>" +
+              "<span>" + esc(d.text.replace(/-1/g, "−1")) + "</span></button>";
+          }).join("") + "</div>";
+        }
+        function keysOf(type) { return Object.keys(CARDS).filter(function (k) { return CARDS[k].type === type; }); }
+        function openRules() {
+          rulesOpener = document.activeElement;
+          rulesLayer.innerHTML = '<div class="overlay" style="z-index:45"><div class="dialog rules-dialog" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">' +
+            '<div class="rules-head"><h2 id="rulesTitle">How to play</h2><button class="btn small" id="rulesClose" type="button">Close</button></div>' +
+            '<div class="rules-jump"><a class="chip" href="#r-goal">Goal</a><a class="chip" href="#r-turn">Your turn</a><a class="chip" href="#r-count">Counting</a><a class="chip" href="#r-win">Winning</a><a class="chip" href="#r-cards">Cards</a></div>' +
+            '<h3 id="r-goal">The goal</h3>' +
+            "<p>You've got a secret <strong>bed card</strong> (8, 9, 10 or 11). Collect exactly that many sheep, announce it, and you fall asleep and win.</p>" +
+            "<p>Everyone starts with no cards. The game deals out the right sheep for your number of players: the cloud, star and moon cards only join bigger games.</p>" +
+            '<h3 id="r-turn">Your turn</h3>' +
+            "<p>Do <strong>one</strong> of these:</p>" +
+            "<ul><li><strong>Draw</strong> the top card.</li><li><strong>Play</strong> one power or modifier card.</li><li><strong>Announce</strong> that you're falling asleep.</li></ul>" +
+            "<ul><li><strong>Hand limit 7.</strong> Over 7 at the end of your turn? Discard down to 7.</li>" +
+            "<li><strong>Warm Milk</strong> isn't played on your turn. When a card is played that affects you, you'll be asked if you want to block it. It only protects you.</li></ul>" +
+            '<h3 id="r-count">Counting your sheep</h3>' +
+            "<ul><li>Only 1, 2 and 3 Sheep in your hand count. Power and modifier cards count as nothing.</li>" +
+            "<li>A <strong>Black Sheep</strong> counts as −1. You have to keep it: get rid of it with Shear, when someone steals it, or when you have to discard.</li>" +
+            "<li><strong>Sheep needed</strong> = your bed card, plus or minus the modifiers in your bed. It can't go below 1.</li>" +
+            "<li><strong>Nothing stacks:</strong> a bed holds only one of each card.</li>" +
+            "<li>Too many sheep? You're not out. Shear some off or discard down.</li></ul>" +
+            '<h3 id="r-win">Winning</h3>' +
+            "<ul><li><strong>Exactly right:</strong> you fall asleep and win.</li>" +
+            "<li><strong>Not quite:</strong> " + (app.view && app.view.falseAlarm === false ? "false alarm. This game has the penalty switched off, so play just carries on." : "false alarm! Every other player takes one random card from you, and play carries on.") + "</li></ul>" +
+            "<p>Announcing uses your turn, so if you hit your number you'll have to survive a round first.</p>" +
+            '<h3 id="r-cards">The cards</h3><p>Tap a card to see it full size.</p>' +
+            "<h4>Sheep cards</h4>" + ruleCards(keysOf("sheep")) +
+            "<h4>Power cards</h4>" + ruleCards(keysOf("power")) +
+            "<h4>Modifier cards</h4><p>These sit face up in a bed until that player clears them with Earplugs.</p>" + ruleCards(keysOf("mod")) +
+            '<p class="note">Full rules and FAQ: <a href="insheepnia.html" target="_blank" rel="noopener">casateagames.co.uk/insheepnia</a></p>' +
+            "</div></div>";
+          $("#rulesClose").addEventListener("click", closeRules);
+          rulesLayer.querySelectorAll(".rules-jump a").forEach(function (a) {
+            a.addEventListener("click", function (e) {
+              e.preventDefault();
+              var t = rulesLayer.querySelector(a.getAttribute("href"));
+              if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+          });
+          $("#rulesClose").focus();
+        }
+        function closeRules() {
+          rulesLayer.innerHTML = "";
+          if (rulesOpener && document.contains(rulesOpener)) rulesOpener.focus();
+        }
+        document.addEventListener("click", function (e) {
+          var r = e.target.closest && e.target.closest("[data-rules]");
+          if (r) { e.preventDefault(); openRules(); return; }
+          if (e.target.classList && e.target.classList.contains("overlay") && rulesLayer.contains(e.target)) closeRules();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          if (zoomLayer.innerHTML) zoomLayer.innerHTML = "";
+          else if (rulesLayer.innerHTML) closeRules();
+        });
 
         function tickCountdowns() {
           document.querySelectorAll("[data-until]").forEach(function (el) {
