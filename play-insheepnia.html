@@ -558,6 +558,49 @@
       }
       .toast.bad { background: var(--danger); }
 
+      /* ---------- Reactions ---------- */
+      .social-btns {
+        position: fixed; right: calc(14px + env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        display: flex; gap: 8px; z-index: 40;
+      }
+      .social-btn {
+        position: relative; width: 52px; height: 52px; border-radius: 50%;
+        border: 2px solid var(--panel-line); background: var(--sky-deep); color: var(--moon);
+        font-size: 1.45rem; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+      .social-btn:hover, .social-btn[aria-expanded="true"] { border-color: var(--cyan); }
+      .react-tray {
+        position: fixed; right: calc(14px + env(safe-area-inset-right, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        z-index: 41; background: var(--sky-deep); border: 2px solid var(--panel-line); border-radius: 18px;
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+      }
+      .react-tray { padding: 10px; display: grid; gap: 8px; width: min(320px, calc(100vw - 28px)); }
+      .react-emojis { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+      .react-emojis button { font-size: 1.5rem; background: none; border: 0; border-radius: 10px; padding: 4px 0; cursor: pointer; }
+      .react-emojis button:hover { background: var(--panel); }
+      .react-phrases { display: flex; flex-wrap: wrap; gap: 6px; }
+      .react-phrases button {
+        font: inherit; font-weight: 800; font-size: 0.85rem; color: var(--moon); background: var(--panel);
+        border: 1px solid var(--panel-line); border-radius: 999px; padding: 5px 10px; cursor: pointer;
+      }
+      .react-phrases button:hover { border-color: var(--cyan); }
+      .bubbles {
+        position: fixed; left: calc(14px + env(safe-area-inset-left, 0px)); bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        display: flex; flex-direction: column-reverse; gap: 6px; z-index: 39; pointer-events: none;
+        max-width: min(320px, calc(100vw - 100px));
+      }
+      .bubble {
+        background: var(--moon); color: var(--sky-ink); border-radius: 16px 16px 16px 4px;
+        padding: 7px 12px; font-weight: 800; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        animation: bubble-in 0.25s ease-out, bubble-out 0.6s ease-in 3.6s forwards; overflow-wrap: anywhere;
+      }
+      .bubble .who { color: #0b7a8c; margin-right: 4px; }
+      .bubble.big { font-size: 1.6rem; padding: 4px 12px; }
+      .bubble.big .who { font-size: 0.85rem; vertical-align: middle; }
+      @keyframes bubble-in { from { transform: translateY(12px) scale(0.9); opacity: 0; } to { transform: none; opacity: 1; } }
+      @keyframes bubble-out { to { transform: translateY(-14px); opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) { .bubble { animation: bubble-out 0.01s linear 4s forwards; } }
+
       .countdown { font-variant-numeric: tabular-nums; color: var(--cyan); font-weight: 900; }
 
       @media (max-width: 640px) {
@@ -582,6 +625,7 @@
     </div>
     <div id="overlay"></div>
     <div id="toast"></div>
+    <div id="social"></div>
 
     <script src="assets/vendor/peerjs.min.js"></script>
     <script src="insheepnia-engine.js"></script>
@@ -611,6 +655,8 @@
         }
         function randCode() { var s = ""; for (var i = 0; i < 4; i++) s += ALPHA[Math.floor(Math.random() * ALPHA.length)]; return s; }
         function randToken() { return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2); }
+        var REACTIONS = ["\ud83d\ude34", "\ud83d\udc11", "\ud83d\ude02", "\ud83d\ude31", "\ud83d\ude21", "\ud83d\udc3a", "\ud83d\udc4f",
+          "Baaa!", "Nooo!", "Sweet dreams \ud83d\ude0f", "Wide awake!", "Sorry, not sorry", "So close!", "Good game!"];
         function cleanName(n) { n = String(n || "").replace(/\s+/g, " ").trim().slice(0, 20); return n || "Sleepy guest"; }
         function cleanCode(c) { return String(c || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 4); }
 
@@ -709,6 +755,7 @@
             helper: resume ? resume.helper !== false : true,
             restless: resume ? !!resume.restless : false,
             noEscape: resume ? !!resume.noEscape : false,
+            lastSocial: {},
             nextPid: resume ? resume.nextPid : 1,
             transport: null,
             tries: 0,
@@ -722,6 +769,7 @@
           app.status = "Opening your room…";
           app.myPid = mine.pid;
           app.send = function (action) { hostAction(mine.pid, action); };
+          app.social = function (msg) { hostSocial(mine.pid, msg); };
           render();
           openHostTransport();
           setInterval(function () {
@@ -790,6 +838,21 @@
           var who = host.seats.filter(function (s) { return s.key === key; })[0];
           if (!who) return;
           if (msg.t === "act" && msg.action && typeof msg.action === "object") hostAction(who.pid, msg.action);
+          else if (msg.t === "react") hostSocial(who.pid, msg);
+        }
+
+        // Reactions: the host checks, rate-limits and passes them on to everyone. Nothing is saved.
+        function hostSocial(pid, msg) {
+          var seat = seatBy(pid);
+          if (!seat) return;
+          var now = Date.now();
+          var last = host.lastSocial[pid] || 0;
+          if (now - last < 1200) return;               // no spamming
+          var i = Number(msg.r);
+          if (!(i >= 0 && i < REACTIONS.length) || Math.floor(i) !== i) return;
+          var out = { t: "social", pid: pid, name: seat.name, r: i };
+          host.lastSocial[pid] = now;
+          host.seats.forEach(function (s) { sendTo(s.pid, out); });
         }
 
         function hostAction(pid, action) {
@@ -816,6 +879,7 @@
             host.restless = !!arg;
           } else if (cmd === "noEscape") {
             host.noEscape = !!arg;
+
           } else if (cmd === "remove") {
             if (host.state) return;
             host.seats = host.seats.filter(function (s) { return s.pid !== arg || s.isHost; });
@@ -873,6 +937,7 @@
           app.status = "Joining room " + code + "…";
           app.connected = false;
           app.send = function (action) { if (guest) guest.send({ t: "act", action: action }); };
+          app.social = function (msg) { if (guest) guest.send(msg); };
           render();
           if (guest) guest.close();
           guest = guestTransport(code, {
@@ -920,6 +985,8 @@
             else showToast(msg.text, true);
           } else if (msg.t === "private") {
             showToast(msg.text, false, 7000);
+          } else if (msg.t === "social") {
+            gotReaction(msg);
           }
         }
 
@@ -1037,7 +1104,64 @@
           else if (app.lobby) renderLobby(root);
           else renderConnecting(root);
           renderOverlay();
+          renderSocial();
         }
+
+        // ----------------------------------------------------- reactions
+
+        var social = { open: false, lastSent: 0, lastHtml: null };
+
+        function gotReaction(m) {
+          var text = REACTIONS[m.r];
+          if (!text) return;
+          var wrap = $("#bubbles");
+          if (!wrap) return;
+          var b = document.createElement("div");
+          b.className = "bubble" + (text.length <= 2 ? " big" : "");
+          b.innerHTML = '<span class="who">' + esc(m.pid === app.myPid ? "You" : m.name) + "</span>" + esc(text);
+          wrap.appendChild(b);
+          while (wrap.children.length > 4) wrap.removeChild(wrap.firstChild);
+          setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 4400);
+        }
+
+        function sendReaction(i) {
+          if (!app.social || (!app.connected && app.role !== "host")) return;
+          var now = Date.now();
+          if (now - social.lastSent < 1200) return;
+          social.lastSent = now;
+          app.social({ t: "react", r: i });
+        }
+
+        function renderSocial() {
+          var el = $("#social");
+          if (!el) return;
+          if (!app.lobby) { el.innerHTML = ""; return; }
+          if (!$("#bubbles")) {
+            el.innerHTML = '<div class="bubbles" id="bubbles" aria-live="polite"></div><div id="socialUi"></div>';
+            social.lastHtml = null;
+          }
+          var h = '<div class="social-btns"><button class="social-btn" id="reactBtn" type="button" aria-label="Send a reaction" aria-expanded="' +
+            social.open + '">\ud83d\ude0a</button></div>';
+          if (social.open) {
+            h += '<div class="react-tray" role="dialog" aria-label="Reactions"><div class="react-emojis">' +
+              REACTIONS.map(function (r, i) { return r.length <= 2 ? '<button type="button" data-react="' + i + '" aria-label="' + esc(r) + '">' + r + "</button>" : ""; }).join("") +
+              '</div><div class="react-phrases">' +
+              REACTIONS.map(function (r, i) { return r.length > 2 ? '<button type="button" data-react="' + i + '">' + esc(r) + "</button>" : ""; }).join("") +
+              "</div></div>";
+          }
+          if (h === social.lastHtml) return;   // game updates don't need to touch this
+          social.lastHtml = h;
+          $("#socialUi").innerHTML = h;
+        }
+
+        document.addEventListener("click", function (e) {
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest("#reactBtn")) { social.open = !social.open; renderSocial(); return; }
+          var r = t.closest("[data-react]");
+          if (r) { sendReaction(Number(r.getAttribute("data-react"))); social.open = false; renderSocial(); return; }
+          if (social.open && !t.closest("#socialUi")) { social.open = false; renderSocial(); }
+        });
 
         function topbar() {
           var dot = app.connected ? '<span class="dot"></span>' : '<span class="dot off"></span>';
@@ -1597,6 +1721,7 @@
         });
         document.addEventListener("keydown", function (e) {
           if (e.key !== "Escape") return;
+          if (social.open) { social.open = false; renderSocial(); return; }
           if (zoomLayer.innerHTML) zoomLayer.innerHTML = "";
           else if (rulesLayer.innerHTML) closeRules();
         });
