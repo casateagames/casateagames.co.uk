@@ -89,6 +89,22 @@
       </div>
     </nav>
 
+    <!-- Christmas banner. Hides itself after the date in data-until (the day after the last order date).
+         Change the date and text each year. -->
+    <div class="xmas-banner" data-until="2026-12-12">
+      <p>
+        <span aria-hidden="true">🎄</span> Buying for Christmas? Order by
+        <strong>Friday 11 December</strong> for UK delivery in time.
+        <a href="shop.html">Shop Say What Now?!</a>
+      </p>
+    </div>
+    <script>
+      (function () {
+        var b = document.querySelector(".xmas-banner");
+        if (b && new Date() >= new Date(b.getAttribute("data-until") + "T00:00:00")) b.hidden = true;
+      })();
+    </script>
+
     <main id="main">
       <section class="hero" id="hero">
         <div class="hero-content">
@@ -148,7 +164,7 @@
         <div class="games-grid">
           <div class="game-card featured">
             <img
-              src="assets/games/saywhatnowmain.png"
+              src="assets/games/saywhatnowmain.webp"
               alt="Say What Now?!"
               class="game-image"
               loading="lazy"
@@ -178,7 +194,7 @@
           </div>
           <div class="game-card">
             <img
-              src="assets/games/insheepnia-main.png"
+              src="assets/games/insheepnia-main.webp"
               alt="InSheepnia"
               class="game-image"
               loading="lazy"
@@ -204,7 +220,7 @@
           </div>
           <div class="game-card">
             <img
-              src="assets/games/project3.png"
+              src="assets/games/project3.webp"
               alt="Secret Project 3"
               class="game-image"
               loading="lazy"
@@ -297,7 +313,7 @@
           <div class="founders">
             <div class="polaroid">
               <img
-                src="assets/team/matt.png"
+                src="assets/team/matt.webp"
                 alt="Matt"
                 loading="lazy"
                 decoding="async"
@@ -312,7 +328,7 @@
             </div>
             <div class="polaroid">
               <img
-                src="assets/team/abby.png"
+                src="assets/team/abby.webp"
                 alt="Abby"
                 loading="lazy"
                 decoding="async"
@@ -327,7 +343,7 @@
             </div>
             <div class="polaroid">
               <img
-                src="assets/team/larry.png"
+                src="assets/team/larry.webp"
                 alt="Larry"
                 loading="lazy"
                 decoding="async"

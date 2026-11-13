@@ -2020,3 +2020,27 @@ footer {
   vertical-align: super;
   opacity: 0.8;
 }
+
+/* Seasonal banner under the nav (hidden automatically after its date) */
+.xmas-banner {
+  background: var(--coral);
+  color: white;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.xmas-banner a {
+  color: white;
+  font-weight: 900;
+  margin-left: 0.4rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.xmas-banner a:hover {
+  color: var(--peach);
+}

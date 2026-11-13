@@ -62,6 +62,21 @@
       </div>
     </nav>
 
+    <!-- Christmas banner. Hides itself after the date in data-until (the day after the last order date).
+         Change the date and text each year. -->
+    <div class="xmas-banner" data-until="2026-12-12">
+      <p>
+        <span aria-hidden="true">🎄</span> Buying for Christmas? Order by
+        <strong>Friday 11 December</strong> for UK delivery in time.
+      </p>
+    </div>
+    <script>
+      (function () {
+        var b = document.querySelector(".xmas-banner");
+        if (b && new Date() >= new Date(b.getAttribute("data-until") + "T00:00:00")) b.hidden = true;
+      })();
+    </script>
+
     <main id="main">
       <!-- Product: gallery on the left, buy box on the right -->
       <section class="product">
@@ -211,9 +226,6 @@
               <a href="privacy.html">privacy policy</a> explains how we use your
               information.
             </p>
-            <p class="shop-note">
-              Kickstarter backer? Use the personal link in your email.
-            </p>
           </div>
         </div>
       </section>
@@ -299,7 +311,7 @@
             <div class="box-item box-item-core">
               <div class="box-card-image">
                 <img
-                  src="assets/cards/vowel-card.png"
+                  src="assets/cards/vowel-card.webp"
                   alt="Vowel Card"
                   loading="lazy"
                   decoding="async"
@@ -318,7 +330,7 @@
             <div class="box-item box-item-core">
               <div class="box-card-image">
                 <img
-                  src="assets/cards/consonant-card.png"
+                  src="assets/cards/consonant-card.webp"
                   alt="Consonant Card"
                   loading="lazy"
                   decoding="async"
@@ -337,7 +349,7 @@
             <div class="box-item box-item-core">
               <div class="box-card-image">
                 <img
-                  src="assets/cards/round-card.png"
+                  src="assets/cards/round-card.webp"
                   alt="Round Card"
                   loading="lazy"
                   decoding="async"
@@ -353,7 +365,7 @@
             <div class="box-item box-item-core">
               <div class="box-card-image">
                 <img
-                  src="assets/cards/chaos-card.png"
+                  src="assets/cards/chaos-card.webp"
                   alt="Chaos Card"
                   loading="lazy"
                   decoding="async"
@@ -608,7 +620,7 @@
         <div class="games-grid">
           <div class="game-card">
             <img
-              src="assets/games/insheepnia-main.png"
+              src="assets/games/insheepnia-main.webp"
               alt="InSheepnia"
               class="game-image"
               loading="lazy"
@@ -629,7 +641,7 @@
           </div>
           <div class="game-card">
             <img
-              src="assets/games/project3.png"
+              src="assets/games/project3.webp"
               alt="Secret Project 3"
               class="game-image"
               loading="lazy"
