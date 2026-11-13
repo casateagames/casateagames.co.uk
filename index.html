@@ -22,7 +22,7 @@
     />
     <meta
       property="og:image"
-      content="https://casateagames.co.uk/assets/games/saywhatnowmain.png"
+      content="https://casateagames.co.uk/assets/games/casa-tea-games-share.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
@@ -38,6 +38,25 @@
     <script>
       document.documentElement.classList.add("js");
     </script>
+    <style>
+      /* Box render in the hero (replaces the framed logo) */
+      .hero-box { position: relative; }
+      .hero-box img {
+        display: block;
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        margin: 0 auto;
+        filter: drop-shadow(0 22px 26px rgba(40, 60, 70, 0.22));
+        transform: rotate(-3deg);
+        transition: transform 0.4s ease;
+      }
+      .hero-box img:hover { transform: rotate(0deg) scale(1.02); }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-box img, .hero-box img:hover { transition: none; transform: none; }
+      }
+      .stat-link { text-decoration: none; color: inherit; }
+    </style>
   </head>
   <body id="top">
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -90,24 +109,30 @@
             </div>
             <div class="quick-stats">
               <div class="stat">
-                <span class="stat-number" data-target="3">3</span>
+                <span class="stat-number" data-target="5">5</span>
                 <span class="stat-text">Games Brewing</span>
               </div>
               <div class="stat">
                 <span class="stat-number" data-target="2">2</span>
                 <span class="stat-text">Humans (+ Larry)</span>
               </div>
-              <div class="stat">
+              <a class="stat stat-link" href="say-what-now.html#house-rules">
                 <span class="stat-number" data-target="100" data-suffix="%"
                   >100%</span
                 >
-                <span class="stat-text">Home-Brewable</span>
-              </div>
+                <span class="stat-text">Home-brewable: make your own house rules</span>
+              </a>
             </div>
           </div>
           <div class="hero-visual">
-            <div class="game-preview">
-              <img src="assets/games/saywhatnowmain.png" alt="Say What Now?!" />
+            <div class="hero-box">
+              <img
+                src="assets/games/say-what-now-box.webp"
+                alt="The Say What Now?! box"
+                width="900"
+                height="740"
+                fetchpriority="high"
+              />
             </div>
 
             <a class="preview-tag" href="shop.html">Available now</a>

@@ -345,3 +345,38 @@
   margin: 0 0 1.5rem;
   line-height: 1.55;
 }
+
+
+/* Box render at the top of the page: a bit closer to the text, a bit bigger,
+   with a soft moonlight glow so the navy box stands out from the navy sky */
+@media (min-width: 769px) {
+  .insheepnia .rules-hero .game-hero-content {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+  }
+}
+
+.insheepnia .game-hero-image {
+  padding: 0;
+  position: relative;
+}
+
+.insheepnia .game-hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 8% 4%;
+  background: radial-gradient(circle, rgba(255, 244, 214, 0.28) 0%, rgba(30, 200, 224, 0.12) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+.insheepnia .game-hero-image img {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 0;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
+}

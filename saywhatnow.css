@@ -1065,3 +1065,69 @@
   margin: 0 0 0.8rem;
   line-height: 1.65;
 }
+
+/* ---------- Box renders (see-through images with their own shadow) ---------- */
+
+/* Game page hero: the box floats instead of sitting in a white frame.
+   height: auto stops the browser stretching it to the height written on the img tag. */
+.rules-hero .game-hero-image.box-render {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.game-hero-image.box-render img {
+  height: auto;
+  border-radius: 0;
+  filter: drop-shadow(0 20px 24px rgba(40, 60, 70, 0.22));
+}
+
+/* Shop gallery: soft brand backdrop so the box renders and the photo both sit nicely */
+.gallery-main {
+  background: radial-gradient(circle at 20% 20%, rgba(83, 199, 198, 0.28) 0%, transparent 55%),
+    radial-gradient(circle at 85% 85%, rgba(246, 214, 166, 0.55) 0%, transparent 55%),
+    white;
+}
+
+.gallery-main img {
+  aspect-ratio: 900 / 740;
+  object-fit: contain;
+}
+
+.gallery-thumb img {
+  object-fit: contain;
+}
+
+.gallery-thumb.is-photo img {
+  object-fit: cover;
+}
+
+/* One row of thumbnails; swipe sideways if they don't all fit */
+.gallery {
+  min-width: 0; /* stops the thumbnail row stretching the page on phones */
+}
+
+.gallery-thumbs {
+  gap: 0.6rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0.25rem 0.25rem 0.5rem;
+  scrollbar-width: none;
+}
+
+.gallery-thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-thumb {
+  flex: 0 0 auto;
+  width: 70px;
+  height: 56px;
+}
+
+@media (max-width: 480px) {
+  .gallery-thumb {
+    width: 62px;
+    height: 50px;
+  }
+}

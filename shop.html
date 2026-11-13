@@ -18,7 +18,7 @@
     />
     <meta
       property="og:image"
-      content="https://casateagames.co.uk/assets/games/saywhatnowmain.png"
+      content="https://casateagames.co.uk/assets/games/say-what-now-share.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
@@ -76,17 +76,18 @@
         <div class="product-inner">
           <!--
             PRODUCT PHOTOS
-            Only the box art is here for now (the thumbnail row stays hidden while there is
-            just one image). To add photos, put them in /assets/shop/ and add another button
-            below, copying the box-art one and changing data-src, data-alt, aria-label and
-            the img src.
+            Box renders plus photos of the real game. Each button shows a small "-thumb" image
+            and swaps in the full-size one (data-src) when tapped. Photos get the "is-photo"
+            class so their thumbnail fills the square. To add one, copy a button below.
           -->
           <div class="gallery" id="gallery">
             <div class="gallery-main">
               <img
                 id="galleryMain"
-                src="assets/games/saywhatnowmain.png"
-                alt="Say What Now?! box art"
+                src="assets/games/say-what-now-box.webp"
+                alt="The Say What Now?! box"
+                width="900"
+                height="740"
               />
             </div>
             <div class="gallery-thumbs">
@@ -94,11 +95,71 @@
                 type="button"
                 class="gallery-thumb is-active"
                 aria-pressed="true"
-                aria-label="Show the box art"
-                data-src="assets/games/saywhatnowmain.png"
-                data-alt="Say What Now?! box art"
+                aria-label="Show the box"
+                data-src="assets/games/say-what-now-box.webp"
+                data-alt="The Say What Now?! box"
               >
-                <img src="assets/games/saywhatnowmain.png" alt="" />
+                <img src="assets/games/say-what-now-box-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb"
+                aria-pressed="false"
+                aria-label="Show the back of the box"
+                data-src="assets/games/say-what-now-box-back.webp"
+                data-alt="The back of the Say What Now?! box, with a description of the game"
+              >
+                <img src="assets/games/say-what-now-box-back-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb is-photo"
+                aria-pressed="false"
+                aria-label="Show everything in the box"
+                data-src="assets/games/say-what-now-flatlay.webp"
+                data-alt="The Say What Now?! box on a table with the four kinds of card spread around it"
+              >
+                <img src="assets/games/say-what-now-flatlay-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb is-photo"
+                aria-pressed="false"
+                aria-label="Show the consonant cards"
+                data-src="assets/games/say-what-now-consonants.webp"
+                data-alt="A fan of purple-backed consonant cards, including KR, D and ND"
+              >
+                <img src="assets/games/say-what-now-consonants-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb is-photo"
+                aria-pressed="false"
+                aria-label="Show the vowel cards"
+                data-src="assets/games/say-what-now-vowels.webp"
+                data-alt="A fan of green-backed vowel cards, including AH, OH and OY"
+              >
+                <img src="assets/games/say-what-now-vowels-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb is-photo"
+                aria-pressed="false"
+                aria-label="Show the round cards"
+                data-src="assets/games/say-what-now-rounds.webp"
+                data-alt="Round cards: Question, Construction and Category"
+              >
+                <img src="assets/games/say-what-now-rounds-thumb.webp" alt="" loading="lazy" />
+              </button>
+              <button
+                type="button"
+                class="gallery-thumb is-photo"
+                aria-pressed="false"
+                aria-label="Show the Chaos cards"
+                data-src="assets/games/say-what-now-chaos.webp"
+                data-alt="Chaos cards, including Consonant Crisis, Irritable Vowel Syndrome and Make It Count"
+              >
+                <img src="assets/games/say-what-now-chaos-thumb.webp" alt="" loading="lazy" />
               </button>
             </div>
           </div>
@@ -547,20 +608,23 @@
         <div class="games-grid">
           <div class="game-card">
             <img
-              src="assets/games/project2.png"
-              alt="Secret Project 2"
+              src="assets/games/insheepnia-main.png"
+              alt="InSheepnia"
               class="game-image"
               loading="lazy"
               decoding="async"
             />
             <div class="game-content">
-              <span class="game-status status-brewing">In Development</span>
-              <h3 class="game-title">Secret Project #2</h3>
+              <span class="game-status status-brewing">Coming soon</span>
+              <h3 class="game-title">InSheepnia</h3>
               <p class="game-desc">
-                We're cooking something up. Expect strategic depth with room for
-                creativity. House rules encouraged.
+                It's 3am and you're wide awake. Count your sheep, steal theirs,
+                and hit your secret number exactly to fall asleep first.
               </p>
-              <a href="index.html#join" class="game-link">Get early access →</a>
+              <div class="game-links">
+                <a href="insheepnia.html" class="game-link">How to play →</a>
+                <a href="index.html#join" class="game-link">Hear when it's out →</a>
+              </div>
             </div>
           </div>
           <div class="game-card">
