@@ -1271,7 +1271,7 @@
             if (m.k === "black") label = "Black Sheep (−1 sheep)";
             else if (d.delta) label = d.name + " (" + (d.delta > 0 ? "+" : "−") + Math.abs(d.delta) + " needed)";
             else if (m.k === "dog") label = "Dog (+1 for everyone else" + (m.immune && m.immune.length ? ", not " + m.immune.map(nameOf).join(", ") : "") + ")";
-            else if (m.k === "earplugs") label = "Earplugs (blocks the dog)";
+            else if (m.k === "earplugs") label = "Ear Plugs (blocks the dog)";
             var pick = pickKind && m.k === pickKind;
             return '<button type="button" class="bedslot' + (pick ? " pickable" : "") + '"' +
               (pick ? ' data-bed-pick="' + m.id + '"' : ' data-zoom="' + m.k + '" aria-label="Look at ' + esc(d.name) + '"') +
@@ -1583,7 +1583,7 @@
             }).join("");
             var dogOut = v.players.some(function (pl) { return pl.id !== v.you && pl.mods.some(function (m) { return m.k === "dog"; }); });
             html = '<div class="overlay"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
-              '<h2 id="dlgTitle">Earplugs</h2><p class="note">Earplugs only ever help you.</p>' +
+              '<h2 id="dlgTitle">Ear Plugs</h2><p class="note">Ear Plugs only ever help you.</p>' +
               '<div style="display:grid;gap:8px">' + opts +
               '<button type="button" class="btn cyan" data-plug="block">Keep them in my bed to block out the dog' + (dogOut ? "" : " (no dog yet)") + "</button></div>" +
               '<button class="btn ghost" id="dlgCancel" type="button">Cancel</button></div></div>';
@@ -1697,7 +1697,7 @@
             '<h3 id="r-cards">The cards</h3><p>Tap a card to see it full size.</p>' +
             "<h4>Sheep cards</h4>" + ruleCards(keysOf("sheep")) +
             "<h4>Power cards</h4>" + ruleCards(keysOf("power")) +
-            "<h4>Modifier cards</h4><p>These sit face up in a bed until that player clears them with Earplugs.</p>" + ruleCards(keysOf("mod")) +
+            "<h4>Modifier cards</h4><p>These sit face up in a bed until that player clears them with Ear Plugs.</p>" + ruleCards(keysOf("mod")) +
             '<p class="note">Full rules and FAQ: <a href="insheepnia.html" target="_blank" rel="noopener">casateagames.co.uk/insheepnia</a></p>' +
             "</div></div>";
           $("#rulesClose").addEventListener("click", closeRules);

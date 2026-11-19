@@ -13,30 +13,30 @@
     s3: { name: "3 Sheep", type: "sheep", val: 3, img: "three-sheep", text: "Counts as 3 sheep." },
     black: { name: "Black Sheep", type: "sheep", val: 0, bedVal: -1, img: "black-sheep", target: "other",
       text: "Keep this card. You can't give it away. It counts as -1 sheep in your hand. Get rid of it with Shear, when someone steals it, or when you have to discard." },
-    wolf: { name: "Wolf", type: "power", img: "wolf", target: "other", text: "Take one random card from another player's hand." },
+    wolf: { name: "Wolf", type: "power", img: "wolf", target: "other", text: "Take a card at random from another player's hand." },
     milk: { name: "Warm Milk", type: "power", img: "warm-milk", react: true,
-      text: "Play any time to block a card that affects you. You'll be asked automatically." },
+      text: "Play any time to block a card that affects you. Only you are protected, even from cards that hit everyone. It can't stop a card already in a bed, like the Neighbour's Dog. You'll be asked automatically." },
     shear: { name: "Shear", type: "power", img: "shear", choose: "ownCard",
-      text: "Discard one card from your own hand (great for a Black Sheep)." },
+      text: "Discard one card of your choice from your hand." },
     lullaby: { name: "Lullaby", type: "power", img: "lullaby", text: "Draw 2 cards." },
-    snore: { name: "Snore", type: "power", img: "snore", text: "The next player skips their turn." },
+    snore: { name: "Snore", type: "power", img: "snore", target: "other", text: "Choose a player. They miss their next turn." },
     owl: { name: "Night Owl", type: "power", img: "night-owl", target: "other", text: "Secretly look at another player's bed card." },
     sleepwalker: { name: "Sleepwalker", type: "power", img: "sleepwalker", target: "other", text: "Swap your whole hand with another player's." },
     nightmare: { name: "Nightmare", type: "power", img: "nightmare", all: true,
-      text: "Every player passes one random card to the player on their left." },
+      text: "Every player takes a random card from the player on their left." },
     firealarm: { name: "Fire Alarm", type: "power", img: "fire-alarm", all: true, text: "Every other player discards down to 3 cards." },
     duvethog: { name: "Duvet Hog", type: "power", img: "duvet-hog", target: "other", text: "Take two random cards from another player's hand." },
     snack: { name: "Midnight Snack", type: "power", img: "midnight-snack", choose: "discard", text: "Take any one card from the discard pile." },
     espresso: { name: "Double Espresso", type: "mod", img: "double-espresso", target: "other", delta: 1,
       text: "Another player needs +1 sheep. Goes in their bed." },
     insomnia: { name: "Insomnia", type: "mod", img: "insomnia", target: "other", delta: 2,
-      text: "Another player needs +2 sheep. Goes in their bed." },
+      text: "Place this into another player's bed. That player's target increases by 2 sheep." },
     dog: { name: "Neighbour's Dog", type: "mod", img: "neighbours-dog", all: true,
-      text: "Every other player needs +1 sheep. Goes in your bed." },
+      text: "Place this into your bed. Every other player's target increases by 1 sheep." },
     bottle: { name: "Hot Water Bottle", type: "mod", img: "hot-water-bottle", target: "any", delta: -1,
-      text: "Needs -1 sheep. Put it in your bed or another player's." },
-    earplugs: { name: "Earplugs", type: "mod", img: "earplugs", choose: "earplugs",
-      text: "Only works for you. Discard a card from your bed, or keep these in your bed to block out the Neighbour's Dog." },
+      text: "You may place this in any player's bed, including your own. That player's target decreases by 1 sheep." },
+    earplugs: { name: "Ear Plugs", type: "mod", img: "earplugs", choose: "earplugs",
+      text: "Discard one modifier card from your bed, or keep this in your bed to block out Neighbour's Dog." },
   };
 
   var COUNTS = {
@@ -241,7 +241,9 @@
   /** Who a played card affects (and so who may block it with Warm Milk). */
   function affectedBy(state, actor, card, target) {
     var d = CARDS[card.k];
-    if (card.k === "snore") return [nextPlayer(state, actor)];
+    // The Dog goes in the player's own bed, so it isn't played at anyone and
+    // Warm Milk can't stop it (Ear Plugs are the answer to the Dog).
+    if (card.k === "dog") return [];
     if (d.all) return others(state, actor);
     if (d.target === "other") return [target];
     if (d.target === "any") return target === actor ? [] : [target];
@@ -364,7 +366,7 @@
         return out;
       }
       if (card.k === "earplugs" && action.choice === "block" && p.mods.some(function (m) { return m.k === "earplugs"; })) {
-        out.error = "You already have Earplugs in your bed."; return out;
+        out.error = "You already have Ear Plugs in your bed."; return out;
       }
       // Validate choices before anything moves.
       if (d.choose === "ownCard") {
@@ -412,7 +414,6 @@
     if (card.k === "black") return n + " put a Black Sheep in " + nameOf(state, target) + "'s bed.";
     if (d.target === "other") return n + " played " + d.name + " on " + nameOf(state, target) + ".";
     if (d.target === "any") return n + " played " + d.name + (target === pid ? " in their own bed." : " in " + nameOf(state, target) + "'s bed.");
-    if (card.k === "snore") return n + " played Snore. " + nameOf(state, nextPlayer(state, pid)) + " is next.";
     return n + " played " + d.name + ".";
   }
 
@@ -487,7 +488,10 @@
         break;
       case "snore":
         toDiscard(state, card);
-        if (!blocked(pend.affected[0])) state.players[pend.affected[0]].skip = true;
+        if (!blocked(pend.affected[0])) {
+          state.players[pend.affected[0]].skip = true;
+          addLog(state, nameOf(state, pend.affected[0]) + " will miss their next turn.");
+        }
         break;
       case "lullaby":
         toDiscard(state, card);
@@ -526,11 +530,13 @@
             var c = free[Math.floor(rng() * free.length)];
             return h.splice(h.indexOf(c), 1)[0];
           });
+          // The player on your left is the next one round (play goes clockwise).
+          // Everyone takes a card from their left, so each card moves one place to the right.
           ring.forEach(function (q, i) {
             var c = passed[i];
-            if (c) state.players[ring[(i + 1) % ring.length]].hand.push(c);
+            if (c) state.players[ring[(i - 1 + ring.length) % ring.length]].hand.push(c);
           });
-          addLog(state, "Everyone passed a random card to the left.");
+          addLog(state, "Everyone took a random card from the player on their left.");
         }
         break;
       case "firealarm":
@@ -559,7 +565,7 @@
         if (pend.choice === "block") {
           card.from = actor;
           a.mods.push(card);
-          addLog(state, a.name + " popped in Earplugs. The dog can't keep them awake.");
+          addLog(state, a.name + " popped in Ear Plugs. The dog can't keep them awake.");
         } else {
           var mi2 = findIndex(a.mods, pend.choice);
           toDiscard(state, card);
