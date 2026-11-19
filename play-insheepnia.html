@@ -1307,7 +1307,7 @@
             var choose = targeting
               ? (already
                 ? '<span class="note" style="font-size:0.85rem">Already has ' + esc(CARDS[sel.k].name) + "</span>"
-                : '<button type="button" class="btn small cyan" data-seat="' + esc(pl.id) + '">Choose ' + esc(pl.name) + "</button>")
+                : '<button type="button" class="btn small cyan" data-seat="' + esc(pl.id) + '">Use on ' + esc(pl.name) + "</button>")
               : "";
             return '<div class="seat' + (turn ? " is-turn" : "") + (targeting && !already ? " can-target" : "") + '">' +
               '<span class="seat-top"><span class="dot' + (online ? "" : " off") + '"></span><span class="seat-name">' + esc(pl.name) + "</span>" +
@@ -1405,8 +1405,8 @@
             var pv = c ? '<button type="button" class="preview" data-zoom="' + c.k + '" aria-label="See ' + esc(CARDS[c.k].name) + ' full size">' + cardImg(c.k) + "</button>" : "";
             return '<div class="actionrow">' + pv + '<div class="actionmain"><div class="info">' + info + "</div>" + tools + "</div></div>";
           }
-          if (app.mode === "target") info = "<strong>Choose a player</strong> to play " + esc(CARDS[c.k].name) + " on.";
-          else if (app.mode === "bottle") info = "<strong>Choose a bed</strong> for the Hot Water Bottle: yours or another player's.";
+          if (app.mode === "target") info = "<strong>" + esc(CARDS[c.k].name) + ":</strong> " + esc(CARDS[c.k].text) + "<br><strong>Tap a player</strong> to use it on them, or tap the card again to put it back.";
+          else if (app.mode === "bottle") info = "<strong>Hot Water Bottle:</strong> " + esc(CARDS[c.k].text) + "<br><strong>Tap a bed</strong> to put it in: yours or another player's.";
           else if (app.mode === "shear") info = "<strong>Choose the card to shear</strong> from your hand" + (me.blacks ? ", or tap the Black Sheep in your bed." : ".");
           else if (c) {
             var why = unplayableReason(c);
@@ -1448,8 +1448,20 @@
                 app.send({ type: "play", card: card, choice: id });
                 return;
               }
-              if (app.mode) return;
-              app.sel = app.sel === id ? null : id;
+              if (app.mode && app.mode !== "target" && app.mode !== "bottle") return;
+              // Tapping the selected card again puts it back.
+              if (app.sel === id) { app.sel = null; app.mode = null; render(); return; }
+              app.sel = id;
+              app.mode = null;
+              // Cards played on someone go straight to choosing who: no extra "Play" tap.
+              if (myTurn) {
+                var picked = selectedCard();
+                if (picked && !unplayableReason(picked)) {
+                  var pd = CARDS[picked.k];
+                  if (pd.target === "other") app.mode = "target";
+                  else if (pd.target === "any") app.mode = "bottle";
+                }
+              }
               render();
             });
           });
@@ -1480,7 +1492,7 @@
             app.overlay = "announce";
             renderOverlay();
           });
-          on("cancelBtn", function () { app.mode = null; app.overlay = null; render(); });
+          on("cancelBtn", function () { app.sel = null; app.mode = null; app.overlay = null; render(); });
           on("bedSelf", function () { var card = app.sel; resetSelection(); app.send({ type: "play", card: card, target: app.view.you }); });
           on("playBtn", function () {
             var c = selectedCard();
