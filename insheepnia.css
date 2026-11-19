@@ -393,3 +393,22 @@
   color: #0b7a8c;
   font-weight: 800;
 }
+
+/* "Your turn" extras: Warm Milk and the hand limit as separate, labelled notes */
+.turn-note {
+  border-left: 4px solid var(--sky-cyan, #1ec8e0);
+  background: rgba(30, 200, 224, 0.08);
+  border-radius: 0 10px 10px 0;
+  padding: 0.6rem 0.9rem;
+  margin: 0.75rem 0;
+}
+
+.turn-note-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0b7a8c;
+  margin-bottom: 0.15rem;
+}

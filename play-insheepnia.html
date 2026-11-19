@@ -1346,7 +1346,7 @@
             return (x.delta < 0 ? " − " : " + ") + esc(CARDS[x.k].name) + (x.from ? " (" + esc(nameOf(x.from)) + ")" : "") + " " + Math.abs(x.delta);
           }).join("");
           var match = helper && me.have === me.need;
-          var tally = '<div class="score need' + (match ? " match" : "") + '"><span class="lbl">Sheep needed</span><span class="big">' + me.need + "</span>" +
+          var tally = '<div class="score need' + (match ? " match" : "") + '"><span class="lbl">Your target</span><span class="big">' + me.need + "</span>" +
             '<span class="sum">' + sum + "</span></div>";
           if (helper) {
             tally += '<div class="score have' + (match ? " match" : "") + '"><span class="lbl">You have</span><span class="big">' + me.have + "</span>" +
@@ -1699,7 +1699,7 @@
             '<h3 id="r-count">Counting your sheep</h3>' +
             "<ul><li>Only 1, 2 and 3 Sheep in your hand count. Power and modifier cards count as nothing.</li>" +
             "<li>A <strong>Black Sheep</strong> counts as −1. You have to keep it: get rid of it with Shear" + (app.view && app.view.noEscape ? " or if a thief grabs it. <strong>No Escape is on:</strong> you can't discard it." : ", if a thief grabs it (Wolf, Duvet Hog and Nightmare take at random), or when you have to discard.") + "</li>" +
-            "<li><strong>Sheep needed</strong> = your bed card, plus or minus the modifiers in your bed. It can't go below 1.</li>" +
+            "<li>Your <strong>target</strong> = your bed card, plus or minus the modifiers in your bed. It can't go below 1.</li>" +
             (app.view && app.view.stackMods ? "<li><strong>Restless Night is on:</strong> modifiers stack, so a bed can hold two of the same card.</li>" : "<li><strong>Nothing stacks:</strong> a bed holds only one of each card.</li>") +
             "<li>Too many sheep? You're not out. Shear some off or discard down.</li></ul>" +
             '<h3 id="r-win">Winning</h3>' +
