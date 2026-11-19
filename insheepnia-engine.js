@@ -15,7 +15,7 @@
       text: "Keep this card. You can't give it away. It counts as -1 sheep in your hand. Get rid of it with Shear, when someone steals it, or when you have to discard." },
     wolf: { name: "Wolf", type: "power", img: "wolf", target: "other", text: "Take a card at random from another player's hand." },
     milk: { name: "Warm Milk", type: "power", img: "warm-milk", react: true,
-      text: "Play any time to block a card that affects you. Only you are protected, even from cards that hit everyone. It can't stop a card already in a bed, like the Neighbour's Dog. You'll be asked automatically." },
+      text: "Play any time to block a card that affects you. Only you are protected, even from cards that hit everyone. Blocks everything except the Neighbour's Dog. You'll be asked automatically." },
     shear: { name: "Shear", type: "power", img: "shear", choose: "ownCard",
       text: "Discard one card of your choice from your hand." },
     lullaby: { name: "Lullaby", type: "power", img: "lullaby", text: "Draw 2 cards." },
