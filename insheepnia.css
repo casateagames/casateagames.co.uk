@@ -388,3 +388,8 @@
   margin-top: 0.35rem;
   line-height: 1.45;
 }
+
+.card-note a {
+  color: #0b7a8c;
+  font-weight: 800;
+}
