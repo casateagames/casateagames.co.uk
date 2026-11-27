@@ -56,6 +56,22 @@
         .hero-box img, .hero-box img:hover { transition: none; transform: none; }
       }
       .stat-link { text-decoration: none; color: inherit; }
+      .testimonial-game {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 900;
+        padding: 0.2rem 0.7rem;
+        border-radius: 50px;
+        margin-bottom: 0.75rem;
+      }
+      /* Game colours: white cards, coloured label and a thin line along the top */
+      .testimonial.is-insheepnia { border-top: 5px solid #1ec8e0; }
+      .testimonial.is-insheepnia .testimonial-game { background: #1b2f6b; color: #1ec8e0; }
+      .testimonial.is-swn { border-top: 5px solid #d14fc0; }
+      .testimonial.is-swn .testimonial-game {
+        background: linear-gradient(90deg, #ff5fa2, #9b4dff);
+        color: #fff;
+      }
     </style>
   </head>
   <body id="top">
@@ -243,37 +259,58 @@
         <h2>What Playtesters Say</h2>
         <div class="testimonial-container">
           <div class="testimonial-grid" id="testimonialGrid">
-            <div class="testimonial">
+            <div class="testimonial is-insheepnia">
+              <span class="testimonial-game">InSheepnia</span>
+              <p class="testimonial-quote">"GTA 6 came today and I haven't even played it, because I keep playing InSheepnia!"</p>
+              <p class="testimonial-author">- Playtester (this actually happened)</p>
+            </div>
+            <div class="testimonial is-insheepnia">
+              <span class="testimonial-game">InSheepnia</span>
+              <p class="testimonial-quote">"It looks like a sweet little game, but it can actually be brutal!"</p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial is-insheepnia">
+              <span class="testimonial-game">InSheepnia</span>
+              <p class="testimonial-quote">"I love this game, can we play again?!"</p>
+              <p class="testimonial-author">- Playtester</p>
+            </div>
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">"WAIT - YOU MADE THIS?"</p>
               <p class="testimonial-author">- Friend, mid-playtest</p>
             </div>
-            <div class="testimonial">
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">
                 Uncontrollable laughter at the word KW-OI-F.
               </p>
               <p class="testimonial-author">- The Art Team</p>
             </div>
-            <div class="testimonial">
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">
                 "If you give me a copy I can show all my friends to get sales."
               </p>
               <p class="testimonial-author">- Abby's mum</p>
             </div>
-            <div class="testimonial">
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">
                 "Such a fun game to play with friends. Really gets you thinking!
                 100% play recommendation."
               </p>
               <p class="testimonial-author">- Playtester</p>
             </div>
-            <div class="testimonial">
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">
                 "I thought I would suck at this game. Still can't believe I
                 won!"
               </p>
               <p class="testimonial-author">- Playtester</p>
             </div>
-            <div class="testimonial">
+            <div class="testimonial is-swn">
+              <span class="testimonial-game">Say What Now?!</span>
               <p class="testimonial-quote">
                 "I can't wait to get my own copy of this for our family game
                 nights"
@@ -377,6 +414,23 @@
               <div class="t-item">
                 <div class="t-dot-wrap">
                   <div class="t-dot t-dot-active"></div>
+                  <span class="t-label">19-20 December</span>
+                </div>
+                <div class="t-card">
+                  <h3 class="t-title">See You at Manchester Board Game Festival!</h3>
+                  <p class="t-body">
+                    We'll be at Manchester Board Game Festival on 19 and 20
+                    December, and we're bringing our brand new game,
+                    <a href="insheepnia.html">InSheepnia</a>! Come and play it
+                    (and Say What Now?!), and grab a copy of either for
+                    Christmas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="t-item">
+                <div class="t-dot-wrap">
+                  <div class="t-dot"></div>
                   <span class="t-label">New game</span>
                 </div>
                 <div class="t-card">

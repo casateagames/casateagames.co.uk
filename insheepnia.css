@@ -420,3 +420,16 @@
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* Playtester quotes on the night sky */
+.insheepnia .testimonials {
+  background: transparent;
+}
+
+.insheepnia .testimonials h2 {
+  color: #fff;
+}
+
+.insheepnia .testimonial {
+  color: var(--ink);
+}
