@@ -412,3 +412,11 @@
   color: #0b7a8c;
   margin-bottom: 0.15rem;
 }
+
+/* Card pictures can't be dragged out or long-pressed to save (see the script at the bottom of insheepnia.html) */
+.box-card-image img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}

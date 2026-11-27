@@ -1225,5 +1225,14 @@
 
     <script src="script.js"></script>
     <script src="saywhatnow.js"></script>
+    <script>
+      // Card pictures: no right-click "Save image as" and no dragging them off the page.
+      document.addEventListener("contextmenu", function (e) {
+        if (e.target.closest && e.target.closest(".box-card-image")) e.preventDefault();
+      });
+      document.addEventListener("dragstart", function (e) {
+        if (e.target.closest && e.target.closest(".box-card-image")) e.preventDefault();
+      });
+    </script>
   </body>
 </html>
